@@ -1,4 +1,5 @@
 import 'package:console/screens/mob-desk/auth/signup.dart';
+import 'package:console/screens/mob-desk/dashboard/dashboard.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
@@ -23,7 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -33,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return ConsoleScaffold(
       child: Form(
         key: _formKey,
@@ -78,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
-                        onTap: (){},
+                        onTap: () {},
                         child: Text(
                           'Forgot Password',
                           style: TextStyle(
@@ -97,7 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonText: 'Sign In',
                       loading: loading,
                       applyingMargin: false,
-                      onTap: () {}
+                      onTap: () =>
+                          navigate(const Dashboard(), routeName: '/dashboard'),
                     ),
                     SizedBox(
                       height: 30.0.sp,
@@ -123,7 +123,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: ColorPalette.shadowColor,
                                 offset: Offset(0, 2))
                           ]),
-                      child: Image.asset('./assets/images/fingerprint1.jpg', height: 50,),
+                      child: Image.asset(
+                        './assets/images/fingerprint1.jpg',
+                        height: 50,
+                      ),
                     ),
                     const SizedBox(
                       height: 7.0,
@@ -155,14 +158,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           children: [
                             TextSpan(
-                              text: 'Create Account',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: ColorPalette.mainButtonColor,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => navigate(SignupScreen(), routeName: '/create-account')
-                            ),
+                                text: 'Create Account',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorPalette.mainButtonColor,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => navigate(SignupScreen(),
+                                      routeName: '/create-account')),
                           ],
                         ),
                       ),
