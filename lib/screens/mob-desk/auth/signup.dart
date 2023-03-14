@@ -49,6 +49,24 @@ class SignupScreenState extends State<SignupScreen> {
                       height: 30.sp,
                     ),
                     brandText(),
+                    SizedBox(
+                      height: 30.0.sp,
+                    ),
+                    Text(
+                      "Or sign up with",
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.bold,
+                        color: ColorPalette.grey,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0.sp,
+                    ),
+                    Align(alignment: Alignment.center, child: buildSocialRow()),
+                    SizedBox(
+                      height: 20.0.sp,
+                    ),
                     ConsoleTextField(
                       controller: emailController,
                       hintText: 'Full Name',
@@ -82,21 +100,6 @@ class SignupScreenState extends State<SignupScreen> {
                     ),
                     SizedBox(
                       height: 30.0.sp,
-                    ),
-                    Text(
-                      "Or sign up with",
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.bold,
-                        color: ColorPalette.grey,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.0.sp,
-                    ),
-                    Align(alignment: Alignment.center, child: buildSocialRow()),
-                    SizedBox(
-                      height: 50.0.sp,
                     ),
                     Align(
                       alignment: Alignment.center,
