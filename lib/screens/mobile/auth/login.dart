@@ -1,5 +1,4 @@
-import 'package:console/screens/mob-desk/auth/signup.dart';
-import 'package:console/screens/mob-desk/dashboard/dashboard.dart';
+import 'package:console/screens/mobile/auth/signup.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
@@ -11,6 +10,8 @@ import '../../../widgets/mob-desk/custom/custom-texts.dart';
 import '../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../dashboard/dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

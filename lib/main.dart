@@ -1,7 +1,8 @@
-import 'package:console/screens/mob-desk/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import 'screens/mobile/auth/login.dart';
 
 void main() {
   runApp(const MyApp());

@@ -144,12 +144,115 @@ class PatientCard extends StatelessWidget {
   }
 }
 
-Widget rowCard(String title, String text, {bool hasBg = true}) {
+class SchedulePatientCard extends StatelessWidget {
+  String status;
+  Function()? onTap;
+
+  SchedulePatientCard({
+    required this.status,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        if(onTap != null) onTap!();
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.only(bottom: 20.0),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: ColorPalette.grey.withOpacity(0.05),
+                  offset: const Offset(2, 3),
+                  spreadRadius: 0.1,
+                  blurRadius: 2)
+            ]),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: const [
+                        Icon(
+                          IconlyBold.user_2,
+                          color: ColorPalette.greyIcon,
+                        ),
+                        Text(
+                          "QH29",
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                      ],
+                    ),
+                    const Text(
+                      "08 Aug 20, 08:00 -> 14 Aug 23, 06:00",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: ColorPalette.darkBlue),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 3.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: status == "Scheduled"
+                              ? ColorPalette.lightGreen
+                              : ColorPalette.lighterSecond),
+                      child: Text(
+                        status,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color:
+                                status == "Scheduled" ? Colors.green : ColorPalette.secondColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    const Icon(
+                      CupertinoIcons.chevron_right,
+                      size: 15,
+                    )
+                  ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            rowCard("Patient", "Emehinola Samuel", fromSchedule: true),
+            rowCard("Group Type", "Individual", hasBg: false),
+            rowCard("Contact", "+2348131615393", fromSchedule: true),
+            rowCard("Account Tier", "Tier 3", hasBg: false),
+            rowCard("Address", "8, olawole close, etegbin, Lagos", fromSchedule: true),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Widget rowCard(String title, String text, {bool hasBg = true, fromSchedule = false}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
         color:
-            hasBg ? ColorPalette.secondColor.withOpacity(0.04) : Colors.white,
+            hasBg ? ( fromSchedule ? ColorPalette.mainButtonColor.withOpacity(0.04) :ColorPalette.secondColor.withOpacity(0.04)) : Colors.white,
         borderRadius: BorderRadius.circular(3.0)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
