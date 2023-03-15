@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class ColorPalette {
   static const Color mainButtonColor = Color.fromRGBO(37, 116, 179, 1); // Color.fromRGBO(33, 150, 243, 1);
-  static const Color secondColor = Color.fromRGBO(194, 180, 72, 1); // Color.fromRGBO(33, 150, 243, 1);
+  static const Color secondColor = Color.fromRGBO(194, 180, 72, 0.8); // Color.fromRGBO(33, 150, 243, 1);
   static const checkGreen =  Color.fromRGBO(24, 187, 12, 1);
+  static const lightGreen =  Color.fromRGBO(24, 187, 12, 0.1);
+  static const greyIcon =  Color.fromRGBO(0, 0, 0, 0.55);
   static const offBlack =  Color.fromRGBO(20, 20, 43, 1);
   static const lightPurple =  Color.fromRGBO(74, 0, 221, 1);
   static const purple =  Color.fromRGBO(146, 102, 235, 1);
@@ -14,6 +16,7 @@ class ColorPalette {
   static const darkBlue =  Color.fromRGBO(10, 44, 71, 1);
   static const scaffoldColor =  Color.fromRGBO(229, 229, 229, 1);
   static const red =  Color.fromRGBO(220, 34, 26, 1);
+  static const lightRed =  Color.fromRGBO(220, 34, 26, 0.2);
   static const grey =  Color.fromRGBO(110, 113, 145, 1);
   static const lightGrey =  Color.fromRGBO(217, 219, 233, 1);
   static const shadowColor =  Color.fromRGBO(0, 0, 0, 0.1);

@@ -119,6 +119,123 @@ class ConsoleTextField extends StatelessWidget {
   }
 }
 
+class ConsoleTextField2 extends StatelessWidget {
+  String? hintText;
+  bool obscure;
+  bool isPassword;
+  bool editable;
+  int? maxInput;
+  int? minInput;
+  TextInputType? inputType;
+  TextEditingController? controller;
+  String? Function(String?)? validationService;
+  Function()? suffixCallBack;
+  Function()? onTap;
+  Widget? suffix;
+  IconData? suffixIcon;
+  double topMargin;
+
+  ConsoleTextField2({
+    this.controller,
+    this.editable = true,
+    this.inputType,
+    this.maxInput,
+    this.minInput,
+    this.hintText,
+    this.obscure = false,
+    this.isPassword = false,
+    this.suffixCallBack,
+    this.onTap,
+    this.validationService,
+    this.suffix,
+    this.suffixIcon,
+    this.topMargin = 30,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+      onTap: () {
+        if (onTap != null) {
+          onTap!();
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 0.0),
+        constraints: const BoxConstraints(
+          minHeight: 50,
+        ),
+        margin: EdgeInsets.only(top: topMargin, left: 0, right: 0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(1,2),
+                  color: ColorPalette.mainButtonColor.withOpacity(0.1),
+                  blurRadius: 3,
+                  spreadRadius: 2
+              )
+            ],
+            borderRadius: BorderRadius.circular(20.0.sp)
+        ),
+        child: TextFormField(
+          controller: controller,
+          validator: validationService,
+          obscureText: obscure,
+          keyboardType: inputType,
+          obscuringCharacter: '•',
+          maxLength: maxInput,
+          enabled: editable,
+          style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              letterSpacing: isPassword && obscure ? 1.5 : 1.0),
+          decoration: InputDecoration(
+            hintText: hintText,
+            labelText: hintText,
+            hintStyle: TextStyle(
+                color: ColorPalette.hintTextColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0.sp),
+            disabledBorder: OutlineInputBorder(
+              borderSide:
+              const BorderSide(color: Colors.transparent, width: 0.0),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+              const BorderSide(color: Colors.transparent, width: 0.0),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            border: OutlineInputBorder(
+              borderSide:
+              const BorderSide(color: Colors.transparent, width: 0.0),
+              borderRadius: BorderRadius.circular(20.0),
+            ),focusedBorder: InputBorder.none,
+            filled: true,
+            fillColor: Colors.white,
+            suffix: suffix,
+            counter: null,
+            counterText: '',
+            suffixIcon: GestureDetector(
+              onTap: suffixCallBack,
+              child: Icon(
+                suffixIcon,
+                size: 25,
+                color: !obscure
+                    ? ColorPalette.mainButtonColor
+                    : Colors.black,
+              ),
+            )
+                ,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class ConsoleTextBoxField extends StatelessWidget {
   String? hintText;
   TextEditingController? controller;
