@@ -36,6 +36,7 @@ dependencies:
   flutter_screenutil: ^5.5.4
   iconly: ^1.0.1
   font_awesome_flutter: ^10.2.1
+  responsive_table: ^0.2.0+2
 
 
   # The following adds the Cupertino Icons font to your application.

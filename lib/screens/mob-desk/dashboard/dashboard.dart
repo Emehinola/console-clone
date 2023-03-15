@@ -1,8 +1,15 @@
+import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
+import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
+
+import '../../../widgets/mob-desk/custom/cards.dart';
+import '../../../widgets/mobile/table.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -16,75 +23,48 @@ class Dashboard extends StatelessWidget {
           CustomScrollView(
             slivers: [
               SliverAppBar(
-                expandedHeight: 300,
+                expandedHeight: 60,
                 backgroundColor: Colors.white,
-                leading: Container(
-                  padding: const EdgeInsets.all(2.0),
-                  margin: const EdgeInsets.all(5.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 3),
-                          spreadRadius: 3,
-                          blurRadius: 5,
-                          color: ColorPalette.mainButtonColor.withOpacity(0.3))
-                    ],
-                  ),
-                  child: const Icon(
-                    FontAwesomeIcons.bars,
+                leading: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    CupertinoIcons.line_horizontal_3_decrease,
                     color: ColorPalette.mainButtonColor,
                   ),
                 ),
                 actions: [
-                  Container(
-                    padding: const EdgeInsets.all(2.0),
-                    margin: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            offset: const Offset(0, 3),
-                            spreadRadius: 3,
-                            blurRadius: 5,
-                            color:
-                                ColorPalette.mainButtonColor.withOpacity(0.3))
-                      ],
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.user,
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      IconlyBold.user_2,
                       color: ColorPalette.mainButtonColor,
                     ),
                   ),
+                  const SizedBox(
+                    width: 10,
+                  )
                 ],
                 snap: false,
                 floating: false,
                 pinned: true,
                 toolbarHeight: kToolbarHeight,
-                collapsedHeight: 60,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: false,
-                  expandedTitleScale: 4,
-                  titlePadding: EdgeInsets.zero,
-                  title: ListTile(
-                    leading: Image.asset(
-                      './assets/images/male_avatar.png',
-                      height: 30,
-                    ),
-                    title: const Text(
-                      'Emehinola Samuel',
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.red),
-                    ),
-                  ),
-                  background: Container(
-                    color: Colors.red,
-                  ),
-                ),
+                collapsedHeight: 70,
+                // flexibleSpace: FlexibleSpaceBar(
+                //   centerTitle: false,
+                //   title: ListTile(
+                //     leading: Image.asset(
+                //       './assets/images/male_avatar.png',
+                //       height: 30,
+                //     ),
+                //     title: const Text(
+                //       'Emehinola Samuel',
+                //       style: TextStyle(
+                //           fontSize: 13,
+                //           fontWeight: FontWeight.w500,
+                //           color: Colors.red),
+                //     ),
+                //   ),
+                // ),
                 bottom: PreferredSize(
                     preferredSize: Size(Get.width, 150),
                     child: Container(
@@ -97,6 +77,14 @@ class Dashboard extends StatelessWidget {
                           topRight: Radius.circular(20.0.sp),
                         ),
                       ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          metricCard("Users", "10"),
+                          metricCard("Fully Registered", "15"),
+                          metricCard("Half Registered", "23"),
+                        ],
+                      ),
                     )),
               ),
               SliverToBoxAdapter(
@@ -108,15 +96,14 @@ class Dashboard extends StatelessWidget {
                       topRight: Radius.circular(20.0.sp),
                     ),
                   ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 20,
-                    itemBuilder: (_, index) => const ListTile(
-                      title: Text('Big Sam'),
-                      subtitle: Text('My name'),
-                      leading: Icon(FontAwesomeIcons.user),
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: Get.width,
+                        child: Text('table')
+                      )
+                    ],
                   ),
                 ),
               ),
