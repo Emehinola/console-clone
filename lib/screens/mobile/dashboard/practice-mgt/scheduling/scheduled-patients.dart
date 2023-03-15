@@ -1,4 +1,3 @@
-import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mobile/app-bar.dart';
 import 'package:console/widgets/sheets.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,14 +10,14 @@ import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
 
-class PatientsSchedulerList extends StatefulWidget {
-  const PatientsSchedulerList({Key? key}) : super(key: key);
+class ScheduledPatients extends StatefulWidget {
+  const ScheduledPatients({Key? key}) : super(key: key);
 
   @override
-  State<PatientsSchedulerList> createState() => _PatientsListState();
+  State<ScheduledPatients> createState() => _PatientsListState();
 }
 
-class _PatientsListState extends State<PatientsSchedulerList> {
+class _PatientsListState extends State<ScheduledPatients> {
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   @override
@@ -35,15 +34,6 @@ class _PatientsListState extends State<PatientsSchedulerList> {
           const SizedBox(
             height: 20,
           ),
-          Align(
-              alignment: Alignment.topRight,
-              child: SizedBox(
-                  width: 250,
-                  child: FlatButton(
-                    buttonText: 'Schedule Patient',
-                    iconData: CupertinoIcons.add,
-                    onTap: () => showScheduleSheet(context),
-                  ))),
           Expanded(
             child: Column(
               children: [
@@ -84,9 +74,9 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                             children: [
                               Expanded(
                                   child: ConsoleIconButton(
-                                icon: IconlyLight.filter,
-                                text: 'Filter',
-                              )),
+                                    icon: IconlyLight.filter,
+                                    text: 'Filter',
+                                  )),
                               const SizedBox(
                                 width: 50,
                               ),
@@ -101,24 +91,14 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                           const Divider(),
                           SchedulePatientCard(
                             status: "Schedule",
-                            onTap: () {
+                            onTap: (){
                               showScheduleSheet(context);
                             },
-                          ),
-                          SchedulePatientCard(
-                            status: "Scheduled",
-                            onTap: () {},
                           ),
                           SchedulePatientCard(
                             status: "Schedule",
-                            onTap: () {
-                              showScheduleSheet(context);
-                            },
-                          ),
-                          SchedulePatientCard(
-                            status: "Scheduled",
-                            onTap: () {},
-                          ),
+                            onTap: (){},
+                          )
                         ],
                       ),
                     ),

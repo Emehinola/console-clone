@@ -24,7 +24,6 @@ class ConsoleTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
         if (!disabled && !loading) onTap!();
@@ -52,32 +51,113 @@ class ConsoleTextButton extends StatelessWidget {
         ),
         child: loading
             ? Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(),
-            Text(
-              buttonText,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 16.0.sp
-              ),
-            ),
-            const CupertinoActivityIndicator(
-              color: Colors.white,
-            ),
-          ],
-        )
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(),
+                  Text(
+                    buttonText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.0.sp),
+                  ),
+                  const CupertinoActivityIndicator(
+                    color: Colors.white,
+                  ),
+                ],
+              )
             : Text(
-          buttonText,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: ScreenUtil().setSp(16.0),
-          ),
+                buttonText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: ScreenUtil().setSp(16.0),
+                ),
+              ),
+      ),
+    );
+  }
+}
+
+class FlatButton extends StatelessWidget {
+  String buttonText;
+  Function()? onTap;
+  Color? backgroundColor;
+  Color? shadowColor;
+  bool loading;
+  bool disabled;
+  bool applyingMargin;
+  IconData? iconData;
+
+  FlatButton({
+    required this.buttonText,
+    this.onTap,
+    this.backgroundColor,
+    this.shadowColor,
+    this.loading = false,
+    this.disabled = false,
+    this.applyingMargin = true,
+    this.iconData,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (!disabled && !loading) onTap!();
+      },
+      child: Container(
+        alignment: Alignment.center,
+        margin: applyingMargin
+            ? const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0)
+            : EdgeInsets.zero,
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: backgroundColor ??
+              (disabled
+                  ? ColorPalette.lightGrey
+                  : ColorPalette.mainButtonColor),
         ),
+        child: loading
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(),
+                  Text(
+                    buttonText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.0.sp),
+                  ),
+                  const CupertinoActivityIndicator(
+                    color: Colors.white,
+                  ),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  if (iconData != null)
+                    Icon(
+                      iconData,
+                      color: Colors.white,
+                    ),
+                  Text(
+                    buttonText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: ScreenUtil().setSp(16.0),
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }

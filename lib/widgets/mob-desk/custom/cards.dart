@@ -187,7 +187,7 @@ class SchedulePatientCard extends StatelessWidget {
                           color: ColorPalette.greyIcon,
                         ),
                         Text(
-                          "QH29",
+                          "ID: QH29",
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                       ],
@@ -210,14 +210,14 @@ class SchedulePatientCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           color: status == "Scheduled"
-                              ? ColorPalette.lightGreen
+                              ? ColorPalette.lightMain
                               : ColorPalette.lighterSecond),
                       child: Text(
                         status,
                         style: TextStyle(
                             fontSize: 12,
                             color:
-                                status == "Scheduled" ? Colors.green : ColorPalette.secondColor,
+                                status == "Scheduled" ? ColorPalette.mainButtonColor : ColorPalette.secondColor,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -236,10 +236,8 @@ class SchedulePatientCard extends StatelessWidget {
               height: 10,
             ),
             rowCard("Patient", "Emehinola Samuel", fromSchedule: true),
-            rowCard("Group Type", "Individual", hasBg: false),
-            rowCard("Contact", "+2348131615393", fromSchedule: true),
-            rowCard("Account Tier", "Tier 3", hasBg: false),
-            rowCard("Address", "8, olawole close, etegbin, Lagos", fromSchedule: true),
+            rowCard("Case", "Individual", hasBg: false),
+            rowCard("Appointment Date", "23rd, Mar, 23", fromSchedule: true),
           ],
         ),
       ),
