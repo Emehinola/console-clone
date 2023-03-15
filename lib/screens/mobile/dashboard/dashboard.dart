@@ -101,6 +101,7 @@ class _MainDashboardState extends State<MainDashboard> {
                     constraints: const BoxConstraints(
                       maxHeight: 35,
                     )),
+                const Text('Dashboard', style: TextStyle(fontSize: 15, color: Colors.white),),
                 IconButton(
                     onPressed: () => Scaffold.of(context).openDrawer(),
                     icon: const Icon(

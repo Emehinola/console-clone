@@ -30,7 +30,7 @@ class _SideDrawerState extends State<SideDrawer> {
       child: Container(
         height: Get.height,
         width: Get.width * 0.5,
-        color: Colors.black.withOpacity(0.9),
+        color: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +132,7 @@ Widget title(String title) {
         Text(
           title,
           style: const TextStyle(
-              fontSize: 14, fontWeight: FontWeight.w900, color: ColorPalette.mainButtonColor),
+              fontSize: 15, fontWeight: FontWeight.w900, color: ColorPalette.mainButtonColor),
         ),
       ],
     ),
