@@ -43,7 +43,7 @@ class DisplaySuccess extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 10),
                 Text(
                   description,
                   textAlign: TextAlign.center,
@@ -51,8 +51,9 @@ class DisplaySuccess extends StatelessWidget {
                 const SizedBox(height: 60),
                 SizedBox(
                   width: double.infinity,
-                  child: ConsoleTextButton(
+                  child: FlatButton(
                       buttonText: nextText,
+                      verticalPadding: 20.0,
                       onTap: () {
                         if(onNext != null) onNext!();
                       }),

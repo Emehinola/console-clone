@@ -90,6 +90,7 @@ class FlatButton extends StatelessWidget {
   bool disabled;
   bool applyingMargin;
   IconData? iconData;
+  double? verticalPadding;
 
   FlatButton({
     required this.buttonText,
@@ -100,6 +101,7 @@ class FlatButton extends StatelessWidget {
     this.disabled = false,
     this.applyingMargin = true,
     this.iconData,
+    this.verticalPadding,
   });
 
   @override
@@ -113,7 +115,7 @@ class FlatButton extends StatelessWidget {
         margin: applyingMargin
             ? const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0)
             : EdgeInsets.zero,
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: verticalPadding ?? 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: backgroundColor ??

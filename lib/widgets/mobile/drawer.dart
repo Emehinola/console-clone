@@ -1,3 +1,7 @@
+import 'package:console/screens/mobile/dashboard/identification-engine/demographics.dart';
+import 'package:console/screens/mobile/dashboard/identification-engine/engagement-reg.dart';
+import 'package:console/screens/mobile/dashboard/identification-engine/identification-matching.dart';
+import 'package:console/screens/mobile/dashboard/identification-engine/identification.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/pt-mgt-template.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patients.dart';
 import 'package:console/services/navigate.dart';
@@ -70,10 +74,10 @@ class _SideDrawerState extends State<SideDrawer> {
             const SizedBox(
               height: 30,
             ),
-            drawerRow('Patient Engagement Reg', FontAwesomeIcons.book, const PatientsList()),
-            drawerRow('Demographics', FontAwesomeIcons.chartPie, const PatientsList()),
-            drawerRow('Identification', FontAwesomeIcons.passport, const PatientsList()),
-            drawerRow('Identity Matching', CupertinoIcons.arrow_swap, const PatientsList()),
+            drawerRow('Patient Engagement Reg', FontAwesomeIcons.book, const EngagementReg()),
+            drawerRow('Demographics', FontAwesomeIcons.chartPie, const Demography()),
+            drawerRow('Identification', FontAwesomeIcons.passport, const Identification()),
+            drawerRow('Identity Matching', CupertinoIcons.arrow_swap, const IdentificationMatching()),
           ],
         ),
       ),

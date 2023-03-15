@@ -11,14 +11,14 @@ import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
 
-class PatientsSchedulerList extends StatefulWidget {
-  const PatientsSchedulerList({Key? key}) : super(key: key);
+class Identification extends StatefulWidget {
+  const Identification({Key? key}) : super(key: key);
 
   @override
-  State<PatientsSchedulerList> createState() => _PatientsListState();
+  State<Identification> createState() => _PatientsListState();
 }
 
-class _PatientsListState extends State<PatientsSchedulerList> {
+class _PatientsListState extends State<Identification> {
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   @override
@@ -29,22 +29,10 @@ class _PatientsListState extends State<PatientsSchedulerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(title: 'Patient Scheduling'),
+      appBar: appBar(title: 'Identification'),
       backgroundColor: ColorPalette.cardGrey,
       body: Column(
         children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Align(
-              alignment: Alignment.topRight,
-              child: SizedBox(
-                  width: 250,
-                  child: FlatButton(
-                    buttonText: 'Schedule Patient',
-                    iconData: CupertinoIcons.add,
-                    onTap: () => showScheduleSheet(context),
-                  ))),
           Expanded(
             child: Column(
               children: [
@@ -100,24 +88,24 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                             ],
                           ),
                           const Divider(),
-                          SchedulePatientCard(
-                            status: "Schedule",
+                          PatientIdentification(
+                            status: "Incomplete",
                             onTap: () {
                               showScheduleSheet(context);
                             },
                           ),
-                          SchedulePatientCard(
-                            status: "Scheduled",
+                          PatientIdentification(
+                            status: "Completed",
                             onTap: () {},
                           ),
-                          SchedulePatientCard(
-                            status: "Schedule",
+                          PatientIdentification(
+                            status: "Completed",
                             onTap: () {
                               showScheduleSheet(context);
                             },
                           ),
-                          SchedulePatientCard(
-                            status: "Scheduled",
+                          PatientIdentification(
+                            status: "Incomplete",
                             onTap: () {},
                           ),
                         ],
