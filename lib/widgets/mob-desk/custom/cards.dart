@@ -58,17 +58,17 @@ class PatientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10.0),
-      margin: const EdgeInsets.only(bottom: 20.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      margin: const EdgeInsets.only(bottom: 10.0),
+      decoration: const BoxDecoration(
           color: Colors.white,
+          border: Border(bottom: BorderSide(color: ColorPalette.lighterGrey)),
           boxShadow: [
-            BoxShadow(
-                color: ColorPalette.grey.withOpacity(0.05),
-                offset: const Offset(2, 3),
-                spreadRadius: 0.1,
-                blurRadius: 2)
+            // BoxShadow(
+            //     color: ColorPalette.grey.withOpacity(0.05),
+            //     offset: const Offset(2, 3),
+            //     spreadRadius: 0.1,
+            //     blurRadius: 2)
           ]),
       child: Column(
         children: [
@@ -163,14 +163,14 @@ class SchedulePatientCard extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         margin: const EdgeInsets.only(bottom: 20.0),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0),
             color: Colors.white,
+            border: const Border(bottom: BorderSide(color: ColorPalette.cardGrey)),
             boxShadow: [
-              BoxShadow(
-                  color: ColorPalette.grey.withOpacity(0.05),
-                  offset: const Offset(2, 3),
-                  spreadRadius: 0.1,
-                  blurRadius: 2)
+              // BoxShadow(
+              //     color: ColorPalette.grey.withOpacity(0.05),
+              //     offset: const Offset(2, 3),
+              //     spreadRadius: 0.1,
+              //     blurRadius: 2)
             ]),
         child: Column(
           children: [
@@ -454,7 +454,7 @@ Widget rowCard(String title, String text, {bool hasBg = true, fromSchedule = fal
     decoration: BoxDecoration(
         color:
             hasBg ? ( fromSchedule ? ColorPalette.mainButtonColor.withOpacity(0.04) :ColorPalette.secondColor.withOpacity(0.04)) : Colors.white,
-        borderRadius: BorderRadius.circular(3.0)),
+        borderRadius: BorderRadius.circular(1.0)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

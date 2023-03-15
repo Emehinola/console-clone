@@ -21,9 +21,10 @@ class ColorPalette {
   static const lightRed =  Color.fromRGBO(220, 34, 26, 0.2);
   static const grey =  Color.fromRGBO(110, 113, 145, 1);
   static const lightGrey =  Color.fromRGBO(217, 219, 233, 1);
+  static const lighterGrey =  Color.fromRGBO(217, 219, 233, 0.8);
   static const shadowColor =  Color.fromRGBO(0, 0, 0, 0.1);
   static const textFieldBg =  Color.fromRGBO(244, 245, 247, 1);
-  static const hintTextColor =  Color.fromRGBO(160, 163, 189, 1);
+  static const hintTextColor =  Color.fromRGBO(160, 163, 189, 0.4);
   static const documentText =  Color.fromRGBO(160, 163, 189, 1);
   static const homeCardBorder =  Color.fromRGBO(51,255,255, 1);
   static const cardGrey =  Color.fromRGBO(248, 245, 255, 1);
