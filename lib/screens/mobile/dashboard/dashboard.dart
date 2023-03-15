@@ -1,3 +1,5 @@
+import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patient-registration.dart';
+import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:console/widgets/mobile/drawer.dart';
@@ -19,7 +21,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   final _pageController = PageController(initialPage: 1, viewportFraction: 1);
 
@@ -33,38 +34,52 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: Drawer(
-        child: SideDrawer(pageController: _pageController,)
-      ),
-      body: Builder(
-        builder: (context) {
-          return SafeArea(
-            child: MainDashboard()
-          );
-        }
-      ),
+          child: SideDrawer(
+        pageController: _pageController,
+      )),
+      body: Builder(builder: (context) {
+        return SafeArea(child: MainDashboard());
+      }),
     );
   }
 }
 
-
 class MainDashboard extends StatefulWidget {
-
-  MainDashboard({Key? key,}) : super(key: key);
+  MainDashboard({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MainDashboardState createState() => _MainDashboardState();
 }
 
 class _MainDashboardState extends State<MainDashboard> {
-
   List<bool> activeList = [true, false, false];
+
+  final scrollController = ScrollController();
+  bool hideFab = false;
 
   @override
   void initState() {
-    // TODO: implement initState
+    scrollController.addListener(() {
+      if(scrollController.position.axisDirection == AxisDirection.up){
+        setState(() {
+          hideFab = true;
+        });
+      }else{
+        setState(() {
+          hideFab = false;
+        });
+      }
+    });
     super.initState();
   }
 
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,9 +91,12 @@ class _MainDashboardState extends State<MainDashboard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ShadowIconButton(iconData: Icons.sort, onTap: () {
-                  Scaffold.of(context).openDrawer();
-                },),
+                ShadowIconButton(
+                  iconData: Icons.sort,
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
                 ShadowIconButton(iconData: CupertinoIcons.person_alt),
               ],
             ),
@@ -88,36 +106,37 @@ class _MainDashboardState extends State<MainDashboard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                metricCard("Users", "10", active: activeList[0],
-                    onTap: () {
-                      setState(() {
-                        activeList[0] = true;
-                        activeList[1] = false;
-                        activeList[2] = false;
-                      });
-                    }),
+                metricCard("Users", "10", active: activeList[0], onTap: () {
+                  setState(() {
+                    activeList[0] = true;
+                    activeList[1] = false;
+                    activeList[2] = false;
+                  });
+                }),
                 metricCard("Fully Registered", "15",
                     valueColor: ColorPalette.secondColor,
                     active: activeList[1], onTap: () {
-                      setState(() {
-                        activeList[1] = true;
-                        activeList[2] = false;
-                        activeList[0] = false;
-                      });
-                    }),
+                  setState(() {
+                    activeList[1] = true;
+                    activeList[2] = false;
+                    activeList[0] = false;
+                  });
+                }),
                 metricCard("Half Registered", "23",
                     valueColor: ColorPalette.red,
                     active: activeList[2], onTap: () {
-                      setState(() {
-                        activeList[2] = true;
-                        activeList[1] = false;
-                        activeList[0] = false;
-                      });
-                    }),
+                  setState(() {
+                    activeList[2] = true;
+                    activeList[1] = false;
+                    activeList[0] = false;
+                  });
+                }),
               ],
             ),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: Column(
               children: [
@@ -144,9 +163,13 @@ class _MainDashboardState extends State<MainDashboard> {
                     ),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
+                      controller: scrollController,
                       child: Column(
                         children: [
-                          FlatTextField(hintText: 'Search by parameter', suffixIcon: CupertinoIcons.search,),
+                          FlatTextField(
+                            hintText: 'Search by parameter',
+                            suffixIcon: CupertinoIcons.search,
+                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -155,9 +178,9 @@ class _MainDashboardState extends State<MainDashboard> {
                             children: [
                               Expanded(
                                   child: ConsoleIconButton(
-                                    icon: IconlyLight.filter,
-                                    text: 'Filter',
-                                  )),
+                                icon: IconlyLight.filter,
+                                text: 'Filter',
+                              )),
                               const SizedBox(
                                 width: 50,
                               ),
@@ -189,31 +212,34 @@ class _MainDashboardState extends State<MainDashboard> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: AnimatedCrossFade(
         duration: const Duration(seconds: 1),
-        crossFadeState: CrossFadeState.showFirst,
+        crossFadeState: hideFab ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         secondChild: const SizedBox.shrink(),
         firstCurve: Curves.slowMiddle,
-        firstChild: SizedBox(
-          height: 100,
-          width: Get.width,
-          child: Align(
-            alignment: Alignment.center,
-            child: Container(
-              padding: const EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: ColorPalette.mainButtonColor,
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 3),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      color:
-                      ColorPalette.mainButtonColor.withOpacity(0.3))
-                ],
-              ),
-              child: const Icon(
-                FontAwesomeIcons.plus,
-                color: Colors.white,
+        firstChild: GestureDetector(
+          onTap: () =>
+              navigate(const PatientRegistration(), routeName: '/register-patient'),
+          child: SizedBox(
+            height: 100,
+            width: Get.width,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: ColorPalette.mainButtonColor,
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 3),
+                        spreadRadius: 3,
+                        blurRadius: 5,
+                        color: ColorPalette.mainButtonColor.withOpacity(0.3))
+                  ],
+                ),
+                child: const Icon(
+                  FontAwesomeIcons.plus,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -222,4 +248,3 @@ class _MainDashboardState extends State<MainDashboard> {
     );
   }
 }
-

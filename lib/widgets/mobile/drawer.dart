@@ -47,9 +47,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
                 IconButton(
                   onPressed: () {
-                    widget.pageController.nextPage(
-                        duration: const Duration(milliseconds: 600),
-                        curve: Curves.easeIn);
+                    Navigator.pop(context);
                   },
                   icon: const Icon(
                     CupertinoIcons.xmark,
