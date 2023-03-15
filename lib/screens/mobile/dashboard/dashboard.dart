@@ -9,8 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../../widgets/mob-desk/buttons/icon-buttons.dart';
-import '../../../widgets/mob-desk/buttons/shadow-btns.dart';
 import '../../../widgets/mob-desk/custom/cards.dart';
 
 class Dashboard extends StatefulWidget {
@@ -62,11 +62,11 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   void initState() {
     scrollController.addListener(() {
-      if(scrollController.position.axisDirection == AxisDirection.up){
+      if (scrollController.position.axisDirection == AxisDirection.up) {
         setState(() {
           hideFab = true;
         });
-      }else{
+      } else {
         setState(() {
           hideFab = false;
         });
@@ -80,85 +80,239 @@ class _MainDashboardState extends State<MainDashboard> {
     scrollController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalette.cardGrey,
       body: Column(
         children: [
-          Padding(
+          Container(
+            decoration: const BoxDecoration(color: Colors.black),
             padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ShadowIconButton(
-                  iconData: Icons.sort,
-                  onTap: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                ),
-                ShadowIconButton(iconData: CupertinoIcons.person_alt),
+                IconButton(
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    icon: const Icon(
+                      Icons.sort,
+                      color: Colors.white,
+                    ),
+                    constraints: const BoxConstraints(
+                      maxHeight: 35,
+                    )),
+                IconButton(
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    icon: const Icon(
+                      CupertinoIcons.person_alt,
+                      color: Colors.white,
+                    ),
+                    constraints: const BoxConstraints(
+                      maxHeight: 35,
+                    )),
+                // ShadowIconButton(
+                //   iconData: Icons.sort,
+                //   onTap: () {
+                //     Scaffold.of(context).openDrawer();
+                //   },
+                // ),
+                // ShadowIconButton(iconData: CupertinoIcons.person_alt),
               ],
             ),
           ),
-          SizedBox(
-            height: 100,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            height: 150,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                metricCard("Users", "10", active: activeList[0], onTap: () {
-                  setState(() {
-                    activeList[0] = true;
-                    activeList[1] = false;
-                    activeList[2] = false;
-                  });
-                }),
-                metricCard("Fully Registered", "15",
-                    valueColor: ColorPalette.secondColor,
-                    active: activeList[1], onTap: () {
-                  setState(() {
-                    activeList[1] = true;
-                    activeList[2] = false;
-                    activeList[0] = false;
-                  });
-                }),
-                metricCard("Half Registered", "23",
-                    valueColor: ColorPalette.red,
-                    active: activeList[2], onTap: () {
-                  setState(() {
-                    activeList[2] = true;
-                    activeList[1] = false;
-                    activeList[0] = false;
-                  });
-                }),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: ColorPalette.mainButtonColor,
+                        borderRadius: BorderRadius.circular(8.0)),
+                    height: 130,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('./assets/images/wave.png'), fit: BoxFit.cover),),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(8.0)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Icon(
+                                IconlyBold.graph,
+                                color: ColorPalette.secondColor,
+                              ),
+                              const Text(
+                                'Total Users',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Row(
+                                children: const [
+                                  Icon(
+                                    IconlyBold.user_2,
+                                    color: ColorPalette.secondColor,
+                                    size: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    '23',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: ColorPalette.lightGreen,
+                          borderRadius: BorderRadius.circular(8.0)),
+                      height: 50,
+                      padding: const EdgeInsets.only(
+                          top: 5, bottom: 5, left: 10, right: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: ColorPalette.mainButtonColor,
+                                borderRadius: BorderRadius.circular(8.0)),
+                            padding: const EdgeInsets.all(5),
+                            child: const Text(
+                              '45',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Fully',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                'Registered',
+                                style: TextStyle(
+                                    color: ColorPalette.grey, fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: ColorPalette.lightRed,
+                          borderRadius: BorderRadius.circular(8.0)),
+                      height: 50,
+                      padding: const EdgeInsets.only(
+                          top: 5, bottom: 5, left: 10, right: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: ColorPalette.mainButtonColor,
+                                borderRadius: BorderRadius.circular(8.0)),
+                            padding: const EdgeInsets.all(5),
+                            child: const Text(
+                              '13',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Not Fully',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                'Registered',
+                                style: TextStyle(
+                                    color: ColorPalette.grey, fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
+
           Expanded(
             child: Column(
               children: [
                 Expanded(
                   child: Container(
                     width: Get.width,
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    // padding: const EdgeInsets.only(left: 20, right: 20),
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: ColorPalette.grey.withOpacity(0.01),
                       boxShadow: const [
                         BoxShadow(
                           color: ColorPalette.shadowColor,
-                          offset: Offset(0, -5),
-                          blurRadius: 5,
-                          spreadRadius: 0.2,
+                          offset: Offset(0, -3),
+                          blurRadius: 2,
+                          spreadRadius: 0.1,
                           blurStyle: BlurStyle.outer,
                         )
                       ],
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25.0.sp),
-                        topRight: Radius.circular(25.0.sp),
+                        topLeft: Radius.circular(30.0.sp),
+                        topRight: Radius.circular(30.0.sp),
                       ),
                     ),
                     child: SingleChildScrollView(
@@ -166,31 +320,40 @@ class _MainDashboardState extends State<MainDashboard> {
                       controller: scrollController,
                       child: Column(
                         children: [
-                          FlatTextField(
-                            hintText: 'Search by parameter',
-                            suffixIcon: CupertinoIcons.search,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Expanded(
-                                  child: ConsoleIconButton(
-                                icon: IconlyLight.filter,
-                                text: 'Filter',
-                              )),
-                              const SizedBox(
-                                width: 50,
-                              ),
-                              Expanded(
-                                child: ConsoleIconButton(
-                                  icon: Icons.filter_list,
-                                  text: 'Sort',
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20.0, right: 20.0, bottom: 5),
+                            child: Column(
+                              children: [
+                                FlatTextField(
+                                    hintText: 'Search by parameter',
+                                    suffixIcon: CupertinoIcons.search,
+                                    fillColor: Colors.white),
+                                const SizedBox(
+                                  height: 5,
                                 ),
-                              ),
-                            ],
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                        child: ConsoleIconButton(
+                                      icon: IconlyLight.filter,
+                                      text: 'Filter',
+                                    )),
+                                    const SizedBox(
+                                      width: 50,
+                                    ),
+                                    Expanded(
+                                      child: ConsoleIconButton(
+                                        icon: Icons.filter_list,
+                                        text: 'Sort',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           const Divider(),
                           PatientCard(
@@ -212,12 +375,13 @@ class _MainDashboardState extends State<MainDashboard> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: AnimatedCrossFade(
         duration: const Duration(seconds: 1),
-        crossFadeState: hideFab ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+        crossFadeState:
+            hideFab ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         secondChild: const SizedBox.shrink(),
         firstCurve: Curves.slowMiddle,
         firstChild: GestureDetector(
-          onTap: () =>
-              navigate(const PatientRegistration(), routeName: '/register-patient'),
+          onTap: () => navigate(const PatientRegistration(),
+              routeName: '/register-patient'),
           child: SizedBox(
             height: 100,
             width: Get.width,

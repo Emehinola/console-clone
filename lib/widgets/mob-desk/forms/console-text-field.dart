@@ -325,6 +325,7 @@ class FlatTextField extends StatelessWidget {
   Function()? onTap;
   Widget? suffix;
   IconData? suffixIcon;
+  Color? fillColor;
 
   FlatTextField({
     this.controller,
@@ -340,6 +341,7 @@ class FlatTextField extends StatelessWidget {
     this.validationService,
     this.suffix,
     this.suffixIcon,
+    this.fillColor,
   });
 
   @override
@@ -369,16 +371,20 @@ class FlatTextField extends StatelessWidget {
           maxLength: maxInput,
           enabled: editable,
           style: TextStyle(
-              fontSize: ScreenUtil().setSp(16.sp),
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: isPassword && obscure ? 1.5 : 1.0),
           decoration: InputDecoration(
             hintText: hintText,
-            label: Text(hintText!),
+            label: Text(hintText),
+            labelStyle: TextStyle(
+                color: ColorPalette.hintTextColor,
+                fontWeight: FontWeight.w400,
+                fontSize: 16.0.sp),
             hintStyle: TextStyle(
                 color: ColorPalette.hintTextColor,
-                fontWeight: FontWeight.w600,
-                fontSize: ScreenUtil().setSp(16.0)),
+                fontWeight: FontWeight.w400,
+                fontSize: 16.0.sp),
             disabledBorder: OutlineInputBorder(
               borderSide:
               const BorderSide(color: Colors.transparent, width: 0.0),
@@ -395,7 +401,7 @@ class FlatTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(16.0),
             ),
             filled: true,
-            fillColor: ColorPalette.textFieldBg,
+            fillColor: fillColor ?? ColorPalette.textFieldBg,
             suffix: suffix,
             counter: null,
             counterText: '',
