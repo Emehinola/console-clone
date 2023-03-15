@@ -141,19 +141,16 @@ class _MainDashboardState extends State<MainDashboard> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black.withOpacity(0.6),
                               borderRadius: BorderRadius.circular(8.0)),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              const Icon(
-                                IconlyBold.graph,
-                                color: ColorPalette.secondColor,
-                              ),
+                              Image.asset('./assets/images/new-graph.png', height: 50,),
                               const Text(
                                 'Total Users',
                                 style: TextStyle(color: Colors.white),
