@@ -101,7 +101,10 @@ class _MainDashboardState extends State<MainDashboard> {
                     constraints: const BoxConstraints(
                       maxHeight: 35,
                     )),
-                const Text('Dashboard', style: TextStyle(fontSize: 15, color: Colors.white),),
+                const Text(
+                  'Dashboard',
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
                 IconButton(
                     onPressed: () => Scaffold.of(context).openDrawer(),
                     icon: const Icon(
@@ -130,165 +133,173 @@ class _MainDashboardState extends State<MainDashboard> {
               children: [
                 Expanded(
                   child: Container(
-                    decoration: BoxDecoration(
-                        color: ColorPalette.mainButtonColor,
-                        borderRadius: BorderRadius.circular(8.0)),
-                    height: 130,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('./assets/images/wave.png'), fit: BoxFit.cover),),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.6),
-                              borderRadius: BorderRadius.circular(8.0)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset('./assets/images/new-graph.png', height: 50,),
-                              const Text(
-                                'Total Users',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Row(
-                                children: const [
-                                  Icon(
-                                    IconlyBold.user_2,
-                                    color: ColorPalette.secondColor,
-                                    size: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    '23',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
+                      decoration: BoxDecoration(
+                          color: ColorPalette.mainButtonColor,
+                          borderRadius: BorderRadius.circular(8.0)),
+                      height: 130,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('./assets/images/wave.png'),
+                                  fit: BoxFit.cover),
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                  ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(8.0)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset(
+                                  './assets/images/new-graph.png',
+                                  height: 50,
+                                ),
+                                const Text(
+                                  'Total Users',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      IconlyBold.user_2,
+                                      color: ColorPalette.secondColor,
+                                      size: 20,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      '23',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )),
                 ),
                 const SizedBox(
                   width: 20,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: ColorPalette.lightGreen,
-                          borderRadius: BorderRadius.circular(8.0)),
-                      height: 50,
-                      padding: const EdgeInsets.only(
-                          top: 5, bottom: 5, left: 10, right: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: ColorPalette.mainButtonColor,
-                                borderRadius: BorderRadius.circular(8.0)),
-                            padding: const EdgeInsets.all(5),
-                            child: const Text(
-                              '45',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: ColorPalette.lightGreen,
+                            borderRadius: BorderRadius.circular(8.0)),
+                        height: 50,
+                        padding: const EdgeInsets.only(
+                            top: 5, bottom: 5, left: 10, right: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: ColorPalette.mainButtonColor,
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              padding: const EdgeInsets.all(5),
+                              child: const Text(
+                                '45',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                'Fully',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                'Registered',
-                                style: TextStyle(
-                                    color: ColorPalette.grey, fontSize: 10),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: ColorPalette.lightRed,
-                          borderRadius: BorderRadius.circular(8.0)),
-                      height: 50,
-                      padding: const EdgeInsets.only(
-                          top: 5, bottom: 5, left: 10, right: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: ColorPalette.mainButtonColor,
-                                borderRadius: BorderRadius.circular(8.0)),
-                            padding: const EdgeInsets.all(5),
-                            child: const Text(
-                              '13',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                            const SizedBox(
+                              width: 10.0,
                             ),
-                          ),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                'Not Fully',
-                                style: TextStyle(
-                                  color: Colors.black,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'Fully',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Registered',
-                                style: TextStyle(
-                                    color: ColorPalette.grey, fontSize: 10),
-                              ),
-                            ],
-                          ),
-                        ],
+                                Text(
+                                  'Registered',
+                                  style: TextStyle(
+                                      color: ColorPalette.grey, fontSize: 10),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: ColorPalette.lightRed,
+                            borderRadius: BorderRadius.circular(8.0)),
+                        height: 50,
+                        padding: const EdgeInsets.only(
+                            top: 5, bottom: 5, left: 10, right: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: ColorPalette.mainButtonColor,
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              padding: const EdgeInsets.all(5),
+                              child: const Text(
+                                '13',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'Not Fully',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  'Registered',
+                                  style: TextStyle(
+                                      color: ColorPalette.grey, fontSize: 10),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
           ),
-
           Expanded(
             child: Column(
               children: [
@@ -359,7 +370,13 @@ class _MainDashboardState extends State<MainDashboard> {
                           ),
                           PatientCard(
                             status: "Incomplete",
-                          )
+                          ),
+                          PatientCard(
+                            status: "Incomplete",
+                          ),
+                          PatientCard(
+                            status: "Complete",
+                          ),
                         ],
                       ),
                     ),

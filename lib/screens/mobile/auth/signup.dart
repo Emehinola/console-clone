@@ -38,6 +38,7 @@ class SignupScreenState extends State<SignupScreen> {
       child: Form(
         key: _formKey,
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Align(
               alignment: Alignment.bottomCenter,

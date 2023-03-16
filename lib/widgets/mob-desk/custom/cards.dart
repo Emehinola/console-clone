@@ -3,51 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-Widget metricCard(String title, String value,
-    {Color valueColor = ColorPalette.mainButtonColor,
-    bool active = false,
-    Function()? onTap}) {
-  return InkWell(
-    onTap: () {
-      if (onTap != null) onTap();
-    },
-    child: AnimatedContainer(
-      height: active ? 100 : 80,
-      width: active ? 100 : 80,
-      duration: const Duration(milliseconds: 500),
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(2, 3),
-            color: ColorPalette.grey.withOpacity(0.2),
-            spreadRadius: 0.5,
-            blurRadius: 3,
-          ),
-        ],
-        borderRadius: BorderRadius.circular(8.0),
-        color: Colors.white,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            value,
-            style: TextStyle(
-                fontSize: 25, fontWeight: FontWeight.bold, color: valueColor),
-          ),
-          Text(title,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.black,
-              ))
-        ],
-      ),
-    ),
-  );
-}
-
 class PatientCard extends StatelessWidget {
   String status;
 
@@ -62,7 +17,6 @@ class PatientCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
           color: Colors.white,
-          border: Border(bottom: BorderSide(color: ColorPalette.lighterGrey)),
           boxShadow: [
             // BoxShadow(
             //     color: ColorPalette.grey.withOpacity(0.05),
@@ -160,11 +114,10 @@ class SchedulePatientCard extends StatelessWidget {
         if(onTap != null) onTap!();
       },
       child: Container(
-        padding: const EdgeInsets.all(10.0),
-        margin: const EdgeInsets.only(bottom: 20.0),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+        margin: const EdgeInsets.only(bottom: 10.0),
+        decoration: const BoxDecoration(
             color: Colors.white,
-            border: const Border(bottom: BorderSide(color: ColorPalette.cardGrey)),
             boxShadow: [
               // BoxShadow(
               //     color: ColorPalette.grey.withOpacity(0.05),
@@ -262,16 +215,16 @@ class PatientDemography extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(10.0),
-        margin: const EdgeInsets.only(bottom: 20.0),
+        margin: const EdgeInsets.only(bottom: 10.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             color: Colors.white,
             boxShadow: [
-              BoxShadow(
-                  color: ColorPalette.grey.withOpacity(0.05),
-                  offset: const Offset(2, 3),
-                  spreadRadius: 0.1,
-                  blurRadius: 2)
+              // BoxShadow(
+              //     color: ColorPalette.grey.withOpacity(0.05),
+              //     offset: const Offset(2, 3),
+              //     spreadRadius: 0.1,
+              //     blurRadius: 2)
             ]),
         child: Column(
           children: [
@@ -364,16 +317,16 @@ class PatientIdentification extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(10.0),
-        margin: const EdgeInsets.only(bottom: 20.0),
+        margin: const EdgeInsets.only(bottom: 10.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             color: Colors.white,
             boxShadow: [
-              BoxShadow(
-                  color: ColorPalette.grey.withOpacity(0.05),
-                  offset: const Offset(2, 3),
-                  spreadRadius: 0.1,
-                  blurRadius: 2)
+              // BoxShadow(
+              //     color: ColorPalette.grey.withOpacity(0.05),
+              //     offset: const Offset(2, 3),
+              //     spreadRadius: 0.1,
+              //     blurRadius: 2)
             ]),
         child: Column(
           children: [

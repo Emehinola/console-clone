@@ -30,7 +30,6 @@ class _PatientsListState extends State<Identification> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(title: 'Identification'),
-      backgroundColor: ColorPalette.cardGrey,
       body: Column(
         children: [
           Expanded(
@@ -39,10 +38,9 @@ class _PatientsListState extends State<Identification> {
                 Expanded(
                   child: Container(
                     width: Get.width,
-                    padding: const EdgeInsets.only(left: 20, right: 20),
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: ColorPalette.cardGrey,
                       boxShadow: const [
                         // BoxShadow(
                         //   color: ColorPalette.shadowColor,
@@ -61,31 +59,41 @@ class _PatientsListState extends State<Identification> {
                       physics: const BouncingScrollPhysics(),
                       child: Column(
                         children: [
-                          FlatTextField(
-                            hintText: 'Search by parameter',
-                            suffixIcon: CupertinoIcons.search,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Expanded(
-                                  child: ConsoleIconButton(
-                                icon: IconlyLight.filter,
-                                text: 'Filter',
-                              )),
-                              const SizedBox(
-                                width: 50,
-                              ),
-                              Expanded(
-                                child: ConsoleIconButton(
-                                  icon: Icons.filter_list,
-                                  text: 'Sort',
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20.0, right: 20.0, bottom: 5),
+                            child: Column(
+                              children: [
+                                FlatTextField(
+                                  hintText: 'Search by parameter',
+                                  suffixIcon: CupertinoIcons.search,
+                                  fillColor: Colors.white,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                        child: ConsoleIconButton(
+                                          icon: IconlyLight.filter,
+                                          text: 'Filter',
+                                        )),
+                                    const SizedBox(
+                                      width: 50,
+                                    ),
+                                    Expanded(
+                                      child: ConsoleIconButton(
+                                        icon: Icons.filter_list,
+                                        text: 'Sort',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           const Divider(),
                           PatientIdentification(

@@ -39,6 +39,7 @@ dependencies:
   responsive_table: ^0.2.0+2
   calendar_date_picker2: ^0.4.5
   lottie: ^2.0.0
+  flutter_native_splash: ^2.2.3+1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -58,6 +59,12 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_native_splash:
+  background_image: "assets/images/console.jpeg"
+  ios: true
+  android_12:
+    background_image: "assets/images/console.jpeg"
 
 # The following section is specific to Flutter packages.
 flutter:

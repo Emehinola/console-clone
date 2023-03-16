@@ -3,6 +3,7 @@ import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
+import 'package:console/widgets/notification/snack-notification.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../../services/validation-service.dart';
@@ -97,8 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonText: 'Sign In',
                       loading: loading,
                       applyingMargin: false,
-                      onTap: () =>
-                          navigate(const Dashboard(), routeName: '/dashboard'),
+                      onTap: (){
+                        navigate(const Dashboard(), routeName: '/dashboard');
+                        consoleSnackNotification('Login successful!', header: 'Success');
+                      },
                     ),
                     SizedBox(
                       height: 30.0.sp,

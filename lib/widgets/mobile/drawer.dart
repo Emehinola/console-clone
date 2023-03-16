@@ -12,7 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../screens/mobile/dashboard/practice-mgt/registration/patient-registration.dart';
-import '../../screens/mobile/dashboard/practice-mgt/scheduling/patients-list.dart';
+import '../../screens/mobile/dashboard/practice-mgt/scheduling/scheduled-patients.dart';
 
 class SideDrawer extends StatefulWidget {
   PageController pageController;
@@ -63,7 +63,7 @@ class _SideDrawerState extends State<SideDrawer> {
             const SizedBox(
               height: 30,
             ),
-            drawerRow('Patient Registration', FontAwesomeIcons.users, const PatientsList()),
+            drawerRow('Patient Registration', FontAwesomeIcons.users, const ScheduledPatients()),
             drawerRow('Patient Scheduling', FontAwesomeIcons.calendar, const PatientsSchedulerList()),
             const SizedBox(
               height: 30,
@@ -75,7 +75,7 @@ class _SideDrawerState extends State<SideDrawer> {
             drawerRow('Patient Engagement Reg', FontAwesomeIcons.book, const EngagementReg()),
             drawerRow('Demographics', FontAwesomeIcons.chartPie, const Demography()),
             drawerRow('Identification', FontAwesomeIcons.passport, const Identification()),
-            drawerRow('Identity Matching', CupertinoIcons.arrow_swap, const IdentificationMatching()),
+            drawerRow('Identity Matching', CupertinoIcons.arrow_swap, IdentificationMatching()),
           ],
         ),
       ),
