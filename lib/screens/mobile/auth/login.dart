@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ConsoleTextButton(
                       buttonText: 'Sign In',
                       loading: loading,
-                      applyingMargin: false,
+                      applyingMargin: true,
                       onTap: (){
                         navigate(const Dashboard(), routeName: '/dashboard');
                         consoleSnackNotification('Login successful!', header: 'Success');

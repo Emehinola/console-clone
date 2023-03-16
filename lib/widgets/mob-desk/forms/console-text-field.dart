@@ -429,12 +429,16 @@ class FlatTextBoxField extends StatelessWidget {
   TextEditingController? controller;
   String? Function(String?)? validationService;
   Function()? suffixCallBack;
+  int? minLines;
+  int? maxLines;
 
   FlatTextBoxField({
     this.controller,
     this.hintText,
     this.suffixCallBack,
     this.validationService,
+    this.minLines = 5,
+    this.maxLines = 6,
   });
 
   @override
@@ -452,8 +456,8 @@ class FlatTextBoxField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         validator: validationService,
-        minLines: 5,
-        maxLines: 6,
+        minLines: minLines ?? 5,
+        maxLines: maxLines ?? 6,
         style: TextStyle(
             fontSize: ScreenUtil().setSp(16.0),
             fontWeight: FontWeight.w600,

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class ColorPalette {
   static const Color mainButtonColor = Color.fromRGBO(8, 76, 172, 1); // Color.fromRGBO(33, 150, 243, 1);
   static const Color lightMain = Color.fromRGBO(37, 116, 179, 0.2); // Color.fromRGBO(33, 150, 243, 1);
-  static const Color secondColor = Color.fromRGBO(194, 180, 72, 0.8); // Color.fromRGBO(33, 150, 243, 1);
-  static const Color lighterSecond = Color.fromRGBO(194, 180, 72, 0.2); // Color.fromRGBO(33, 150, 243, 1);
+  static const Color secondColor = Color.fromRGBO(244, 233, 120, 1); // Color.fromRGBO(33, 150, 243, 1);
+  static const Color lighterSecond = Color.fromRGBO(244, 233, 120, 0.2); // Color.fromRGBO(33, 150, 243, 1);
   static const checkGreen =  Color.fromRGBO(24, 187, 12, 1);
   static const lightGreen =  Color.fromRGBO(24, 187, 12, 0.1);
   static const greyIcon =  Color.fromRGBO(0, 0, 0, 0.55);

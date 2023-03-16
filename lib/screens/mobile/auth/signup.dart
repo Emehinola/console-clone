@@ -1,8 +1,10 @@
+import 'package:console/screens/mobile/auth/login.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../../../services/navigate.dart';
 import '../../../services/validation-service.dart';
 import '../../../widgets/mob-desk/custom/custom-texts.dart';
 import '../../../widgets/mob-desk/forms/console-text-field.dart';
@@ -68,24 +70,24 @@ class SignupScreenState extends State<SignupScreen> {
                     SizedBox(
                       height: 20.0.sp,
                     ),
-                    ConsoleTextField(
+                    FlatTextField(
                       controller: emailController,
                       hintText: 'Full Name',
                       isPassword: false,
                       validationService: (String? name) =>
                           ValidationService.isValidInput(name!),
                     ),
-                    ConsoleTextBoxField(
+                    FlatTextBoxField(
                       hintText: 'Bio Details',
                       minLines: 3,
                       maxLines: 4,
                     ),
-                    ConsoleTextBoxField(
+                    FlatTextBoxField(
                       hintText: 'Official Details',minLines: 3,
                       maxLines: 4,
 
                     ),
-                    ConsoleTextBoxField(
+                    FlatTextBoxField(
                       hintText: 'Other Details',
                       minLines: 3,
                       maxLines: 4,
@@ -120,14 +122,8 @@ class SignupScreenState extends State<SignupScreen> {
                                 color: ColorPalette.mainButtonColor,
                               ),
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    settings: const RouteSettings(
-                                        name: '/login'),
-                                    builder: (_) => const Scaffold(),
-                                  ),
-                                ),
+                                ..onTap = () => navigate(LoginScreen(),
+                                    routeName: '/create-account')
                             ),
                           ],
                         ),
