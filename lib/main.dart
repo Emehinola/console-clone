@@ -1,12 +1,15 @@
+import 'package:console/screens/mobile/onboarding/test-color.dart';
 import 'package:console/screens/mobile/onboarding/welcome-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'screens/mobile/auth/login.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  // FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               fontFamily: 'Roobert',
             ),
-            home: WelcomeScreen(),
+            home: const WelcomeScreen(),
           );
         });
   }

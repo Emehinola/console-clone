@@ -60,11 +60,19 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+#flutter_native_splash:
+#  background_image: "assets/images/console.jpeg"
+#  ios: true
+#  android_12:
+#    background_image: "assets/images/console.jpeg"
+
 flutter_native_splash:
-  background_image: "assets/images/console.jpeg"
-  ios: true
-  android_12:
-    background_image: "assets/images/console.jpeg"
+  image: "assets/images/console.jpeg"
+  color:  "#084cac"
+  fill : false
+#  android: false
+#  android_gravity: center
+#  ios: false
 
 # The following section is specific to Flutter packages.
 flutter:
