@@ -29,9 +29,9 @@ class _DesktopWelcomeState extends State<DesktopWelcome> {
         child: Obx((){
           return Row(
             children: [
-              SizedBox(width: Get.width / 2, child: const LeftPanel()),
+              SizedBox(width: 1680.w / 2, child: const LeftPanel()),
               SizedBox(
-                  width: Get.width / 2,
+                  width: 1680.w / 2,
                   child: currentScreen.value == CurrentAuthScreen.login
                       ? DesktopLoginScreen()
                       : DesktopSignUpScreen()),
@@ -51,7 +51,7 @@ class LeftPanel extends StatelessWidget {
     return Container(
       color: ColorPalette.dark,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 200),
+        padding: EdgeInsets.symmetric(horizontal: 200.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

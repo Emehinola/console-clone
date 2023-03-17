@@ -37,7 +37,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: largeHorPadding),
+        padding: EdgeInsets.symmetric(horizontal: 200.w),
         child: Form(
           key: _formKey,
           child: Column(
