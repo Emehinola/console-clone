@@ -17,7 +17,7 @@ void showSuccessSheet(String title, String desc) {
                   children: [
                     Lottie.asset('assets/files/success.json',
                         width: 250, height: 0.2.sh),
-                    SizedBox(height: 0.03.sh),
+                    SizedBox(height: 0.02.sh),
                     Text(
                       title,
                       style: TextStyle(
