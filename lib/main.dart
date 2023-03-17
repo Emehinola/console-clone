@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 void main() async {
+  await ScreenUtil.ensureScreenSize();
   runApp(const MyApp());
   // await testWindowFunctions();
 }
@@ -19,8 +20,9 @@ class MyApp extends StatelessWidget {
         // mac 1680, 1050
         minTextAdapt: true,
         splitScreenMode: true,
-        scaleByHeight: true,
+        scaleByHeight: false,
         builder: (context, child) {
+          // ScreenUtil.init(context);
           return GetMaterialApp(
             title: 'Console',
             debugShowCheckedModeBanner: false,

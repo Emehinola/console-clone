@@ -17,7 +17,7 @@ Widget buildSocialRow() {
 
 rowItem(IconData icon){
   return Container(
-    padding: const EdgeInsets.all(15.0),
+    padding: EdgeInsets.all(15.0.w),
     decoration: BoxDecoration(
       color: Colors.white,
       boxShadow: [
@@ -28,8 +28,8 @@ rowItem(IconData icon){
           spreadRadius: 2
         )
       ],
-        borderRadius: BorderRadius.circular(8.0.sp)
+        borderRadius: BorderRadius.circular(8.0.r)
     ),
-    child: Icon(icon, color: Colors.black.withOpacity(0.55),),
+    child: Icon(icon, color: Colors.black.withOpacity(0.55), size: 20.w,),
   );
 }
