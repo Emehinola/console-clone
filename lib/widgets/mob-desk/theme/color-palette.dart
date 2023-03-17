@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class ColorPalette {
   static const Color mainButtonColor = Color.fromRGBO(8, 76, 172, 1); // Color.fromRGBO(33, 150, 243, 1);
   static const Color lightMain = Color.fromRGBO(37, 116, 179, 0.2); // Color.fromRGBO(33, 150, 243, 1);
+  static const Color lightMain2 = Color.fromRGBO(37, 116, 179, 0.1); // Color.fromRGBO(33, 150, 243, 1);
   static const Color formBg = Color.fromRGBO(37, 116, 179, 0.05); // Color.fromRGBO(33, 150, 243, 1);
   static const Color secondColor = Color.fromRGBO(244, 233, 120, 1); // Color.fromRGBO(33, 150, 243, 1);
   static const Color lighterSecond = Color.fromRGBO(244, 233, 120, 0.2); // Color.fromRGBO(33, 150, 243, 1);
+  static const Color lighterSecond2 = Color.fromRGBO(244, 233, 120, 0.1); // Color.fromRGBO(33, 150, 243, 1);
   static const checkGreen =  Color.fromRGBO(24, 187, 12, 1);
   static const lightGreen =  Color.fromRGBO(24, 187, 12, 0.1);
   static const greyIcon =  Color.fromRGBO(0, 0, 0, 0.55);
@@ -22,6 +24,7 @@ class ColorPalette {
   static const red =  Color.fromRGBO(220, 34, 26, 1);
   static const lightRed =  Color.fromRGBO(220, 34, 26, 0.2);
   static const grey =  Color.fromRGBO(110, 113, 145, 1);
+  static const fairGrey =  Color.fromRGBO(110, 113, 145, 0.1);
   static const lightGrey =  Color.fromRGBO(217, 219, 233, 1);
   static const lighterGrey =  Color.fromRGBO(217, 219, 233, 0.8);
   static const shadowColor =  Color.fromRGBO(0, 0, 0, 0.1);

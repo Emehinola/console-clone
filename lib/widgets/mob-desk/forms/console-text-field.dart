@@ -357,68 +357,76 @@ class FlatTextField extends StatelessWidget {
           onTap!();
         }
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        constraints: const BoxConstraints(
-          minHeight: 50,
-        ),
-        child: TextFormField(
-          controller: controller,
-          validator: validationService,
-          obscureText: obscure,
-          keyboardType: inputType,
-          obscuringCharacter: '•',
-          maxLength: maxInput,
-          enabled: editable,
-          style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-              letterSpacing: isPassword && obscure ? 1.5 : 1.0),
-          decoration: InputDecoration(
-            hintText: hintText,
-            label: Text(hintText),
-            labelStyle: TextStyle(
-                color: ColorPalette.hintTextColor,
-                fontWeight: FontWeight.w400,
-                fontSize: 16.0.sp),
-            hintStyle: TextStyle(
-                color: ColorPalette.hintTextColor,
-                fontWeight: FontWeight.w400,
-                fontSize: 16.0.sp),
-            disabledBorder: OutlineInputBorder(
-              borderSide:
-              const BorderSide(color: Colors.transparent, width: 0.0),
-              borderRadius: BorderRadius.circular(12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const SizedBox(height: 10,),
+          Text(hintText, style: const TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5),),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            constraints: const BoxConstraints(
+              minHeight: 50,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderSide:
-              const BorderSide(color: Colors.transparent, width: 0.0),
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            border: OutlineInputBorder(
-              borderSide:
-              const BorderSide(color: Colors.transparent, width: 0.0),
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            filled: true,
-            fillColor: fillColor ?? ColorPalette.formBg,
-            suffix: suffix,
-            counter: null,
-            counterText: '',
-            suffixIcon: isPassword
-                ? GestureDetector(
-              onTap: suffixCallBack,
-              child: Icon(
-                obscure ? IconlyBold.hide : IconlyBold.show,
-                size: 25,
-                color: !obscure
-                    ? ColorPalette.mainButtonColor
-                    : Colors.black,
+            child: TextFormField(
+              controller: controller,
+              validator: validationService,
+              obscureText: obscure,
+              keyboardType: inputType,
+              obscuringCharacter: '•',
+              maxLength: maxInput,
+              enabled: editable,
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: isPassword && obscure ? 1.5 : 1.0),
+              decoration: InputDecoration(
+                hintText: hintText,
+                // label: Text(hintText),
+                labelStyle: TextStyle(
+                    color: ColorPalette.hintTextColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16.0.sp),
+                hintStyle: TextStyle(
+                    color: ColorPalette.hintTextColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16.0.sp),
+                disabledBorder: OutlineInputBorder(
+                  borderSide:
+                  const BorderSide(color: Colors.transparent, width: 0.0),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                  const BorderSide(color: Colors.transparent, width: 0.0),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                border: OutlineInputBorder(
+                  borderSide:
+                  const BorderSide(color: Colors.transparent, width: 0.0),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                filled: true,
+                fillColor: fillColor ?? ColorPalette.formBg,
+                suffix: suffix,
+                counter: null,
+                counterText: '',
+                suffixIcon: isPassword
+                    ? GestureDetector(
+                  onTap: suffixCallBack,
+                  child: Icon(
+                    obscure ? IconlyBold.hide : IconlyBold.show,
+                    size: 25,
+                    color: !obscure
+                        ? ColorPalette.mainButtonColor
+                        : Colors.black,
+                  ),
+                ) : suffixIcon != null ? Icon(suffixIcon, size: 25,) :
+                     null,
               ),
-            ) : suffixIcon != null ? Icon(suffixIcon, size: 25,) :
-                 null,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -448,42 +456,49 @@ class FlatTextBoxField extends StatelessWidget {
 
     ScreenUtil.init(context, designSize: Size(screenWidth, screenHeight));
 
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      constraints: const BoxConstraints(
-        minHeight: 50,
-      ),
-      child: TextFormField(
-        controller: controller,
-        validator: validationService,
-        minLines: minLines ?? 5,
-        maxLines: maxLines ?? 6,
-        style: TextStyle(
-            fontSize: ScreenUtil().setSp(16.0),
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.0),
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(
-              color: ColorPalette.hintTextColor,
-              fontWeight: FontWeight.w600,
-              fontSize: ScreenUtil().setSp(16.0)),
-          disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
-            borderRadius: BorderRadius.circular(16.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10,),
+        Text(hintText!, style: const TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5),),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          constraints: const BoxConstraints(
+            minHeight: 50,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
-            borderRadius: BorderRadius.circular(16.0),
+          child: TextFormField(
+            controller: controller,
+            validator: validationService,
+            minLines: minLines ?? 5,
+            maxLines: maxLines ?? 6,
+            style: TextStyle(
+                fontSize: ScreenUtil().setSp(16.0),
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.0),
+            decoration: InputDecoration(
+              hintText: hintText,
+              hintStyle: TextStyle(
+                  color: ColorPalette.hintTextColor,
+                  fontWeight: FontWeight.w600,
+                  fontSize: ScreenUtil().setSp(16.0)),
+              disabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              filled: true,
+              fillColor: ColorPalette.formBg,
+            ),
           ),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          filled: true,
-          fillColor: ColorPalette.formBg,
         ),
-      ),
+      ],
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:console/screens/mobile/auth/signup.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
@@ -12,7 +11,7 @@ import '../../../../state-management/state-management.dart';
 import '../../../../widgets/mob-desk/custom/custom-texts.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../widgets/mob-desk/theme/color-palette.dart';
-import '../../../mobile/dashboard/dashboard.dart';
+import '../../dashboard/navigation.dart';
 
 
 class DesktopLoginScreen extends StatefulWidget {
@@ -103,7 +102,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                       applyingMargin: false,
                       verticalPadding: 20.0,
                       onTap: (){
-                        navigate(const Dashboard(), routeName: '/dashboard');
+                        navigate( DesktopNavigation(), routeName: '/dashboard');
                         consoleSnackNotification('Login successful!', header: 'Success');
                       },
                     ),

@@ -91,6 +91,7 @@ class FlatButton extends StatelessWidget {
   bool applyingMargin;
   IconData? iconData;
   double? verticalPadding;
+  double? horPaddding;
 
   FlatButton({
     required this.buttonText,
@@ -102,6 +103,7 @@ class FlatButton extends StatelessWidget {
     this.applyingMargin = true,
     this.iconData,
     this.verticalPadding,
+    this.horPaddding,
   });
 
   @override
@@ -115,7 +117,7 @@ class FlatButton extends StatelessWidget {
         margin: applyingMargin
             ? const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0)
             : EdgeInsets.zero,
-        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: verticalPadding ?? 10),
+        padding: EdgeInsets.symmetric(horizontal: horPaddding ?? 15.0, vertical: verticalPadding ?? 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: backgroundColor ??
@@ -170,23 +172,29 @@ class OutlinedBtn extends StatelessWidget {
   String buttonText;
   Function()? onTap;
   Color? backgroundColor;
+  Color? textColor;
+  Color? borderColor;
   Color? shadowColor;
   bool loading;
   bool disabled;
   bool applyingMargin;
   IconData? iconData;
   double? verticalPadding;
+  double? horPadding;
 
   OutlinedBtn({
     required this.buttonText,
     this.onTap,
     this.backgroundColor,
+    this.borderColor,
+    this.textColor,
     this.shadowColor,
     this.loading = false,
     this.disabled = false,
     this.applyingMargin = true,
     this.iconData,
     this.verticalPadding,
+    this.horPadding,
   });
 
   @override
@@ -200,10 +208,10 @@ class OutlinedBtn extends StatelessWidget {
         margin: applyingMargin
             ? const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0)
             : EdgeInsets.zero,
-        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: verticalPadding ?? 10),
+        padding: EdgeInsets.symmetric(horizontal: horPadding ?? 15.0, vertical: verticalPadding ?? 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(width: 1.5, color: ColorPalette.secondColor),
+          border: Border.all(width: 1.5, color: borderColor ?? ColorPalette.secondColor),
           color: Colors.transparent,
         ),
         child: loading
@@ -215,7 +223,7 @@ class OutlinedBtn extends StatelessWidget {
                     buttonText,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.white,
+                        color: textColor ?? Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: 16.0.sp),
                   ),
@@ -233,10 +241,10 @@ class OutlinedBtn extends StatelessWidget {
                       color: Colors.white,
                     ),
                   Text(
-                    buttonText,
+                     buttonText,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: textColor ?? Colors.white,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w700,
                       fontSize: ScreenUtil().setSp(16.0),

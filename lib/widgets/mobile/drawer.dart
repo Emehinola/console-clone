@@ -2,7 +2,6 @@ import 'package:console/screens/mobile/dashboard/identification-engine/demograph
 import 'package:console/screens/mobile/dashboard/identification-engine/engagement-reg.dart';
 import 'package:console/screens/mobile/dashboard/identification-engine/identification-matching.dart';
 import 'package:console/screens/mobile/dashboard/identification-engine/identification.dart';
-import 'package:console/screens/mobile/dashboard/practice-mgt/pt-mgt-template.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patients.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
@@ -10,9 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
-import '../../screens/mobile/dashboard/practice-mgt/registration/patient-registration.dart';
 import '../../screens/mobile/dashboard/practice-mgt/scheduling/scheduled-patients.dart';
+import '../../services/constants.dart';
 
 class SideDrawer extends StatefulWidget {
   PageController pageController;
@@ -30,7 +28,7 @@ class _SideDrawerState extends State<SideDrawer> {
       child: Container(
         height: Get.height,
         width: Get.width * 0.5,
-        color: Colors.black,
+        color: ColorPalette.dark,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +81,7 @@ class _SideDrawerState extends State<SideDrawer> {
   }
 }
 
-Widget drawerRow(String title, IconData iconData, Widget screen) {
+Widget drawerRow(String title, IconData iconData, Widget screen, {active = false}) {
   return GestureDetector(
     onTap: (){
       navigate(screen);
@@ -94,7 +92,7 @@ Widget drawerRow(String title, IconData iconData, Widget screen) {
         children: [
           Icon(
             iconData,
-            color: ColorPalette.secondColor,
+            color: active ? ColorPalette.secondColor : ColorPalette.grey,
             size: 18,
           ),
           const SizedBox(
@@ -102,8 +100,8 @@ Widget drawerRow(String title, IconData iconData, Widget screen) {
           ),
           Text(
             title,
-            style: const TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w900, color: Colors.white),
+            style: TextStyle(
+                fontSize: isMobile() ? 13 : 17, fontWeight: FontWeight.w500, color: active ? ColorPalette.secondColor : ColorPalette.grey),
           ),
         ],
       ),
@@ -111,7 +109,7 @@ Widget drawerRow(String title, IconData iconData, Widget screen) {
   );
 }
 
-Widget title(String title) {
+Widget title(String title, {Color? textColor}) {
   return Container(
     margin: const EdgeInsets.only(top: 10),
     child: Row(
@@ -120,7 +118,7 @@ Widget title(String title) {
           width: 5,
           height: 20,
           decoration: const BoxDecoration(
-            color: ColorPalette.secondColor,
+            color: ColorPalette.grey,
               borderRadius: BorderRadius.only(
             topRight: Radius.circular(5),
             bottomRight: Radius.circular(5),
@@ -131,8 +129,8 @@ Widget title(String title) {
         ),
         Text(
           title,
-          style: const TextStyle(
-              fontSize: 15, fontWeight: FontWeight.w900, color: ColorPalette.mainButtonColor),
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w900, color: textColor ?? Colors.white),
         ),
       ],
     ),

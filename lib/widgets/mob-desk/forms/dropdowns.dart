@@ -28,12 +28,14 @@ class ConsoleDropdown extends StatelessWidget {
       children: [
         Visibility(
             visible: label != null,
-            child: Text(
-              label ?? '',
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                Text(
+                  label ?? '',
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5),
+                ),
+              ],
             )),
         // const SizedBox(height: 8),
         Container(
