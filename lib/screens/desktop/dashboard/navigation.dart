@@ -118,7 +118,7 @@ class SideNavBar extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            title("Practice Management"),
+            title("Practice Management", textColor: Colors.white),
             const SizedBox(
               height: 30,
             ),
@@ -131,7 +131,7 @@ class SideNavBar extends StatelessWidget {
                     height: 30,
                   ),
                   const Divider(color: ColorPalette.grey,),
-                  title('Practice Identification Engine'),
+                  title('Practice Identification Engine', textColor: Colors.white),
                   const SizedBox(
                     height: 30,
                   ),
