@@ -79,7 +79,7 @@ flutter_icons:
   android: true # "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/console.jpeg"
+  image_path: "assets/images/console-large.png"
 
 # The following section is specific to Flutter packages.
 flutter:
