@@ -44,10 +44,12 @@ class _DesktopWelcomeState extends State<DesktopWelcome> {
 }
 
 class LeftPanel extends StatelessWidget {
+
   const LeftPanel({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       color: ColorPalette.dark,
       child: Padding(

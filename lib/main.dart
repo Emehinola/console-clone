@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
         designSize: const Size(1680, 1050),
         // mac 1680, 1050
         minTextAdapt: true,
-        splitScreenMode: false,
+        splitScreenMode: true,
+        scaleByHeight: true,
         builder: (context, child) {
           return GetMaterialApp(
             title: 'Console',

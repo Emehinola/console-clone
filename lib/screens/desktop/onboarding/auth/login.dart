@@ -51,11 +51,11 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: 50.sp,
+                        height: 50.h,
                       ),
                       brandText(),
                       SizedBox(
-                        height: 50.0.sp,
+                        height: 50.0.h,
                       ),
                       FlatTextField(
                         controller: emailController,
@@ -78,7 +78,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         },
                       ),
                       SizedBox(
-                        height: 10.0.sp,
+                        height: 10.0.h,
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -96,13 +96,13 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 50.0.sp,
+                        height: 50.0.h,
                       ),
                       FlatButton(
                         buttonText: 'Sign In',
                         loading: loading,
                         applyingMargin: false,
-                        verticalPadding: 20.0,
+                        verticalPadding: 20.0.h,
                         onTap: () {
                           navigate(DesktopNavigation(), routeName: '/dashboard');
                           showSuccessSheet('Login successful',
@@ -110,7 +110,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         },
                       ),
                       SizedBox(
-                        height: 30.0.sp,
+                        height: 30.0.h,
                       ),
                       Text(
                         "Or login with",
@@ -121,19 +121,19 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 30.0.sp,
+                        height: 30.0.h,
                       ),
                       Align(alignment: Alignment.center, child: buildSocialRow()),
                       SizedBox(
-                        height: 50.0.sp,
+                        height: 50.0.h,
                       ),
                       Align(
                         alignment: Alignment.center,
                         child: Text.rich(
                           TextSpan(
                             text: 'Don\'t have an account yet ? ',
-                            style: const TextStyle(
-                              fontSize: 16,
+                            style: TextStyle(
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                               color: ColorPalette.grey,
                             ),
