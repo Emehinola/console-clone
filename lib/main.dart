@@ -4,10 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:desktop_window/desktop_window.dart';
 
-
 void main() async {
   runApp(const MyApp());
-  await testWindowFunctions();
+  // await testWindowFunctions();
 }
 
 class MyApp extends StatelessWidget {
@@ -17,9 +16,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(375, 834.9090909090909),
+        designSize: const Size(1680, 1050),
+        // mac 1680, 1050
         minTextAdapt: true,
-        splitScreenMode: true,
+        splitScreenMode: false,
         builder: (context, child) {
           return GetMaterialApp(
             title: 'Console',
@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
         });
   }
 }
-
 
 Future testWindowFunctions() async {
   Size size = await DesktopWindow.getWindowSize();

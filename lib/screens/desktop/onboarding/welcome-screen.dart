@@ -1,8 +1,10 @@
 import 'package:console/screens/desktop/onboarding/auth/create-account.dart';
 import 'package:console/screens/desktop/onboarding/auth/login.dart';
+import 'package:console/services/constants.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../state-management/state-management.dart';
 import '../../../widgets/mob-desk/buttons/console-text-button.dart';
@@ -15,6 +17,11 @@ class DesktopWelcome extends StatefulWidget {
 }
 
 class _DesktopWelcomeState extends State<DesktopWelcome> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +51,7 @@ class LeftPanel extends StatelessWidget {
     return Container(
       color: ColorPalette.dark,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 200),
+        padding: EdgeInsets.symmetric(horizontal: 200),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -80,3 +87,4 @@ class LeftPanel extends StatelessWidget {
     );
   }
 }
+
