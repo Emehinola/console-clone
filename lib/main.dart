@@ -16,11 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(1680, 1050),
+        designSize: const Size(1314, 1022),
         // mac 1680, 1050
         minTextAdapt: true,
         splitScreenMode: true,
         scaleByHeight: false,
+        rebuildFactor: (_, widget){
+          return true;
+        },
         builder: (context, child) {
           // ScreenUtil.init(context);
           return GetMaterialApp(

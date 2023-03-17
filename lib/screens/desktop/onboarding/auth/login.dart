@@ -38,7 +38,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 200.w),
+        padding: EdgeInsets.symmetric(horizontal: 150.w),
         child: Form(
           key: _formKey,
           child: Column(
