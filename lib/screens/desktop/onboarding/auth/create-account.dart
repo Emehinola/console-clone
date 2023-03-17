@@ -37,7 +37,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 200.w),
+        padding: EdgeInsets.symmetric(horizontal: 0.13.sw),
         child: Form(
           key: _formKey,
           child: Column(
@@ -50,11 +50,11 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: 50.sp,
+                        height: 0.01.sh,
                       ),
                       brandText(),
                       SizedBox(
-                        height: 50.0.sp,
+                        height: 0.07.sh,
                       ),
                       FlatTextField(
                         controller: emailController,
@@ -63,29 +63,23 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         validationService: (String? name) =>
                             ValidationService.isValidInput(name!),
                       ),
-                      FlatTextBoxField(
+                      FlatTextField(
                         hintText: 'Bio Details',
-                        minLines: 3,
-                        maxLines: 4,
                       ),
-                      FlatTextBoxField(
+                      FlatTextField(
                         hintText: 'Official Details',
-                        minLines: 3,
-                        maxLines: 4,
                       ),
-                      FlatTextBoxField(
+                      FlatTextField(
                         hintText: 'Other Details',
-                        minLines: 3,
-                        maxLines: 4,
                       ),
                       SizedBox(
-                        height: 50.0.sp,
+                        height: 0.06.sh,
                       ),
                       FlatButton(
                         buttonText: 'Sign Up',
                         loading: loading,
                         applyingMargin: false,
-                        verticalPadding: 20.0,
+                        verticalPadding: 0.02.sh,
                         onTap: () {
                           navigate(DesktopNavigation(),
                               routeName: '/dashboard');
@@ -94,7 +88,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         },
                       ),
                       SizedBox(
-                        height: 30.0.sp,
+                        height: 0.06.sh,
                       ),
                       Text(
                         "Or sign up with",
@@ -105,12 +99,12 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 30.0.sp,
+                        height: 0.06.sh,
                       ),
                       Align(
                           alignment: Alignment.center, child: buildSocialRow()),
                       SizedBox(
-                        height: 50.0.sp,
+                        height: 0.09.sh,
                       ),
                       Align(
                         alignment: Alignment.center,
@@ -137,7 +131,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 50.0.sp,
+                        height: 0.09.sh,
                       ),
                     ],
                   ),

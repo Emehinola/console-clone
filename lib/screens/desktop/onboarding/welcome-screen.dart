@@ -30,9 +30,9 @@ class _DesktopWelcomeState extends State<DesktopWelcome> {
         child: Obx((){
           return Row(
             children: [
-              SizedBox(width: 1314.w / 2, child: const LeftPanel()),
+              SizedBox(width: 0.5.sw, child: const LeftPanel()),
               SizedBox(
-                  width: 1314.w / 2,
+                  width: 0.5.sw,
                   child: currentScreen.value == CurrentAuthScreen.login
                       ? DesktopLoginScreen()
                       : DesktopSignUpScreen()),
@@ -53,7 +53,7 @@ class LeftPanel extends StatelessWidget {
     return Container(
       color: ColorPalette.dark,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 150.w),
+        padding: EdgeInsets.symmetric(horizontal: 0.1.sw),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -62,26 +62,26 @@ class LeftPanel extends StatelessWidget {
               style: TextStyle(fontSize: 25.sp, color: Colors.white),
             ),
              SizedBox(
-              height: 100.h,
+              height: 0.2.sh,
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: Image.asset(
                 './assets/images/console.jpeg',
-                height: 200.h,
+                height: 0.2.sh,
               ),
             ),
             SizedBox(
-              height: 100.h,
+              height: 0.2.sh,
             ),
             OutlinedBtn(
               buttonText: 'Create Account',
-              verticalPadding: 20.h,
+              verticalPadding: 0.02.sh,
               onTap: () => currentScreen.value = CurrentAuthScreen.singUp,
             ),
             FlatButton(
                 buttonText: 'Sign In',
-                verticalPadding: 20.h,
+                verticalPadding: 0.02.sh,
                 onTap: () => currentScreen.value = CurrentAuthScreen.login),
           ],
         ),

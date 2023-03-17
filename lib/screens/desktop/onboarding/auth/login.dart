@@ -38,7 +38,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 150.w),
+        padding: EdgeInsets.symmetric(horizontal: 0.13.sw),
         child: Form(
           key: _formKey,
           child: Column(
@@ -51,11 +51,11 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: 50.h,
+                        height: 0.01.sh,
                       ),
                       brandText(),
                       SizedBox(
-                        height: 50.0.h,
+                        height: 0.07.sh,
                       ),
                       FlatTextField(
                         controller: emailController,
@@ -77,9 +77,6 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                           });
                         },
                       ),
-                      SizedBox(
-                        height: 10.0.h,
-                      ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
@@ -96,13 +93,13 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 50.0.h,
+                        height: 0.09.sh,
                       ),
                       FlatButton(
                         buttonText: 'Sign In',
                         loading: loading,
                         applyingMargin: false,
-                        verticalPadding: 20.0.h,
+                        verticalPadding: 0.02.sh,
                         onTap: () {
                           navigate(DesktopNavigation(), routeName: '/dashboard');
                           showSuccessSheet('Login successful',
@@ -110,7 +107,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         },
                       ),
                       SizedBox(
-                        height: 30.0.h,
+                        height: 0.06.sh,
                       ),
                       Text(
                         "Or login with",
@@ -121,11 +118,11 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 30.0.h,
+                        height: 0.06.sh,
                       ),
                       Align(alignment: Alignment.center, child: buildSocialRow()),
                       SizedBox(
-                        height: 50.0.h,
+                        height: 0.06.sh,
                       ),
                       Align(
                         alignment: Alignment.center,
