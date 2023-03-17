@@ -7,6 +7,7 @@ import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../screens/mobile/dashboard/practice-mgt/scheduling/scheduled-patients.dart';
@@ -111,12 +112,12 @@ Widget drawerRow(String title, IconData iconData, Widget screen, {active = false
 
 Widget title(String title, {Color? textColor}) {
   return Container(
-    margin: const EdgeInsets.only(top: 10),
+    margin: EdgeInsets.only(top: 0.01.sh),
     child: Row(
       children: [
         Container(
-          width: 5,
-          height: 20,
+          width: 4,
+          height: 18,
           decoration: const BoxDecoration(
             color: ColorPalette.grey,
               borderRadius: BorderRadius.only(
@@ -130,7 +131,7 @@ Widget title(String title, {Color? textColor}) {
         Text(
           title,
           style: TextStyle(
-              fontSize: 15, fontWeight: FontWeight.w900, color: textColor ?? ColorPalette.mainButtonColor),
+              fontSize: 17.sp, fontWeight: FontWeight.w900, color: textColor ?? ColorPalette.mainButtonColor),
         ),
       ],
     ),

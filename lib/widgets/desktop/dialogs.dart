@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../mob-desk/buttons/console-text-button.dart';
 
-void showSuccessSheet(String title, String desc){
+void showSuccessSheet(String title, String desc) {
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
             content: SizedBox(
-              height: Get.height * 0.5,
+              height: 0.5.sh,
               child: Center(
                 child: Column(
                   children: [
                     Lottie.asset('assets/files/success.json',
-                        width: 250, height: 250),
-                    const SizedBox(height: 25),
+                        width: 250, height: 0.2.sh),
+                    SizedBox(height: 0.03.sh),
                     Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 25,
+                      style: TextStyle(
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 0.04.sh),
                     Text(
                       desc,
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 60),
+                    SizedBox(height: 0.06.sh),
                     SizedBox(
                       width: double.infinity,
                       child: FlatButton(
                           buttonText: 'Close',
-                          verticalPadding: 20.0,
+                          verticalPadding: 0.02.sh,
                           onTap: () {
                             Get.back();
                           }),

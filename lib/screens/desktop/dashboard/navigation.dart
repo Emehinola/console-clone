@@ -7,6 +7,7 @@ import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../services/constants.dart';
@@ -36,7 +37,7 @@ class DesktopNavigation extends StatelessWidget {
           children: [
             Container(
               color: ColorPalette.dark,
-              width: Get.width * 0.2,
+              width: 0.2.sw,
               child: SideNavBar(),
             ),
             Expanded(
@@ -61,7 +62,7 @@ class SideNavBar extends StatelessWidget {
       child: Container(
         height: Get.height,
         color: ColorPalette.dark,
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 0.02.sw),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -76,8 +77,8 @@ class SideNavBar extends StatelessWidget {
                     return Row(
                       children: [
                         Container(
-                          width: 5,
-                          height: 20,
+                          width: 4,
+                          height: 18,
                           decoration: BoxDecoration(
                               color:
                               selectedItem.value == CurrentSelectedNavItem.dashboard
@@ -92,7 +93,7 @@ class SideNavBar extends StatelessWidget {
                         Text(
                           "Dashboard",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w900,
                             color: selectedItem.value == CurrentSelectedNavItem.dashboard
                                 ? ColorPalette.secondColor
@@ -108,32 +109,33 @@ class SideNavBar extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   tooltip: 'Refresh',
-                  icon: const Icon(
+                  icon: Icon(
                     FontAwesomeIcons.arrowsRotate,
                     color: Colors.white,
+                    size: 0.012.sw,
                   ),
                 ),
               ],
             ),
+            const Divider(color: ColorPalette.grey,),
             const SizedBox(
               height: 50,
             ),
             title("Practice Management", textColor: Colors.white),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 0.01.sh,
             ),
             Obx((){
               return Column(
                 children: [
                   desktopNavItem('Patient Registration', FontAwesomeIcons.users, CurrentSelectedNavItem.patientReg, active: selectedItem.value == CurrentSelectedNavItem.patientReg,),
                   desktopNavItem('Patient Scheduling', FontAwesomeIcons.calendar, CurrentSelectedNavItem.patientScheduling, active: selectedItem.value == CurrentSelectedNavItem.patientScheduling),
-                  const SizedBox(
-                    height: 30,
+                   SizedBox(
+                    height: 0.05.sh,
                   ),
-                  const Divider(color: ColorPalette.grey,),
                   title('Practice Identification Engine', textColor: Colors.white),
-                  const SizedBox(
-                    height: 30,
+                   SizedBox(
+                    height: 0.01.sh,
                   ),
                   desktopNavItem('Patient Engagement Reg', FontAwesomeIcons.book, CurrentSelectedNavItem.patientEngagementReg, active: selectedItem.value == CurrentSelectedNavItem.patientEngagementReg),
                   desktopNavItem('Demographics', FontAwesomeIcons.chartPie, CurrentSelectedNavItem.demographics, active: selectedItem.value == CurrentSelectedNavItem.demographics),
@@ -161,15 +163,15 @@ Widget desktopNavItem(String title, IconData iconData, CurrentSelectedNavItem sc
           Icon(
             iconData,
             color: active ? ColorPalette.secondColor : ColorPalette.grey,
-            size: 18,
+            size: 0.01.sw,
           ),
-          const SizedBox(
-            width: 20.0,
+          SizedBox(
+            width: 0.01.sw,
           ),
           Text(
             title,
             style: TextStyle(
-                fontSize: isMobile() ? 13 : 17, fontWeight: FontWeight.w500, color: active ? ColorPalette.secondColor : ColorPalette.grey),
+                fontSize: 17.sp, fontWeight: FontWeight.w500, color: active ? ColorPalette.secondColor : ColorPalette.grey),
           ),
         ],
       ),

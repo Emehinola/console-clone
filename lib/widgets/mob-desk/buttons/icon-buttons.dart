@@ -1,6 +1,7 @@
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ConsoleIconButton extends StatelessWidget {
   IconData icon;
@@ -64,11 +65,11 @@ class DesktopConsoleIconButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(icon, color: ColorPalette.greyIcon,),
+            Icon(icon, color: ColorPalette.greyIcon, size: 0.015.sw,),
             const SizedBox(
               width: 15,
             ),
-            Text(text)
+            Text(text, style: TextStyle(fontSize: 17.sp),)
           ],
         ),
       ),

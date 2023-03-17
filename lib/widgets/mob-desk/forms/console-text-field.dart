@@ -346,10 +346,10 @@ class FlatTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    ScreenUtil.init(context, designSize: Size(screenWidth, screenHeight));
+    // double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth = MediaQuery.of(context).size.width;
+    //
+    // ScreenUtil.init(context, designSize: Size(screenWidth, screenHeight));
 
     return GestureDetector(
       onTap: () {
@@ -362,7 +362,7 @@ class FlatTextField extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const SizedBox(height: 10,),
-          Text(hintText, style: const TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5),),
+          Text(hintText, style: TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5, fontSize: 15.sp),),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             constraints: const BoxConstraints(
@@ -388,7 +388,7 @@ class FlatTextField extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     fontSize: 16.0.sp),
                 hintStyle: TextStyle(
-                    color: ColorPalette.hintTextColor,
+                    color: ColorPalette.grey,
                     fontWeight: FontWeight.w400,
                     fontSize: 16.0.sp),
                 disabledBorder: OutlineInputBorder(
@@ -451,10 +451,6 @@ class FlatTextBoxField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    ScreenUtil.init(context, designSize: Size(screenWidth, screenHeight));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

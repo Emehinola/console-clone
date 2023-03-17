@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../mob-desk/theme/color-palette.dart';
@@ -15,14 +16,13 @@ class DesktopPatienntCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-      margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
       child: Column(
         children: [
           Container(
-            height: 50,
+            height: 0.05.sh,
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             color: ColorPalette.fairGrey,
             width: double.infinity,
@@ -39,29 +39,32 @@ class DesktopPatienntCard extends StatelessWidget {
               ],
             ),
           ),
-          ListView(
-            shrinkWrap: true,
-            children: [
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
-              buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
-              buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+          Expanded(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
+                buildRowContent(date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos"),
+                buildRowContent(hasBg: false, date: "23 Jun, 2023", name: 'Emehinola Sam', id: "Q929", groupType: "Family group", acctTier: "Tier 1", contact: "+2348131615393", address: "8, Expressway, Lagos",),
 
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -283,15 +286,15 @@ Widget buildRowContent({hasBg = true, String id = "", String name = "", String d
               const SizedBox(
                 width: 7.0,
               ),
-              Text(id, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: ColorPalette.offBlack),),
+              Text(id, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorPalette.offBlack),),
             ],
           ),
-          Text(date, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: ColorPalette.grey),),
-          Text(name, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: ColorPalette.grey),),
-          Text(groupType, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: ColorPalette.grey),),
-          Text(contact, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: ColorPalette.grey),),
-          Text(acctTier, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: ColorPalette.grey),),
-          Text(address, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: ColorPalette.grey),),
+          Text(date, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorPalette.grey),),
+          Text(name, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorPalette.grey),),
+          Text(groupType, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorPalette.grey),),
+          Text(contact, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorPalette.grey),),
+          Text(acctTier, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorPalette.grey),),
+          Text(address, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorPalette.grey),),
         ],
       ),
     ),
@@ -445,7 +448,7 @@ Widget buildRowItem({bool hasBox = false, String text = ""}){
       if(hasBox) const SizedBox(
         width: 7.0,
       ),
-      Text(text, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Colors.grey),),
+      Text(text, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp, color: Colors.grey),),
       const SizedBox(
         width: 7.0,
       ),

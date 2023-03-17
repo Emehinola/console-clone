@@ -18,25 +18,9 @@ class DesktopDashboard extends StatelessWidget {
           height: 20,
         ),
         const Divider(),
-        const SizedBox(
-          height: 20,
-        ),
         Expanded(
-          child: Column(
-            children: [
-              Container(
-                width: Get.width,
-                // padding: const EdgeInsets.only(left: 20, right: 20),
-                alignment: Alignment.topCenter,
-                child: Column(
-                  children: [
-                    DesktopPatienntCard(
-                      status: "Complete",
-                    ),
-                  ],
-                ),
-              )
-            ],
+          child: DesktopPatienntCard(
+            status: "Complete",
           ),
         ),
       ],
@@ -50,11 +34,10 @@ class HeaderMetrics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20.0, left: 60.0, right: 60.0),
-      height: 150,
+      padding: EdgeInsets.only(top: 0.01.sh, left: 0.017.sw, right: 0.01.sw),
+      height: 0.17.sh,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
             flex: 2,
@@ -65,15 +48,14 @@ class HeaderMetrics extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: ColorPalette.mainButtonColor,
                           borderRadius: BorderRadius.circular(8.0)),
-                      height: 130,
+                      height: 0.15.sh,
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
                           Container(
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(
-                                      './assets/images/wave.png'),
+                                  image: AssetImage('./assets/images/wave.png'),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -86,14 +68,12 @@ class HeaderMetrics extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Image.asset(
                                   './assets/images/new-graph.png',
-                                  height: 50,
+                                  height: 0.04.sh,
                                 ),
                                 const Text(
                                   'Total Users',
@@ -135,7 +115,7 @@ class HeaderMetrics extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: ColorPalette.lightGreen,
                             borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
+                        height: 0.065.sh,
                         padding: const EdgeInsets.only(
                             top: 5, bottom: 5, left: 10, right: 30),
                         child: Row(
@@ -144,50 +124,49 @@ class HeaderMetrics extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                   color: ColorPalette.mainButtonColor,
-                                  borderRadius:
-                                  BorderRadius.circular(8.0)),
+                                  borderRadius: BorderRadius.circular(8.0)),
                               padding: const EdgeInsets.all(5),
-                              child: const Text(
+                              child: Text(
                                 '45',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 30.sp,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                             const SizedBox(
                               width: 10.0,
                             ),
                             Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
                                   'Fully',
                                   style: TextStyle(
                                     color: Colors.black,
+                                    fontSize: 17.sp,
                                   ),
                                 ),
                                 Text(
                                   'Registered',
                                   style: TextStyle(
                                       color: ColorPalette.grey,
-                                      fontSize: 10),
+                                      fontSize: 14.sp),
                                 ),
                               ],
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 20.0,
+                      SizedBox(
+                        height: 0.01.sh,
                       ),
                       Container(
                         decoration: BoxDecoration(
                             color: ColorPalette.lightRed,
                             borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
+                        height: 0.065.sh,
                         padding: const EdgeInsets.only(
                             top: 5, bottom: 5, left: 10, right: 30),
                         child: Row(
@@ -196,36 +175,36 @@ class HeaderMetrics extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                   color: ColorPalette.mainButtonColor,
-                                  borderRadius:
-                                  BorderRadius.circular(8.0)),
+                                  borderRadius: BorderRadius.circular(8.0)),
                               padding: const EdgeInsets.all(5),
-                              child: const Text(
+                              child: Text(
                                 '13',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 30.sp,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                             const SizedBox(
                               width: 10.0,
                             ),
                             Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
                                   'Not Fully',
                                   style: TextStyle(
-                                    color: Colors.black,
-                                  ),
+                                      color: Colors.black, fontSize: 17.sp),
+                                ),
+                                const SizedBox(
+                                  height: 2,
                                 ),
                                 Text(
                                   'Registered',
                                   style: TextStyle(
                                       color: ColorPalette.grey,
-                                      fontSize: 10),
+                                      fontSize: 14.sp),
                                 ),
                               ],
                             ),
@@ -238,40 +217,59 @@ class HeaderMetrics extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            width: 50.0,
+          SizedBox(
+            width: 0.03.sw,
           ),
           Expanded(
-              flex: 3,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: FlatTextField(
-                      hintText: 'Search by parameter',
-                      suffixIcon: CupertinoIcons.search,
-                      fillColor: Colors.white,
-                    ),
+            flex: 3,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          hintText: 'Search by parameter',
+                          suffixIcon: CupertinoIcons.search,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 0.01.sw,
+                              ),
+                              DesktopConsoleIconButton(
+                                icon: IconlyLight.filter,
+                                text: 'Filter',
+                              ),
+                              SizedBox(
+                                width: 0.01.sw,
+                              ),
+                              DesktopConsoleIconButton(
+                                icon: Icons.filter_list,
+                                text: 'Sort',
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 0.017.sh,
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    width: 50.0,
-                  ),
-                  DesktopConsoleIconButton(
-                    icon: IconlyLight.filter,
-                    text: 'Filter',
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  DesktopConsoleIconButton(
-                    icon: Icons.filter_list,
-                    text: 'Sort',
-                  ),
-                ],
-              ))
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
