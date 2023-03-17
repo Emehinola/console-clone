@@ -1,4 +1,5 @@
 import 'package:console/services/navigate.dart';
+import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/notification/snack-notification.dart';
@@ -103,7 +104,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                       verticalPadding: 20.0,
                       onTap: (){
                         navigate( DesktopNavigation(), routeName: '/dashboard');
-                        consoleSnackNotification('Login successful!', header: 'Success');
+                        showSuccessSheet('Login successful', 'You have successfully logged In!');
                       },
                     ),
                     SizedBox(

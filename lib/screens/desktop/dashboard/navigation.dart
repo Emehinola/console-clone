@@ -1,5 +1,7 @@
 import 'package:console/screens/desktop/dashboard/dashbaord-items/practice-management/patient-reg.dart';
+import 'package:console/screens/desktop/dashboard/dashbaord-items/practice-management/patient-schedule.dart';
 import 'package:console/screens/desktop/dashboard/dashboard.dart';
+import 'package:console/screens/desktop/dashboard/patient-id-engine/identification-matching.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
@@ -9,12 +11,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../services/constants.dart';
 import '../../../widgets/mobile/drawer.dart';
-import '../../mobile/dashboard/identification-engine/demographics.dart';
-import '../../mobile/dashboard/identification-engine/engagement-reg.dart';
-import '../../mobile/dashboard/identification-engine/identification-matching.dart';
-import '../../mobile/dashboard/identification-engine/identification.dart';
-import '../../mobile/dashboard/practice-mgt/registration/patients.dart';
-import '../../mobile/dashboard/practice-mgt/scheduling/scheduled-patients.dart';
+import 'patient-id-engine/demographics.dart';
+import 'patient-id-engine/identification.dart';
+import 'patient-id-engine/patient-engagement.dart';
 
 class DesktopNavigation extends StatelessWidget {
   DesktopNavigation({Key? key}) : super(key: key);
@@ -22,11 +21,11 @@ class DesktopNavigation extends StatelessWidget {
   Map<CurrentSelectedNavItem, Widget> screenMap = {
     CurrentSelectedNavItem.dashboard: DesktopDashboard(),
     CurrentSelectedNavItem.patientReg: const DesktopPatientRegistration(),
-    CurrentSelectedNavItem.patientScheduling: const DesktopPatientRegistration(),
-    CurrentSelectedNavItem.patientEngagementReg: const DesktopPatientRegistration(),
-    CurrentSelectedNavItem.demographics: const DesktopPatientRegistration(),
-    CurrentSelectedNavItem.identification: const DesktopPatientRegistration(),
-    CurrentSelectedNavItem.identityMatching: const DesktopPatientRegistration(),
+    CurrentSelectedNavItem.patientScheduling: const DesktopPatientSchedule(),
+    CurrentSelectedNavItem.patientEngagementReg: const DesktopPatientEngagement(),
+    CurrentSelectedNavItem.demographics: DesktopDemography(),
+    CurrentSelectedNavItem.identification: DesktopIdentification(),
+    CurrentSelectedNavItem.identityMatching: DesktopIdentificationMatching(),
   };
 
   @override
@@ -126,8 +125,8 @@ class SideNavBar extends StatelessWidget {
             Obx((){
               return Column(
                 children: [
-                  desktopNavItem('Patient Registration', FontAwesomeIcons.users, const DesktopPatientRegistration(), active: selectedItem.value == CurrentSelectedNavItem.patientReg,),
-                  desktopNavItem('Patient Scheduling', FontAwesomeIcons.calendar, const DesktopPatientRegistration(), active: selectedItem.value == CurrentSelectedNavItem.patientScheduling),
+                  desktopNavItem('Patient Registration', FontAwesomeIcons.users, CurrentSelectedNavItem.patientReg, active: selectedItem.value == CurrentSelectedNavItem.patientReg,),
+                  desktopNavItem('Patient Scheduling', FontAwesomeIcons.calendar, CurrentSelectedNavItem.patientScheduling, active: selectedItem.value == CurrentSelectedNavItem.patientScheduling),
                   const SizedBox(
                     height: 30,
                   ),
@@ -136,10 +135,10 @@ class SideNavBar extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  desktopNavItem('Patient Engagement Reg', FontAwesomeIcons.book, const EngagementReg(), active: selectedItem.value == CurrentSelectedNavItem.patientEngagementReg),
-                  desktopNavItem('Demographics', FontAwesomeIcons.chartPie, const Demography(), active: selectedItem.value == CurrentSelectedNavItem.demographics),
-                  desktopNavItem('Identification', FontAwesomeIcons.passport, const Identification(), active: selectedItem.value == CurrentSelectedNavItem.identification),
-                  desktopNavItem('Identity Matching', CupertinoIcons.arrow_swap, const IdentificationMatching(), active: selectedItem.value == CurrentSelectedNavItem.identityMatching),
+                  desktopNavItem('Patient Engagement Reg', FontAwesomeIcons.book, CurrentSelectedNavItem.patientEngagementReg, active: selectedItem.value == CurrentSelectedNavItem.patientEngagementReg),
+                  desktopNavItem('Demographics', FontAwesomeIcons.chartPie, CurrentSelectedNavItem.demographics, active: selectedItem.value == CurrentSelectedNavItem.demographics),
+                  desktopNavItem('Identification', FontAwesomeIcons.passport, CurrentSelectedNavItem.identification, active: selectedItem.value == CurrentSelectedNavItem.identification),
+                  desktopNavItem('Identity Matching', CupertinoIcons.arrow_swap, CurrentSelectedNavItem.identityMatching, active: selectedItem.value == CurrentSelectedNavItem.identityMatching),
                 ],
               );
             })
@@ -150,10 +149,10 @@ class SideNavBar extends StatelessWidget {
   }
 }
 
-Widget desktopNavItem(String title, IconData iconData, Widget screen, {active = false}) {
+Widget desktopNavItem(String title, IconData iconData, CurrentSelectedNavItem screen, {active = false}) {
   return GestureDetector(
     onTap: (){
-      selectedItem.value = CurrentSelectedNavItem.patientReg;
+      selectedItem.value = screen;
     },
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),

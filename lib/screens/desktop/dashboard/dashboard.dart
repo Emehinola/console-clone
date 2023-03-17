@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-
+import '../../../widgets/desktop/patient-list-tiles.dart';
 import '../../../widgets/mob-desk/buttons/icon-buttons.dart';
-import '../../../widgets/mob-desk/custom/cards.dart';
 import '../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../widgets/mob-desk/theme/color-palette.dart';
 
