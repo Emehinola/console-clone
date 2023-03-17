@@ -1,4 +1,4 @@
-import 'package:console/screens/mobile/onboarding/welcome-screen.dart';
+import 'package:console/screens/mobile/onboarding/platform-selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               fontFamily: 'Roobert',
             ),
-            home: const WelcomeScreen(),
+            home: const SelectWelcomeScreen(),
           );
         });
   }

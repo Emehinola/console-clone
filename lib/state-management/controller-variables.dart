@@ -1,0 +1,1 @@
+enum CurrentAuthScreen {login, singUp}

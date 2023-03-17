@@ -388,20 +388,20 @@ class FlatTextField extends StatelessWidget {
             disabledBorder: OutlineInputBorder(
               borderSide:
               const BorderSide(color: Colors.transparent, width: 0.0),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(12.0),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide:
               const BorderSide(color: Colors.transparent, width: 0.0),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(12.0),
             ),
             border: OutlineInputBorder(
               borderSide:
               const BorderSide(color: Colors.transparent, width: 0.0),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(12.0),
             ),
             filled: true,
-            fillColor: fillColor ?? ColorPalette.textFieldBg,
+            fillColor: fillColor ?? ColorPalette.formBg,
             suffix: suffix,
             counter: null,
             counterText: '',
@@ -481,7 +481,7 @@ class FlatTextBoxField extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
           ),
           filled: true,
-          fillColor: ColorPalette.textFieldBg,
+          fillColor: ColorPalette.formBg,
         ),
       ),
     );
