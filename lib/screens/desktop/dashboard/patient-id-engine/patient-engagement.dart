@@ -3,6 +3,7 @@ import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/desktop/patient-list-tiles.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
@@ -39,21 +40,8 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
             child: Row(
               children: [
                 Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: Get.width,
-                        // padding: const EdgeInsets.only(left: 20, right: 20),
-                        alignment: Alignment.topCenter,
-                        child: Column(
-                          children: [
-                            DesktopPatienntScheduleTable(
-                              status: "Complete",
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                  child: DesktopPatienntScheduleTable(
+                    status: "Complete",
                   ),
                 ),
                 const Expanded(
@@ -98,11 +86,11 @@ class EngagemenntRegistration extends StatelessWidget {
                   ),
                   color: Colors.white,
                 ),
-                child: const Text(
+                child: Text(
                   'Patient Engagement Registration',
                   style: TextStyle(
                     color: ColorPalette.grey,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -143,39 +131,39 @@ class EngagemenntRegistration extends StatelessWidget {
                         children: [
                           Expanded(
                               child:
-                              FlatTextBoxField(hintText: 'Bio data')),
+                              FlatTextBoxField(hintText: 'Bio data', minLines: 3, maxLines: 4,)),
                           const SizedBox(
                             width: 20.0,
                           ),
                           Expanded(
                               child: FlatTextBoxField(
-                                  hintText: 'Health Record')),
+                                  hintText: 'Health Record', minLines: 3, maxLines: 4,)),
                         ],
                       ),
                       Row(
                         children: [
                           Expanded(
                               child: FlatTextBoxField(
-                                  hintText: 'Account Tier')),
+                                  hintText: 'Account Tier', minLines: 3, maxLines: 4,)),
                           const SizedBox(
                             width: 20.0,
                           ),
                           Expanded(
                               child: FlatTextBoxField(
-                                  hintText: 'Contact Details')),
+                                  hintText: 'Contact Details', minLines: 3, maxLines: 4,)),
                         ],
                       ),
                       Row(
                         children: [
                           Expanded(
                               child: FlatTextBoxField(
-                                  hintText: 'Principal Designation')),
+                                  hintText: 'Principal Designation', minLines: 3, maxLines: 4,)),
                           const SizedBox(
                             width: 20.0,
                           ),
                           Expanded(
                             child: FlatTextBoxField(
-                                hintText: 'Principal Work Details'),
+                                hintText: 'Principal Work Details', minLines: 3, maxLines: 4,),
                           ),
                         ],
                       ),
@@ -212,7 +200,7 @@ class EngagemenntRegistration extends StatelessWidget {
                       FlatButton(
                         buttonText: 'Register',
                         applyingMargin: false,
-                        verticalPadding: 20.0,
+                        verticalPadding: 0.02.sh,
                         horPaddding: 40,
                       ),
                       const SizedBox(

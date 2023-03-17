@@ -6,6 +6,7 @@ import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:console/widgets/mobile/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../services/validation-service.dart';
 
@@ -35,13 +36,14 @@ class _DesktopPatientRegistrationState
           const SizedBox(
             height: 20,
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 60.0),
+           Padding(
+            padding: EdgeInsets.only(left: 0.02.sw),
             child: Text(
               "Patient Registration",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
             ),
           ),
+          SizedBox(height: 0.03.sh,),
           Expanded(
             child: SizedBox(
               child: Row(
@@ -49,7 +51,7 @@ class _DesktopPatientRegistrationState
                   Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                      padding: EdgeInsets.symmetric(horizontal: 0.02.sw),
                       child: Form(
                         key: _formKey,
                         child: ListView(
@@ -87,39 +89,39 @@ class _DesktopPatientRegistrationState
                               children: [
                                 Expanded(
                                     child:
-                                        FlatTextBoxField(hintText: 'Bio data')),
+                                        FlatTextBoxField(hintText: 'Bio data', minLines: 3, maxLines: 4,)),
                                 const SizedBox(
                                   width: 20.0,
                                 ),
                                 Expanded(
                                     child: FlatTextBoxField(
-                                        hintText: 'Health Record')),
+                                        hintText: 'Health Record', minLines: 3, maxLines: 4,)),
                               ],
                             ),
                             Row(
                               children: [
                                 Expanded(
                                     child: FlatTextBoxField(
-                                        hintText: 'Account Tier')),
+                                        hintText: 'Account Tier', minLines: 3, maxLines: 4,)),
                                 const SizedBox(
                                   width: 20.0,
                                 ),
                                 Expanded(
                                     child: FlatTextBoxField(
-                                        hintText: 'Contact Details')),
+                                        hintText: 'Contact Details', minLines: 3, maxLines: 4,)),
                               ],
                             ),
                             Row(
                               children: [
                                 Expanded(
                                     child: FlatTextBoxField(
-                                        hintText: 'Principal Designation')),
+                                        hintText: 'Principal Designation', minLines: 3, maxLines: 4,)),
                                 const SizedBox(
                                   width: 20.0,
                                 ),
                                 Expanded(
                                   child: FlatTextBoxField(
-                                      hintText: 'Principal Work Details'),
+                                      hintText: 'Principal Work Details', minLines: 3, maxLines: 4,),
                                 ),
                               ],
                             ),
@@ -161,19 +163,19 @@ class _DesktopPatientRegistrationState
                                 OutlinedBtn(
                                   buttonText: 'Preview',
                                   applyingMargin: false,
-                                  verticalPadding: 20.0,
+                                  verticalPadding: 0.018.sh,
                                   borderColor: ColorPalette.mainButtonColor,
                                   textColor: ColorPalette.mainButtonColor,
-                                  horPadding: 40,
+                                  horPadding: 0.05.sw,
                                 ),
-                                const SizedBox(
-                                  width: 50,
+                                SizedBox(
+                                  width: 0.02.sw,
                                 ),
                                 FlatButton(
                                   buttonText: 'Submit',
                                   applyingMargin: false,
-                                  verticalPadding: 20.0,
-                                  horPaddding: 40,
+                                  verticalPadding: 0.018.sh,
+                                  horPaddding: 0.05.sw,
                                 ),
                               ],
                             ),
@@ -188,88 +190,16 @@ class _DesktopPatientRegistrationState
                   Expanded(
                     flex: 1,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            "Registration Preview",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(
-                            height: 30.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              title('Personal Info',
-                                  textColor: ColorPalette.grey),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(child: previewText('Full Name', 'Emehinola Samuel')),
-                                  Expanded(child: previewText('Bio Data', 'A programmer')),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              title('Contact Details',
-                                  textColor: ColorPalette.grey),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: previewText(
-                                          'Phone Number', '+2348131615393')),
-                                  Expanded(
-                                    child: previewText(
-                                        'Address', '8, Expressway, Lagos'),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              title('Employment Record',
-                                  textColor: ColorPalette.grey),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: previewText(
-                                        'Principal Details', 'Pa. Adebanjo'),
-                                  ),
-                                  Expanded(
-                                      child: previewText(
-                                          'Principal Work Details',
-                                          'Pa. Adebanjo is a professional Architect')),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              title('Medical Record',
-                                  textColor: ColorPalette.grey),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              previewText('Health Record',
-                                  'Great health record. Thank God for that'),
-                            ],
-                          )
+                          OutlinedBtn(buttonText: 'Schedule Patient', verticalPadding: 0.015.sh, borderColor: ColorPalette.mainButtonColor, textColor: ColorPalette.mainButtonColor,),
+                          SizedBox(height: 0.02.sh,),
+                          FlatButton(buttonText: 'Engage Patient', verticalPadding: 0.015.sh,),
                         ],
                       ),
-                    ),
+                    )
                   )
                 ],
               ),

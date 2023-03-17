@@ -1,6 +1,7 @@
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 
@@ -97,7 +98,6 @@ class PatientCard extends StatelessWidget {
   }
 }
 
-
 class SchedulePatientCard extends StatelessWidget {
   String status;
   Function()? onTap;
@@ -132,21 +132,26 @@ class SchedulePatientCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Icon(
                           IconlyBold.user_2,
                           color: ColorPalette.greyIcon,
+                          size: 18.sp,
+                        ),
+                        const SizedBox(
+                          width: 5.0,
                         ),
                         Text(
                           "ID: QH29",
-                          style: TextStyle(fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 16.sp),
                         ),
                       ],
                     ),
-                    const Text(
+                    Text(
                       "08 Aug 20, 08:00 -> 14 Aug 23, 06:00",
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           color: ColorPalette.darkBlue),
                     )
@@ -418,13 +423,15 @@ Widget rowCard(String title, String text,
       children: [
         Text(
           title,
-          style:
-              const TextStyle(fontWeight: FontWeight.w500, color: Colors.grey),
+          style: TextStyle(
+              fontWeight: FontWeight.w500, color: Colors.grey, fontSize: 16.sp),
         ),
         Text(
           text,
-          style:
-              const TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontSize: 16.sp),
         ),
       ],
     ),

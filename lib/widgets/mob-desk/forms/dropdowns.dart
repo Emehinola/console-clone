@@ -33,7 +33,7 @@ class ConsoleDropdown extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   label ?? '',
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5, fontSize: 16.sp),
                 ),
               ],
             )),
@@ -45,7 +45,7 @@ class ConsoleDropdown extends StatelessWidget {
               borderRadius: BorderRadius.circular(16.0)),
           padding: const EdgeInsets.symmetric(horizontal: 10),
           margin: const EdgeInsets.symmetric(vertical: 8),
-          constraints: const BoxConstraints(minHeight: 55),
+          constraints: const BoxConstraints(minHeight: 50),
           child: DropdownButtonHideUnderline(
             child: DropdownButton(
               icon: const Icon(

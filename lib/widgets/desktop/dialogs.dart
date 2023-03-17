@@ -26,7 +26,7 @@ void showSuccessSheet(String title, String desc) {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 0.04.sh),
+                    SizedBox(height: 0.02.sh),
                     Text(
                       desc,
                       textAlign: TextAlign.center,

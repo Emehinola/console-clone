@@ -1,6 +1,7 @@
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../widgets/desktop/patient-list-tiles.dart';
@@ -21,21 +22,8 @@ class DesktopIdentification extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: Column(
-                  children: [
-                    Container(
-                      width: Get.width,
-                      // padding: const EdgeInsets.only(left: 20, right: 20),
-                      alignment: Alignment.topCenter,
-                      child: Column(
-                        children: [
-                          IdentificationTable(
-                            status: "Complete",
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                child: IdentificationTable(
+                  status: "Complete",
                 ),
               ),
               Expanded(
@@ -45,13 +33,13 @@ class DesktopIdentification extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        OutlinedBtn(buttonText: 'Schedule Patient for Appointment', verticalPadding: 20, borderColor: ColorPalette.mainButtonColor, textColor: ColorPalette.mainButtonColor,),
-                        const SizedBox(height: 30,),
-                        FlatButton(buttonText: 'Engage Patient', verticalPadding: 20,),
+                        OutlinedBtn(buttonText: 'Schedule Patient', verticalPadding: 0.015.sh, borderColor: ColorPalette.mainButtonColor, textColor: ColorPalette.mainButtonColor,),
+                        SizedBox(height: 0.02.sh,),
+                        FlatButton(buttonText: 'Engage Patient', verticalPadding: 0.015.sh,),
                       ],
                     ),
                   )
-              ),
+              )
             ],
           ),
         ),

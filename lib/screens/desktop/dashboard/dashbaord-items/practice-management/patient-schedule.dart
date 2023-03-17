@@ -4,6 +4,7 @@ import 'package:console/widgets/desktop/patient-list-tiles.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../widgets/mob-desk/custom/cards.dart';
@@ -32,33 +33,15 @@ class _PatientsListState extends State<DesktopPatientSchedule> {
         children: [
           const HeaderMetrics(),
           const Divider(),
-          const SizedBox(
-            height: 20,
-          ),
           Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: Get.width,
-                        // padding: const EdgeInsets.only(left: 20, right: 20),
-                        alignment: Alignment.topCenter,
-                        child: Column(
-                          children: [
-                            DesktopPatienntScheduleTable(
-                              status: "Complete",
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                  child: DesktopPatienntScheduleTable(
+                    status: "Complete",
                   ),
                 ),
-                const Expanded(
-                  child: BuildScheduleCalendar()
-                ),
+                const Expanded(child: BuildScheduleCalendar()),
               ],
             ),
           ),
@@ -74,74 +57,73 @@ class BuildScheduleCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width,
-      // padding: const EdgeInsets.only(left: 20, right: 20),
-      alignment: Alignment.topCenter,
-      padding: const EdgeInsets.symmetric(horizontal: 60),
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+        width: Get.width,
+        // padding: const EdgeInsets.only(left: 20, right: 20),
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.symmetric(horizontal: 60),
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  color: Colors.white,
                 ),
-                color: Colors.white,
-              ),
-              child: const Text(
-                'Patient Scheduler',
-                style: TextStyle(
-                  color: ColorPalette.grey,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                child: Text(
+                  'Patient Scheduler',
+                  style: TextStyle(
+                    color: ColorPalette.grey,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SchedulePatientCard(
-                      status: 'Schedule',
-                    ),
-                    CalendarDatePicker2(
-                      config: CalendarDatePicker2Config(
-                        calendarType: CalendarDatePicker2Type.single,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                      onValueChanged: (dates) {},
-                      initialValue: [],
-                    ),
-                    FlatButton(
-                      buttonText: 'Commit',
-                      verticalPadding: 20,
-                      onTap: () {
-                        showSuccessSheet('Success!', 'Appointment schedule submitted successfully');
-                      },
-                    )
-                  ],
+                      SchedulePatientCard(
+                        status: 'Schedule',
+                      ),
+                      CalendarDatePicker2(
+                        config: CalendarDatePicker2Config(
+                          calendarType: CalendarDatePicker2Type.single,
+                        ),
+                        onValueChanged: (dates) {},
+                        initialValue: [],
+                      ),
+                      FlatButton(
+                        buttonText: 'Commit',
+                        verticalPadding: 0.02.sh,
+                        onTap: () {
+                          showSuccessSheet('Success!',
+                              'Appointment schedule submitted successfully');
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      )
-    );
+            ],
+          ),
+        ));
   }
 }
-

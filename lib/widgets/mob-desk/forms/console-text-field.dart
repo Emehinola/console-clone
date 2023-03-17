@@ -456,7 +456,7 @@ class FlatTextBoxField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10,),
-        Text(hintText!, style: const TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5),),
+        Text(hintText!, style: TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5, fontSize: 15.sp),),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           constraints: const BoxConstraints(
