@@ -115,11 +115,11 @@ class FlatButton extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         margin: applyingMargin
-            ? const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0)
+            ? EdgeInsets.only(bottom: 20.0.h, left: 20.0.w, right: 20.0.w)
             : EdgeInsets.zero,
-        padding: EdgeInsets.symmetric(horizontal: horPaddding ?? 15.0, vertical: verticalPadding ?? 10),
+        padding: EdgeInsets.symmetric(horizontal: horPaddding ?? 15.0.w, vertical: verticalPadding ?? 10.h),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8.0.r),
           color: backgroundColor ??
               (disabled
                   ? ColorPalette.lightGrey
@@ -158,7 +158,7 @@ class FlatButton extends StatelessWidget {
                       color: Colors.white,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w700,
-                      fontSize: ScreenUtil().setSp(16.0),
+                      fontSize: 16.sp,
                     ),
                   ),
                 ],
@@ -206,11 +206,11 @@ class OutlinedBtn extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         margin: applyingMargin
-            ? const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0)
+            ?  EdgeInsets.only(bottom: 20.0.h, left: 20.0.w, right: 20.0.w)
             : EdgeInsets.zero,
-        padding: EdgeInsets.symmetric(horizontal: horPadding ?? 15.0, vertical: verticalPadding ?? 10),
+        padding: EdgeInsets.symmetric(horizontal: horPadding ?? 15.0.w, vertical: verticalPadding ?? 10.h),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8.0.r),
           border: Border.all(width: 1.5, color: borderColor ?? ColorPalette.secondColor),
           color: Colors.transparent,
         ),
@@ -247,7 +247,7 @@ class OutlinedBtn extends StatelessWidget {
                       color: textColor ?? Colors.white,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w700,
-                      fontSize: ScreenUtil().setSp(16.0),
+                      fontSize: 16.sp,
                     ),
                   ),
                 ],

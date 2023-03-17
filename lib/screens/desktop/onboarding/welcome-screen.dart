@@ -57,31 +57,31 @@ class LeftPanel extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+             Text(
               'Welcome,',
-              style: TextStyle(fontSize: 25, color: Colors.white),
+              style: TextStyle(fontSize: 25.sp, color: Colors.white),
             ),
-            const SizedBox(
-              height: 100,
+             SizedBox(
+              height: 100.h,
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: Image.asset(
                 './assets/images/console.jpeg',
-                height: 200,
+                height: 200.h,
               ),
             ),
-            const SizedBox(
-              height: 100,
+            SizedBox(
+              height: 100.h,
             ),
             OutlinedBtn(
               buttonText: 'Create Account',
-              verticalPadding: 20,
+              verticalPadding: 20.h,
               onTap: () => currentScreen.value = CurrentAuthScreen.singUp,
             ),
             FlatButton(
                 buttonText: 'Sign In',
-                verticalPadding: 20,
+                verticalPadding: 20.h,
                 onTap: () => currentScreen.value = CurrentAuthScreen.login),
           ],
         ),
