@@ -9,21 +9,21 @@ import 'package:flutter/material.dart';
 
 import '../../../../../services/validation-service.dart';
 
-class PatientRegistration extends StatefulWidget {
-  const PatientRegistration({Key? key}) : super(key: key);
+class PatientEngagementRegistration extends StatefulWidget {
+  const PatientEngagementRegistration({Key? key}) : super(key: key);
 
   @override
-  _PatientRegistrationState createState() => _PatientRegistrationState();
+  _PatientEngagementRegistrationState createState() => _PatientEngagementRegistrationState();
 }
 
-class _PatientRegistrationState extends State<PatientRegistration> {
+class _PatientEngagementRegistrationState extends State<PatientEngagementRegistration> {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return ConsoleScaffold(
       appBar: appBar(
-        title: 'Patient Registration',
+        title: 'Patient Engagemennt Registration',
       ),
       bottomBar: ConsoleTextButton(
         buttonText: 'SUBMIT',
@@ -33,14 +33,11 @@ class _PatientRegistrationState extends State<PatientRegistration> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            title('Personal Info', textColor: ColorPalette.offBlack),
             FlatTextField(
               hintText: 'Full Name',
             ),
             FlatTextBoxField(hintText: 'Bio data'),
-            title('Medical Info', textColor: ColorPalette.offBlack),
             FlatTextBoxField(hintText: 'Health Record'),
-            title('Account Info', textColor: ColorPalette.offBlack),
             FlatTextBoxField(hintText: 'Account Tier'),
             ConsoleDropdown(
               label: 'Group Type',
@@ -56,7 +53,6 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                 });
               },
             ),
-            title('Contact Info', textColor: ColorPalette.offBlack),
             Row(
               children: [
                 Expanded(
@@ -82,7 +78,6 @@ class _PatientRegistrationState extends State<PatientRegistration> {
               ],
             ),
             FlatTextBoxField(hintText: 'Contact Details'),
-            title('Principal Info', textColor: ColorPalette.offBlack),
             FlatTextBoxField(hintText: 'Principal Designation'),
             FlatTextBoxField(hintText: 'Principal Work Details'),
             const SizedBox(

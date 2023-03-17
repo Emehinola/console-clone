@@ -87,7 +87,7 @@ class _MainDashboardState extends State<MainDashboard> {
       body: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(color: Colors.black),
+            decoration: const BoxDecoration(color: ColorPalette.dark),
             padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,5 +1,5 @@
 import 'package:console/screens/mobile/dashboard/identification-engine/demographics.dart';
-import 'package:console/screens/mobile/dashboard/identification-engine/engagement-reg.dart';
+import 'package:console/screens/mobile/dashboard/identification-engine/engagement/engagement-reg.dart';
 import 'package:console/screens/mobile/dashboard/identification-engine/identification-matching.dart';
 import 'package:console/screens/mobile/dashboard/identification-engine/identification.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patients.dart';
@@ -130,7 +130,7 @@ Widget title(String title, {Color? textColor}) {
         Text(
           title,
           style: TextStyle(
-              fontSize: 15, fontWeight: FontWeight.w900, color: textColor ?? Colors.white),
+              fontSize: 15, fontWeight: FontWeight.w900, color: textColor ?? ColorPalette.mainButtonColor),
         ),
       ],
     ),
