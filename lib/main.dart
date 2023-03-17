@@ -2,11 +2,12 @@ import 'package:console/screens/mobile/onboarding/platform-selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:desktop_window/desktop_window.dart';
 
 
 void main() async {
   runApp(const MyApp());
-  // FlutterNativeSplash.remove();
+  await testWindowFunctions();
 }
 
 class MyApp extends StatelessWidget {
@@ -31,4 +32,20 @@ class MyApp extends StatelessWidget {
           );
         });
   }
+}
+
+
+Future testWindowFunctions() async {
+  Size size = await DesktopWindow.getWindowSize();
+  print(size);
+  await DesktopWindow.setWindowSize(size);
+
+  await DesktopWindow.setMinWindowSize(size);
+  await DesktopWindow.setMaxWindowSize(size);
+
+  // await DesktopWindow.resetMaxWindowSize();
+  // await DesktopWindow.toggleFullScreen();
+  // bool isFullScreen = await DesktopWindow.getFullScreen();
+  // await DesktopWindow.setFullScreen(true);
+  // await DesktopWindow.setFullScreen(false);
 }
