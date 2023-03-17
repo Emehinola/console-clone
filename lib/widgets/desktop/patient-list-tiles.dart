@@ -423,6 +423,7 @@ Widget buildIdentificationRowContent({hasBg = true, String id = "", String name 
           Text(date, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
           Text(name, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
           Text(groupId, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
+          Text('Individual', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
         ],
       ),
     ),
