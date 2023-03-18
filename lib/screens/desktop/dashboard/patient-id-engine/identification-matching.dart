@@ -33,6 +33,8 @@ class DesktopIdentificationMatching extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Image.asset('./assets/images/schedule.png', height: 0.15.sh,),
+                        SizedBox(height: 0.1.sh,),
                         OutlinedBtn(buttonText: 'Schedule Patient', verticalPadding: 0.015.sh, borderColor: ColorPalette.mainButtonColor, textColor: ColorPalette.mainButtonColor,),
                         SizedBox(height: 0.02.sh,),
                         FlatButton(buttonText: 'Engage Patient', verticalPadding: 0.015.sh,),
