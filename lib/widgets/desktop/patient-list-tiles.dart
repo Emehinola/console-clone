@@ -268,6 +268,69 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
   }
 }
 
+class RegisteredPatient extends StatelessWidget {
+  String status;
+
+  RegisteredPatient({
+    required this.status,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      margin: const EdgeInsets.only(bottom: 10.0),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 0.05.sh,
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            color: ColorPalette.fairGrey,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildRowItem(hasBox: true, text: 'ID'),
+                buildRowItem(text: 'PATIENT NAME'),
+                buildRowItem(text: 'STATUS'),
+                buildRowItem(text: 'STATUS BY PERCENT'),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+                buildRegRowContent(status: "Completed", name: 'Emehinola Sam', id: "Q929", percent: "100%",),
+                buildRegRowContent(hasBg: false,status: "Incomplete", name: 'Joseph Onipeded', id: "Q003", percent: "76%",),
+
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 Widget buildRowContent({hasBg = true, String id = "", String name = "", String date = "", String groupType = "", String contact = "", String acctTier = "", String address = ""}){
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -343,6 +406,45 @@ Widget buildScheduleRowContent({hasBg = true, String id = "", String name = "", 
           Text(name, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
           Text(caseType, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
           Text(date, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget buildRegRowContent({hasBg = true, String id = "", String name = "", String status = "", String percent = "",}){
+  return Container(
+    color: hasBg ? ColorPalette.lightMain2 : Colors.white,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Row(
+                children: [
+                  Checkbox(
+                    value: false,
+                    onChanged: (value) {},
+                    side: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                    fillColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.white),
+                  ),
+                  const Icon(CupertinoIcons.person_solid, size: 15, color: Colors.grey,),
+                ],
+              ),
+              const SizedBox(
+                width: 7.0,
+              ),
+              Text(id, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.offBlack),),
+            ],
+          ),
+          Text(name, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
+          Text(status, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
+          Text(percent, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp, color: ColorPalette.grey),),
         ],
       ),
     ),
