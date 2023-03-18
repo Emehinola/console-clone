@@ -458,7 +458,7 @@ Widget buildRowItem({bool hasBox = false, String text = ""}){
       if(hasBox) const SizedBox(
         width: 7.0,
       ),
-      Text(text, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp, color: Colors.grey),),
+      Text(text, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp, color: Colors.grey),),
       const SizedBox(
         width: 7.0,
       ),

@@ -365,8 +365,8 @@ class FlatTextField extends StatelessWidget {
           Text(hintText, style: TextStyle(fontWeight: FontWeight.bold, color: ColorPalette.grey, letterSpacing: 1.5, fontSize: 15.sp),),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            constraints: const BoxConstraints(
-              minHeight: 50,
+            constraints: BoxConstraints(
+              maxHeight: 0.09.sh,
             ),
             child: TextFormField(
               controller: controller,

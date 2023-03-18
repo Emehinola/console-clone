@@ -51,7 +51,7 @@ class _DesktopPatientRegistrationState
                   Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0.02.sw),
+                      padding: EdgeInsets.only(left: 0.02.sw, right: 0.1.sw),
                       child: Form(
                         key: _formKey,
                         child: ListView(
@@ -194,6 +194,8 @@ class _DesktopPatientRegistrationState
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Image.asset('./assets/images/schedule.png', height: 0.2.sh,),
+                          SizedBox(height: 0.1.sh,),
                           OutlinedBtn(buttonText: 'Schedule Patient', verticalPadding: 0.015.sh, borderColor: ColorPalette.mainButtonColor, textColor: ColorPalette.mainButtonColor,),
                           SizedBox(height: 0.02.sh,),
                           FlatButton(buttonText: 'Engage Patient', verticalPadding: 0.015.sh,),
