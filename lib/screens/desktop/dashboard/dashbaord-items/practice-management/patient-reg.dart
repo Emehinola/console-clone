@@ -73,11 +73,11 @@ class _DesktopPatientRegistrationState
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              './assets/images/schedule.png',
+                              showForm ? './assets/images/reg.png' : './assets/images/reg-new.png',
                               height: 0.2.sh,
                             ),
                             SizedBox(
-                              height: 0.1.sh,
+                              height: 0.06.sh,
                             ),
                             AnimatedCrossFade(
                               duration: const Duration(milliseconds: 600),

@@ -40,7 +40,7 @@ class DesktopDemography extends StatelessWidget {
                           height: 0.15.sh,
                         ),
                         SizedBox(
-                          height: 0.1.sh,
+                          height: 0.06.sh,
                         ),
                         OutlinedBtn(
                           buttonText: 'Schedule Patient',
