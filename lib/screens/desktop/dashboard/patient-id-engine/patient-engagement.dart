@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:console/widgets/desktop/patient-list-tiles.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../widgets/desktop/dialogs.dart';
+import '../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../widgets/mob-desk/forms/dropdowns.dart';
 import '../dashboard.dart';
@@ -42,7 +45,7 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
                     status: "Complete",
                   ),
                 ),
-                const Expanded(child: EngagemenntRegistration()),
+                const Expanded(child: BuildEngagementCard()),
               ],
             ),
           ),
@@ -208,7 +211,9 @@ class EngagemenntRegistration extends StatelessWidget {
                             textColor: ColorPalette.mainButtonColor,
                             applyingMargin: false,
                           ),
-                          const SizedBox(width: 20.0,),
+                          const SizedBox(
+                            width: 20.0,
+                          ),
                           FlatButton(
                             buttonText: 'Register',
                             applyingMargin: false,
@@ -219,6 +224,109 @@ class EngagemenntRegistration extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class BuildEngagementCard extends StatelessWidget {
+  const BuildEngagementCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: Get.width,
+        // padding: const EdgeInsets.only(left: 20, right: 20),
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.symmetric(horizontal: 60),
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  color: Colors.white,
+                ),
+                child: Text(
+                  'Patient Engagement',
+                  style: TextStyle(
+                    color: ColorPalette.grey,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SchedulePatientCard(
+                        status: 'Engaged',
+                      ),
+                      Text(
+                        "Pick Engagement Date",
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w400,
+                            color: ColorPalette.grey),
+                      ),
+                      CalendarDatePicker2(
+                        config: CalendarDatePicker2Config(
+                          calendarType: CalendarDatePicker2Type.single,
+                        ),
+                        onValueChanged: (dates) {},
+                        initialValue: [],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OutlinedBtn(
+                            buttonText: 'Clear Fields',
+                            verticalPadding: 0.02.sh,
+                            horPadding: 40,
+                            borderColor: ColorPalette.mainButtonColor,
+                            textColor: ColorPalette.mainButtonColor,
+                            applyingMargin: false,
+                          ),
+                          const SizedBox(
+                            width: 20.0,
+                          ),
+                          FlatButton(
+                            buttonText: 'Register',
+                            applyingMargin: false,
+                            verticalPadding: 0.02.sh,
+                            horPaddding: 40,
+                            onTap: () => showSuccessSheet('Success!',
+                                'Engagement registered successfully'),
+                          ),
+                          const SizedBox(
+                            height: 100.0,
+                          ),
+                        ],
                       ),
                     ],
                   ),
