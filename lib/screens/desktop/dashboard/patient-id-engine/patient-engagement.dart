@@ -172,7 +172,6 @@ class EngagemenntRegistration extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            flex: 2,
                             child: ConsoleDropdown(
                               options: const [
                                 '+234',
@@ -188,7 +187,6 @@ class EngagemenntRegistration extends StatelessWidget {
                             width: 10,
                           ),
                           Expanded(
-                            flex: 4,
                             child: FlatTextField(
                               hintText: 'Phone Number',
                               maxInput: 10,
@@ -196,8 +194,8 @@ class EngagemenntRegistration extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 50,
+                      SizedBox(
+                        height: 0.01.sh,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
