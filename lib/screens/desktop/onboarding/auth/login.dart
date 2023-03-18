@@ -2,11 +2,9 @@ import 'package:console/services/navigate.dart';
 import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
-import 'package:console/widgets/notification/snack-notification.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../services/constants.dart';
 import '../../../../services/validation-service.dart';
 import '../../../../state-management/controller-variables.dart';
 import '../../../../state-management/state-management.dart';
@@ -21,7 +19,7 @@ class DesktopLoginScreen extends StatefulWidget {
 }
 
 class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
-  bool obscurePassword = false;
+  bool obscurePassword = true;
   bool loading = false;
 
   final emailController = TextEditingController();
