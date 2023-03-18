@@ -1,11 +1,9 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/desktop/patient-list-tiles.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../../widgets/mob-desk/custom/cards.dart';
+
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../widgets/mob-desk/forms/dropdowns.dart';
@@ -44,9 +42,7 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
                     status: "Complete",
                   ),
                 ),
-                const Expanded(
-                    child: EngagemenntRegistration()
-                ),
+                const Expanded(child: EngagemenntRegistration()),
               ],
             ),
           ),
@@ -121,7 +117,7 @@ class EngagemenntRegistration extends StatelessWidget {
                               ],
                               value: 'Group 1',
                               onChanged: (value) {
-                             //
+                                //
                               },
                             ),
                           ),
@@ -130,40 +126,46 @@ class EngagemenntRegistration extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                              child:
-                              FlatTextBoxField(hintText: 'Bio data', minLines: 3, maxLines: 4,)),
+                              child: FlatTextField(
+                            hintText: 'Bio data',
+                          )),
                           const SizedBox(
                             width: 20.0,
                           ),
                           Expanded(
-                              child: FlatTextBoxField(
-                                  hintText: 'Health Record', minLines: 3, maxLines: 4,)),
+                              child: FlatTextField(
+                            hintText: 'Health Record',
+                          )),
                         ],
                       ),
                       Row(
                         children: [
                           Expanded(
-                              child: FlatTextBoxField(
-                                  hintText: 'Account Tier', minLines: 3, maxLines: 4,)),
+                              child: FlatTextField(
+                            hintText: 'Account Tier',
+                          )),
                           const SizedBox(
                             width: 20.0,
                           ),
                           Expanded(
-                              child: FlatTextBoxField(
-                                  hintText: 'Contact Details', minLines: 3, maxLines: 4,)),
+                              child: FlatTextField(
+                            hintText: 'Contact Details',
+                          )),
                         ],
                       ),
                       Row(
                         children: [
                           Expanded(
-                              child: FlatTextBoxField(
-                                  hintText: 'Principal Designation', minLines: 3, maxLines: 4,)),
+                              child: FlatTextField(
+                            hintText: 'Principal Designation',
+                          )),
                           const SizedBox(
                             width: 20.0,
                           ),
                           Expanded(
-                            child: FlatTextBoxField(
-                                hintText: 'Principal Work Details', minLines: 3, maxLines: 4,),
+                            child: FlatTextField(
+                              hintText: 'Principal Work Details',
+                            ),
                           ),
                         ],
                       ),
@@ -197,11 +199,25 @@ class EngagemenntRegistration extends StatelessWidget {
                       const SizedBox(
                         height: 50,
                       ),
-                      FlatButton(
-                        buttonText: 'Register',
-                        applyingMargin: false,
-                        verticalPadding: 0.02.sh,
-                        horPaddding: 40,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OutlinedBtn(
+                            buttonText: 'Clear Fields',
+                            verticalPadding: 0.02.sh,
+                            horPadding: 40,
+                            borderColor: ColorPalette.mainButtonColor,
+                            textColor: ColorPalette.mainButtonColor,
+                            applyingMargin: false,
+                          ),
+                          const SizedBox(width: 20.0,),
+                          FlatButton(
+                            buttonText: 'Register',
+                            applyingMargin: false,
+                            verticalPadding: 0.02.sh,
+                            horPaddding: 40,
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -212,8 +228,6 @@ class EngagemenntRegistration extends StatelessWidget {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
-
