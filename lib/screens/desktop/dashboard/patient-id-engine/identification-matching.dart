@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../state-management/controller-variables.dart';
+import '../../../../state-management/state-management.dart';
 import '../../../../widgets/desktop/patient-list-tiles.dart';
 import '../dashboard.dart';
 
@@ -33,15 +35,31 @@ class DesktopIdentificationMatching extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('./assets/images/schedule.png', height: 0.15.sh,),
-                        SizedBox(height: 0.1.sh,),
-                        OutlinedBtn(buttonText: 'Schedule Patient', verticalPadding: 0.015.sh, borderColor: ColorPalette.mainButtonColor, textColor: ColorPalette.mainButtonColor,),
-                        SizedBox(height: 0.02.sh,),
-                        FlatButton(buttonText: 'Engage Patient', verticalPadding: 0.015.sh,),
+                        Image.asset(
+                          './assets/images/schedule.png',
+                          height: 0.15.sh,
+                        ),
+                        SizedBox(
+                          height: 0.1.sh,
+                        ),
+                        OutlinedBtn(
+                          buttonText: 'Schedule Patient',
+                          verticalPadding: 0.015.sh,
+                          borderColor: ColorPalette.mainButtonColor,
+                          textColor: ColorPalette.mainButtonColor,
+                          onTap: () => selectedItem.value = CurrentSelectedNavItem.patientScheduling,
+                        ),
+                        SizedBox(
+                          height: 0.02.sh,
+                        ),
+                        FlatButton(
+                          buttonText: 'Engage Patient',
+                          verticalPadding: 0.015.sh,
+                          onTap: () => selectedItem.value = CurrentSelectedNavItem.patientEngagementReg,
+                        ),
                       ],
                     ),
-                  )
-              )
+                  ))
             ],
           ),
         ),
