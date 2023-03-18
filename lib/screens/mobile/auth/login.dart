@@ -36,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ConsoleScaffold(
+      padding: EdgeInsets.symmetric(horizontal: 100),
       child: Form(
         key: _formKey,
         child: ListView(
@@ -47,20 +48,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      height: 50.sp,
+                      height: 0.01.sh,
                     ),
                     brandText(),
                     SizedBox(
-                      height: 50.0.sp,
+                      height: 0.01.sh,
                     ),
-                    ConsoleTextField(
+                    FlatTextField(
                       controller: emailController,
                       hintText: 'Username',
                       isPassword: false,
                       validationService: (String? email) =>
                           ValidationService.isValidInput(email!),
                     ),
-                    ConsoleTextField(
+                    FlatTextField(
                       controller: passwordController,
                       hintText: 'Password',
                       isPassword: true,
@@ -72,9 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscurePassword = !obscurePassword;
                         });
                       },
-                    ),
-                    SizedBox(
-                      height: 10.0.sp,
                     ),
                     Align(
                       alignment: Alignment.centerRight,
@@ -92,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 50.0.sp,
+                      height: 0.01.sh,
                     ),
                     ConsoleTextButton(
                       buttonText: 'Sign In',
@@ -104,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     SizedBox(
-                      height: 30.0.sp,
+                      height: 0.01.sh,
                     ),
                     Text(
                       "Or login with",
@@ -115,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 30.0.sp,
+                      height: 0.01.sh,
                     ),
                     Container(
                       padding: const EdgeInsets.all(5.0),
@@ -144,19 +142,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 30.0.sp,
+                      height: 0.01.sh,
                     ),
                     Align(alignment: Alignment.center, child: buildSocialRow()),
                     SizedBox(
-                      height: 50.0.sp,
+                      height: 0.01.sh,
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Text.rich(
                         TextSpan(
                           text: 'Don\'t have an account yet ? ',
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             color: ColorPalette.grey,
                           ),

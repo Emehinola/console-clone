@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: const Size(1314, 1022),
         // mac 1680, 1050
-        minTextAdapt: true,
+        minTextAdapt: false,
         splitScreenMode: true,
         scaleByHeight: false,
         rebuildFactor: (_, widget){
