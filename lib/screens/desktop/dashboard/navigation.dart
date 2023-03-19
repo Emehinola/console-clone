@@ -154,6 +154,7 @@ class SideNavBar extends StatelessWidget {
 Widget desktopNavItem(String title, IconData iconData, CurrentSelectedNavItem screen, {active = false}) {
   return GestureDetector(
     onTap: (){
+      consoleState.patientToEdit = null;
       selectedItem.value = screen;
     },
     child: Padding(

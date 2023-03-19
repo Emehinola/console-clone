@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../services/constants.dart';
 import '../../../../services/validation-service.dart';
+import '../../../../widgets/desktop/dialogs.dart';
 import '../../../../widgets/mob-desk/custom/custom-texts.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../widgets/mob-desk/theme/color-palette.dart';
@@ -83,8 +84,8 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         onTap: () {
                           navigate(DesktopNavigation(),
                               routeName: '/dashboard');
-                          consoleSnackNotification('Login successful!',
-                              header: 'Success');
+                          showSuccessSheet('Login successful',
+                              'You have successfully logged In!');
                         },
                       ),
                       SizedBox(
