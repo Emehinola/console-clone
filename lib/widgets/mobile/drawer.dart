@@ -58,7 +58,7 @@ class _SideDrawerState extends State<SideDrawer> {
             const SizedBox(
               height: 20,
             ),
-            title("Practice Management"),
+            title("Practice Management", textColor: Colors.white),
             const SizedBox(
               height: 30,
             ),
@@ -67,7 +67,7 @@ class _SideDrawerState extends State<SideDrawer> {
             const SizedBox(
               height: 30,
             ),
-            title('Practice Identification Engine'),
+            title('Practice Identification Engine', textColor: Colors.white),
             const SizedBox(
               height: 30,
             ),
@@ -102,7 +102,7 @@ Widget drawerRow(String title, IconData iconData, Widget screen, {active = false
           Text(
             title,
             style: TextStyle(
-                fontSize: isMobile() ? 13 : 17, fontWeight: FontWeight.w500, color: active ? ColorPalette.secondColor : ColorPalette.grey),
+                fontSize: isMobile() ? 16.sp : 17.sp, fontWeight: FontWeight.w500, color: active ? ColorPalette.secondColor : ColorPalette.grey),
           ),
         ],
       ),

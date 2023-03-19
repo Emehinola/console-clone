@@ -37,6 +37,7 @@ class SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
 
     return ConsoleScaffold(
+      padding: EdgeInsets.symmetric(horizontal: 0.1.sw),
       child: Form(
         key: _formKey,
         child: ListView(
@@ -77,28 +78,23 @@ class SignupScreenState extends State<SignupScreen> {
                       validationService: (String? name) =>
                           ValidationService.isValidInput(name!),
                     ),
-                    FlatTextBoxField(
+                    FlatTextField(
                       hintText: 'Bio Details',
-                      minLines: 3,
-                      maxLines: 4,
                     ),
-                    FlatTextBoxField(
-                      hintText: 'Official Details',minLines: 3,
-                      maxLines: 4,
-
+                    FlatTextField(
+                      hintText: 'Official Details',
                     ),
-                    FlatTextBoxField(
+                    FlatTextField(
                       hintText: 'Other Details',
-                      minLines: 3,
-                      maxLines: 4,
                     ),
                     SizedBox(
                       height: 50.0.sp,
                     ),
-                    ConsoleTextButton(
+                    FlatButton(
                         buttonText: 'Submit',
                         loading: loading,
                         applyingMargin: false,
+                        verticalPadding: 0.02.sh,
                         onTap: () => consoleSnackNotification('Account created successfully!', header: 'Success')
                     ),
                     SizedBox(

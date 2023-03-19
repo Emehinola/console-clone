@@ -6,8 +6,10 @@ import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:console/widgets/mobile/app-bar.dart';
 import 'package:console/widgets/mobile/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../services/validation-service.dart';
+import '../../../../../state-management/state-management.dart';
 
 class PatientRegistration extends StatefulWidget {
   const PatientRegistration({Key? key}) : super(key: key);
@@ -19,14 +21,42 @@ class PatientRegistration extends StatefulWidget {
 class _PatientRegistrationState extends State<PatientRegistration> {
   final _formKey = GlobalKey<FormState>();
 
+  final name = TextEditingController();
+  final biodata = TextEditingController();
+  final contactDetails = TextEditingController();
+  final principalWork = TextEditingController();
+  final principalDesignation = TextEditingController();
+  final phone = TextEditingController();
+  final healthRecord = TextEditingController();
+  final acctTier = TextEditingController();
+
+  @override
+  void initState() {
+    if (consoleState.patientToEdit != null) {
+      name.text = consoleState.patientToEdit!.patientName;
+      biodata.text = consoleState.patientToEdit!.biodata;
+      contactDetails.text = consoleState.patientToEdit!.contactDetails;
+      principalDesignation.text =
+          consoleState.patientToEdit!.principalDesignation;
+      principalWork.text = consoleState.patientToEdit!.principalWorkDetails;
+      phone.text = consoleState.patientToEdit!.phone;
+      healthRecord.text = consoleState.patientToEdit!.medRecord;
+      acctTier.text = consoleState.patientToEdit!.acctTier;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ConsoleScaffold(
       appBar: appBar(
         title: 'Patient Registration',
       ),
-      bottomBar: ConsoleTextButton(
-        buttonText: 'SUBMIT',
+      bottomBar: SizedBox(
+        height: 0.09.sh,
+        child: FlatButton(
+          buttonText: 'SUBMIT',
+        ),
       ),
       child: Form(
         key: _formKey,
@@ -35,13 +65,23 @@ class _PatientRegistrationState extends State<PatientRegistration> {
           children: [
             title('Personal Info', textColor: ColorPalette.offBlack),
             FlatTextField(
+              controller: name,
               hintText: 'Full Name',
             ),
-            FlatTextBoxField(hintText: 'Bio data'),
+            FlatTextBoxField(
+              hintText: 'Bio data',
+              controller: biodata,
+            ),
             title('Medical Info', textColor: ColorPalette.offBlack),
-            FlatTextBoxField(hintText: 'Health Record'),
+            FlatTextBoxField(
+              hintText: 'Health Record',
+              controller: healthRecord,
+            ),
             title('Account Info', textColor: ColorPalette.offBlack),
-            FlatTextBoxField(hintText: 'Account Tier'),
+            FlatTextBoxField(
+              hintText: 'Account Tier',
+              controller: acctTier,
+            ),
             ConsoleDropdown(
               label: 'Group Type',
               options: const [
@@ -62,17 +102,23 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                 Expanded(
                   flex: 2,
                   child: ConsoleDropdown(
-                    options: const ['+234',],
+                    options: const [
+                      '+234',
+                    ],
                     value: '+234',
-                    onChanged: (value){
+                    label: 'Code',
+                    onChanged: (value) {
                       //
                     },
                   ),
                 ),
-                const SizedBox(width: 10,),
+                const SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   flex: 4,
                   child: FlatTextField(
+                    controller: phone,
                     hintText: 'Phone Number',
                     maxInput: 10,
                     validationService: (String? text) =>
@@ -81,10 +127,19 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                 ),
               ],
             ),
-            FlatTextBoxField(hintText: 'Contact Details'),
+            FlatTextBoxField(
+              hintText: 'Contact Details',
+              controller: contactDetails,
+            ),
             title('Principal Info', textColor: ColorPalette.offBlack),
-            FlatTextBoxField(hintText: 'Principal Designation'),
-            FlatTextBoxField(hintText: 'Principal Work Details'),
+            FlatTextBoxField(
+              hintText: 'Principal Designation',
+              controller: principalDesignation,
+            ),
+            FlatTextBoxField(
+              hintText: 'Principal Work Details',
+              controller: principalWork,
+            ),
             const SizedBox(
               height: 20,
             ),

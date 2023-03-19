@@ -10,6 +10,8 @@ import '../../../../../widgets/mob-desk/buttons/icon-buttons.dart';
 import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../models/registered-patient.dart';
+import '../../../../widgets/mobile/dialogs.dart';
 
 class Identification extends StatefulWidget {
   const Identification({Key? key}) : super(key: key);
@@ -99,22 +101,58 @@ class _PatientsListState extends State<Identification> {
                           PatientIdentification(
                             status: "Incomplete",
                             onTap: () {
-                              showScheduleSheet(context);
+                              showMobileInfoDialogue(RegPatient(
+                                  phone: '+2348131615393',
+                                  acctTier: 'Tier 1',
+                                  biodata: 'Grate',
+                                  contactDetails: 'emehinolasam@gmail.com',
+                                  medRecord: 'Greate',
+                                  patientName: 'Big Sam',
+                                  principalDesignation: 'principalDesignation',
+                                  principalWorkDetails: 'principalWorkDetails'));
                             },
-                          ),
-                          PatientIdentification(
-                            status: "Completed",
-                            onTap: () {},
                           ),
                           PatientIdentification(
                             status: "Completed",
                             onTap: () {
-                              showScheduleSheet(context);
+                              showMobileInfoDialogue(RegPatient(
+                                  phone: '+2348131615393',
+                                  acctTier: 'Tier 1',
+                                  biodata: 'Grate',
+                                  contactDetails: 'emehinolasam@gmail.com',
+                                  medRecord: 'Greate',
+                                  patientName: 'Big Sam',
+                                  principalDesignation: 'principalDesignation',
+                                  principalWorkDetails: 'principalWorkDetails'));
+                            },
+                          ),
+                          PatientIdentification(
+                            status: "Completed",
+                            onTap: () {
+                              showMobileInfoDialogue(RegPatient(
+                                  phone: '+2348131615393',
+                                  acctTier: 'Tier 1',
+                                  biodata: 'Grate',
+                                  contactDetails: 'emehinolasam@gmail.com',
+                                  medRecord: 'Greate',
+                                  patientName: 'Big Sam',
+                                  principalDesignation: 'principalDesignation',
+                                  principalWorkDetails: 'principalWorkDetails'));
                             },
                           ),
                           PatientIdentification(
                             status: "Incomplete",
-                            onTap: () {},
+                            onTap: () {
+                              showMobileInfoDialogue(RegPatient(
+                                  phone: '+2348131615393',
+                                  acctTier: 'Tier 1',
+                                  biodata: 'Grate',
+                                  contactDetails: 'emehinolasam@gmail.com',
+                                  medRecord: 'Greate',
+                                  patientName: 'Big Sam',
+                                  principalDesignation: 'principalDesignation',
+                                  principalWorkDetails: 'principalWorkDetails'));
+                            },
                           ),
                         ],
                       ),

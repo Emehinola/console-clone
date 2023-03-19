@@ -41,7 +41,7 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                   width: 250,
                   child: FlatButton(
                     buttonText: 'Schedule Patient',
-                    iconData: CupertinoIcons.add,
+                    iconData: CupertinoIcons.calendar,
                     onTap: () => showScheduleSheet(context),
                   ))),
           Container(

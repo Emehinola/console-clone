@@ -44,7 +44,7 @@ class _PatientsListState extends State<EngagementReg> {
                   child: FlatButton(
                     buttonText: 'New Engagement',
                     iconData: CupertinoIcons.add,
-                    onTap: () => navigate(const PatientEngagementRegistration(), routeName: '/mobile-engagement-reg'),
+                    onTap: () => showScheduleSheet(context), // navigate(const PatientEngagementRegistration(), routeName: '/mobile-engagement-reg'),
                   ))),
           Expanded(
             child: Column(

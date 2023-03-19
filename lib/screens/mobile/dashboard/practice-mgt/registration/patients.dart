@@ -1,9 +1,11 @@
+import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patient-registration.dart';
 import 'package:console/widgets/mobile/app-bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import '../../../../../widgets/mob-desk/buttons/console-text-button.dart';
 import '../../../../../widgets/mob-desk/buttons/icon-buttons.dart';
 import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/forms/console-text-field.dart';
@@ -27,10 +29,25 @@ class _ScheduledPatientsState extends State<ScheduledPatients> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
+      appBar: appBar(title: 'Registered Patients'),
       body: SafeArea(
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: SizedBox(
+                width: 0.4.sw,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20.0, top: 5),
+                  child: FlatButton(
+                    buttonText: 'Add New',
+                    iconData: CupertinoIcons.add,
+                    applyingMargin: false,
+                    onTap: () => Get.to(const PatientRegistration()),
+                  ),
+                ),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               height: 150,

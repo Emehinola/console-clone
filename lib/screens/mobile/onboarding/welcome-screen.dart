@@ -31,12 +31,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 fit: BoxFit.contain),
             color: Colors.black),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.3.sw),
+          padding: EdgeInsets.symmetric(horizontal: 0.03.sw),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              OutlinedBtn(buttonText: 'Create Account', verticalPadding: 0.03.sh, onTap: () => navigate(SignupScreen()),),
-              FlatButton(buttonText: 'Login', verticalPadding: 0.03.sh, onTap: () => navigate(LoginScreen())),
+              OutlinedBtn(buttonText: 'Create Account', verticalPadding: 0.02.sh, onTap: () => navigate(SignupScreen()),),
+              FlatButton(buttonText: 'Login', verticalPadding: 0.02.sh, onTap: () => navigate(LoginScreen())),
             ],
           ),
         ));

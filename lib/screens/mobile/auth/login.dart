@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ConsoleScaffold(
-      padding: EdgeInsets.symmetric(horizontal: 100),
+      padding: EdgeInsets.symmetric(horizontal: 0.1.sw),
       child: Form(
         key: _formKey,
         child: ListView(
@@ -48,11 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      height: 0.01.sh,
+                      height: 0.1.sh,
                     ),
                     brandText(),
                     SizedBox(
-                      height: 0.01.sh,
+                      height: 0.05.sh,
                     ),
                     FlatTextField(
                       controller: emailController,
@@ -90,19 +90,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 0.01.sh,
+                      height: 0.05.sh,
                     ),
-                    ConsoleTextButton(
+                    FlatButton(
                       buttonText: 'Sign In',
                       loading: loading,
-                      applyingMargin: true,
+                      applyingMargin: false,
+                      verticalPadding: 0.02.sh,
                       onTap: (){
                         navigate(const Dashboard(), routeName: '/dashboard');
                         consoleSnackNotification('Login successful!', header: 'Success');
                       },
                     ),
                     SizedBox(
-                      height: 0.01.sh,
+                      height: 0.02.sh,
                     ),
                     Text(
                       "Or login with",
@@ -142,11 +143,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 0.01.sh,
+                      height: 0.04.sh,
                     ),
                     Align(alignment: Alignment.center, child: buildSocialRow()),
                     SizedBox(
-                      height: 0.01.sh,
+                      height: 0.03.sh,
                     ),
                     Align(
                       alignment: Alignment.center,
