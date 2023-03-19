@@ -63,16 +63,9 @@ class _DesktopPatientRegistrationState
                   flex: 2,
                   child: SizedBox(
                     height: 0.9.sh,
-                    child: AnimatedCrossFade(
-                      crossFadeState: showForm
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                      duration: const Duration(milliseconds: 600),
-                      firstChild: const PatientRegForm(),
-                      secondChild: RegisteredPatient(
-                        status: 'Completed',
-                      ),
-                    ),
+                    child: !showForm ? RegisteredPatient(
+                      status: 'Completed',
+                    ) : const PatientRegForm()
                   ),
                 ),
                 Expanded(
