@@ -156,7 +156,7 @@ class SchedulePatientCard extends StatelessWidget {
                         Text(
                           "ID: QH29",
                           style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 16.sp),
+                              fontWeight: FontWeight.w700, fontSize: 14.sp),
                         ),
                       ],
                     ),
@@ -183,7 +183,7 @@ class SchedulePatientCard extends StatelessWidget {
                       child: Text(
                         status,
                         style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             color: status == "Scheduled"
                                 ? ColorPalette.mainButtonColor
                                 : ColorPalette.secondColor,
@@ -427,14 +427,14 @@ Widget rowCard(String title, String text,
         Text(
           title,
           style: TextStyle(
-              fontWeight: FontWeight.w500, color: Colors.grey, fontSize: 16.sp),
+              fontWeight: FontWeight.w500, color: Colors.grey, fontSize: 14.sp),
         ),
         Text(
           text,
           style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Colors.black,
-              fontSize: 16.sp),
+              fontSize: 14.sp),
         ),
       ],
     ),
