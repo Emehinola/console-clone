@@ -1,3 +1,7 @@
+import 'package:console/api-calls/auth.dart';
+import 'package:console/database/db-operations.dart';
+import 'package:console/database/provider.dart';
+import 'package:console/models/user.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
@@ -26,6 +30,9 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final officialDetails = TextEditingController();
+  final otherDetails = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -81,11 +88,15 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         loading: loading,
                         applyingMargin: false,
                         verticalPadding: 0.02.sh,
-                        onTap: () {
-                          navigate(DesktopNavigation(),
-                              routeName: '/dashboard');
-                          showSuccessSheet('Login successful',
-                              'You have successfully logged In!');
+                        onTap: () async  {
+                          Map payload = {
+                            'full_name': nameController.text,
+                            'username': emailController.text,
+                            'official_details': officialDetails.text,
+                            'other_details': nameController.text,
+                            'password': passwordController.text,
+                          };
+                          await registerUser(payload);
                         },
                       ),
                       SizedBox(

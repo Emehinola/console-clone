@@ -2,6 +2,7 @@ import 'package:console/screens/mobile/onboarding/platform-selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 void main() async {
   await ScreenUtil.ensureScreenSize();
