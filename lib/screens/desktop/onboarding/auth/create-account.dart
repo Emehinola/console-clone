@@ -1,23 +1,16 @@
 import 'package:console/api-calls/auth.dart';
-import 'package:console/database/db-operations.dart';
-import 'package:console/database/provider.dart';
-import 'package:console/models/user.dart';
-import 'package:console/services/navigate.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
-import 'package:console/widgets/notification/snack-notification.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../services/constants.dart';
+
 import '../../../../services/validation-service.dart';
-import '../../../../widgets/desktop/dialogs.dart';
 import '../../../../widgets/mob-desk/custom/custom-texts.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../widgets/mob-desk/theme/color-palette.dart';
-import '../../dashboard/navigation.dart';
 
 class DesktopSignUpScreen extends StatefulWidget {
   @override
@@ -31,6 +24,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
+  final biodataController = TextEditingController();
   final officialDetails = TextEditingController();
   final otherDetails = TextEditingController();
 
@@ -65,20 +59,30 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         height: 0.07.sh,
                       ),
                       FlatTextField(
-                        controller: emailController,
+                        controller: nameController,
                         hintText: 'Full Name',
                         isPassword: false,
                         validationService: (String? name) =>
                             ValidationService.isValidInput(name!),
                       ),
                       FlatTextField(
+                          controller: emailController,
+                          hintText: 'Email Address'),
+                      FlatTextField(
+                        controller: biodataController,
                         hintText: 'Bio Details',
                       ),
                       FlatTextField(
+                        controller: officialDetails,
                         hintText: 'Official Details',
                       ),
                       FlatTextField(
+                        controller: otherDetails,
                         hintText: 'Other Details',
+                      ),
+                      FlatTextField(
+                        controller: passwordController,
+                        hintText: 'Password',
                       ),
                       SizedBox(
                         height: 0.06.sh,
@@ -88,15 +92,17 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         loading: loading,
                         applyingMargin: false,
                         verticalPadding: 0.02.sh,
-                        onTap: () async  {
+                        onTap: () async {
                           Map payload = {
                             'full_name': nameController.text,
                             'username': emailController.text,
+                            'biodata': biodataController.text,
                             'official_details': officialDetails.text,
                             'other_details': nameController.text,
                             'password': passwordController.text,
                           };
                           await registerUser(payload);
+
                         },
                       ),
                       SizedBox(

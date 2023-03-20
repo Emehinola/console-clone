@@ -19,12 +19,12 @@ class User {
 
   factory User.fromJson(Map json) {
     return User(
-      fullName: json['fullName'],
+      fullName: json['full_name'],
       username: json['username'],
       password: json['password'],
-      bioData: json['bioData'],
-      officialDetails: json['officialDetails'],
-      otherDetails: json['officialDetails'],
+      bioData: json['biodata'],
+      officialDetails: json['official_details'],
+      otherDetails: json['other_details'],
     );
   }
 

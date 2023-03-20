@@ -5,6 +5,7 @@ import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../api-calls/auth.dart';
 import '../../../../services/validation-service.dart';
 import '../../../../state-management/controller-variables.dart';
 import '../../../../state-management/state-management.dart';
@@ -98,10 +99,10 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         loading: loading,
                         applyingMargin: false,
                         verticalPadding: 0.02.sh,
-                        onTap: () {
-                          navigate(DesktopNavigation(), routeName: '/dashboard');
-                          showSuccessSheet('Login successful',
-                              'You have successfully logged In!');
+                        onTap: () async {
+
+                          if(!_formKey.currentState!.validate()) return;
+                          await loginUser({'username': emailController.text, 'password': passwordController.text});
                         },
                       ),
                       SizedBox(

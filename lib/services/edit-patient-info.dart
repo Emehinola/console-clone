@@ -6,6 +6,7 @@ import '../state-management/state-management.dart';
 
 void editPatientInfo(){
   RegPatient patient = RegPatient(
+    id: 'ID',
     phone: '8131615393',
     acctTier: 'Tier 1',
     biodata: 'A software developer',
@@ -22,6 +23,7 @@ void editPatientInfo(){
 
 void viewPatientInfo(){
   RegPatient patient = RegPatient(
+    id: 'ID',
     phone: '8131615393',
     acctTier: 'Tier 1',
     biodata: 'A software developer',

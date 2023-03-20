@@ -102,6 +102,7 @@ class _PatientsListState extends State<Demography> {
                             status: "Completed",
                             onTap: () {
                                showMobileInfoDialogue(RegPatient(
+                                 id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',
@@ -116,6 +117,7 @@ class _PatientsListState extends State<Demography> {
                             status: "Incomplete",
                             onTap: () {
                               showMobileInfoDialogue(RegPatient(
+                                  id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',
@@ -130,6 +132,7 @@ class _PatientsListState extends State<Demography> {
                             status: "Completed",
                             onTap: () {
                               showMobileInfoDialogue(RegPatient(
+                                  id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',
@@ -144,6 +147,7 @@ class _PatientsListState extends State<Demography> {
                             status: "Incomplete",
                             onTap: () {
                               showMobileInfoDialogue(RegPatient(
+                                  id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',

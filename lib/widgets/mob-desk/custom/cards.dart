@@ -20,6 +20,7 @@ class PatientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => showMobileInfoDialogue(RegPatient(
+          id: 'ID',
           phone: '+2348131615393',
           acctTier: 'Tier 1',
           biodata: 'Grate',

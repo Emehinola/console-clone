@@ -1,4 +1,5 @@
 import 'package:console/models/registered-patient.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,52 @@ void showSuccessSheet(String title, String desc) {
                   children: [
                     Lottie.asset('assets/files/success.json',
                         width: 250, height: 0.2.sh),
+                    SizedBox(height: 0.02.sh),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 0.02.sh),
+                    Text(
+                      desc,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 0.06.sh),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FlatButton(
+                          buttonText: 'Close',
+                          verticalPadding: 0.02.sh,
+                          onTap: () {
+                            Get.back();
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void showErrorDialog(String title, String desc) {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.3.sh,
+              width: 0.2.sw,
+              child: Center(
+                child: Column(
+                  children: [
+                    Icon(CupertinoIcons.xmark, size: 0.06.sh, color: Colors.red,),
                     SizedBox(height: 0.02.sh),
                     Text(
                       title,

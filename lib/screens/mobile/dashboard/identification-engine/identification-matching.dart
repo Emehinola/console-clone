@@ -101,6 +101,7 @@ class _PatientsListState extends State<IdentificationMatching> {
                             status: "Incomplete",
                             onTap: () {
                               showMobileInfoDialogue(RegPatient(
+                                  id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',
@@ -115,6 +116,7 @@ class _PatientsListState extends State<IdentificationMatching> {
                             status: "Completed",
                             onTap: () {
                               showMobileInfoDialogue(RegPatient(
+                                  id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',
@@ -129,6 +131,7 @@ class _PatientsListState extends State<IdentificationMatching> {
                             status: "Completed",
                             onTap: () {
                               showMobileInfoDialogue(RegPatient(
+                                  id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',
@@ -143,6 +146,7 @@ class _PatientsListState extends State<IdentificationMatching> {
                             status: "Incomplete",
                             onTap: () {
                               showMobileInfoDialogue(RegPatient(
+                                  id: 'ID',
                                   phone: '+2348131615393',
                                   acctTier: 'Tier 1',
                                   biodata: 'Grate',
