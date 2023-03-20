@@ -163,6 +163,8 @@ class _PatientRegFormState extends State<PatientRegForm> {
   final healthRecord = TextEditingController();
   final acctTier = TextEditingController();
 
+  bool loading = false;
+
   @override
   void initState() {
 
@@ -346,8 +348,13 @@ class _PatientRegFormState extends State<PatientRegForm> {
                   applyingMargin: false,
                   verticalPadding: 0.018.sh,
                   horPaddding: 0.05.sw,
+                  loading: loading,
                   onTap: () async {
                     if(!_formKey.currentState!.validate()) return;
+
+                    setState(() {
+                      loading = true;
+                    });
 
                     Map payload = {
                       'patientName': name.text,
@@ -361,6 +368,9 @@ class _PatientRegFormState extends State<PatientRegForm> {
                     };
 
                     await registerPatient(payload);
+                    setState(() {
+                      loading = false;
+                    });
                   },
                 ),
               ],

@@ -33,14 +33,14 @@ class DesktopPatienntCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildRowItem(hasBox: true, text: 'ID'),
-                buildRowItem(text: 'DATE CREATED'),
-                buildRowItem(text: 'PATIENT NAME'),
-                buildRowItem(text: 'GROUP TYPE'),
-                buildRowItem(text: 'CONTACT'),
-                buildRowItem(text: 'ACCOUNT TIER'),
-                buildRowItem(text: 'ADDRESS'),
-                buildRowItem(text: 'ACTION'),
+                buildDashRowItem(hasBox: true, text: 'ID'),
+                buildDashRowItem(text: 'DATE CREATED'),
+                buildDashRowItem(text: 'PATIENT NAME'),
+                buildDashRowItem(text: 'GROUP TYPE'),
+                buildDashRowItem(text: 'CONTACT'),
+                buildDashRowItem(text: 'ACCOUNT TIER'),
+                buildDashRowItem(text: 'ADDRESS'),
+                buildDashRowItem(text: 'ACTION'),
               ],
             ),
           ),
@@ -50,11 +50,13 @@ class DesktopPatienntCard extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return buildRowContent(
-                  date: DBProvider.db.getAllPatients()[index].date ?? DateTime.now().toIso8601String(),
+                  date: DBProvider.db.getAllPatients()[index].date ??
+                      DateTime.now().toIso8601String(),
                   hasBg: index % 2 == 0,
                   name: DBProvider.db.getAllPatients()[index].patientName,
                   id: DBProvider.db.getAllPatients()[index].id ?? "P001",
-                  groupType: DBProvider.db.getAllPatients()[index].groupType ?? "Group 1",
+                  groupType: DBProvider.db.getAllPatients()[index].groupType ??
+                      "Group 1",
                   acctTier: DBProvider.db.getAllPatients()[index].acctTier,
                   contact: DBProvider.db.getAllPatients()[index].phone,
                   address: DBProvider.db.getAllPatients()[index].contactDetails,
@@ -106,147 +108,21 @@ class DemographicsTable extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
+            child: ListView.builder(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
-              children: [
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
+              itemBuilder: (_, index) {
+                return buildDemographyRowContent(
                   hasBg: false,
                   date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
+                  name: DBProvider.db.getAllPatients()[index].patientName,
+                  id: DBProvider.db.getAllPatients()[index].id!,
                   facility: "My facility",
                   state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-                buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: "Apapa LGA",
-                ),
-              ],
+                  lga: DBProvider.db.getAllPatients()[index].contactDetails,
+                );
+              },
+              itemCount: DBProvider.db.getAllPatients().length,
             ),
           ),
         ],
@@ -290,110 +166,18 @@ class IdentificationTable extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
+            child: ListView.builder(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
-              children: [
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-                buildIdentificationRowContent(
-                    hasBg: false,
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupId: '#675768'),
-              ],
+              itemBuilder: (_, index) {
+                return buildIdentificationRowContent(
+                  date: "23 Jun, 2023",
+                  name: DBProvider.db.getAllPatients()[index].patientName,
+                  id: DBProvider.db.getAllPatients()[index].id!,
+                  groupId: '#675768',
+                );
+              },
+              itemCount: DBProvider.db.getAllPatients().length,
             ),
           ),
         ],
@@ -436,128 +220,19 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
+            child: ListView.builder(
               shrinkWrap: true,
-              children: [
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (_, index) {
+                return buildScheduleRowContent(
                   hasBg: false,
                   date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
+                  name: DBProvider.db.getAllPatients()[index].patientName,
+                  id: DBProvider.db.getAllPatients()[index].id!,
                   caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-                buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  caseType: "Family group",
-                ),
-              ],
+                );
+              },
+              itemCount: DBProvider.db.getAllPatients().length,
             ),
           ),
         ],
@@ -600,115 +275,18 @@ class RegisteredPatient extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
+            child: ListView.builder(
               shrinkWrap: true,
-              children: [
-                buildRegRowContent(
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (_, index) {
+                return buildRegRowContent(
                   status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
+                  name: DBProvider.db.getAllPatients()[index].patientName,
+                  id: DBProvider.db.getAllPatients()[index].id!,
                   percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-                buildRegRowContent(
-                  status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-                buildRegRowContent(
-                  status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-                buildRegRowContent(
-                  status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-                buildRegRowContent(
-                  status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-                buildRegRowContent(
-                  status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-                buildRegRowContent(
-                  status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-                buildRegRowContent(
-                  status: "Completed",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  percent: "100%",
-                ),
-                buildRegRowContent(
-                  hasBg: false,
-                  status: "Incomplete",
-                  name: 'Joseph Onipeded',
-                  id: "Q003",
-                  percent: "76%",
-                ),
-              ],
+                );
+              },
+              itemCount: DBProvider.db.getAllPatients().length,
             ),
           ),
         ],
@@ -717,17 +295,17 @@ class RegisteredPatient extends StatelessWidget {
   }
 }
 
-Widget buildRowContent(
-    {hasBg = true,
-    String id = "",
-    String name = "",
-    String date = "",
-    String groupType = "",
-    String contact = "",
-    String acctTier = "",
-    String address = "",
-      RegPatient? patient,
-    }) {
+Widget buildRowContent({
+  hasBg = true,
+  String id = "",
+  String name = "",
+  String date = "",
+  String groupType = "",
+  String contact = "",
+  String acctTier = "",
+  String address = "",
+  RegPatient? patient,
+}) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
     child: Padding(
@@ -735,101 +313,132 @@ Widget buildRowContent(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Transform.scale(
-                scale: 0.7,
-                child: Checkbox(
-                  value: false,
-                  onChanged: (value) {},
-                  side: const BorderSide(
-                    color: Colors.grey,
-                  ),
-                  fillColor: MaterialStateProperty.resolveWith(
-                      (states) => Colors.white),
-                ),
-              ),
-              const SizedBox(
-                width: 7.0,
-              ),
-              Text(
-                id,
-                style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.sp,
-                    color: ColorPalette.offBlack),
-              ),
-            ],
-          ),
-          Text(
-            ConsoleService.processReadableDate(date),
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            name,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            groupType,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            contact,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            acctTier,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            address,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: ColorPalette.grey),
-          ),
-          Row(
-            children: [
-              const Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: editPatientInfo,
-                  child: Icon(
-                    FontAwesomeIcons.penToSquare,
-                    size: 13,
-                    color: Colors.grey,
+          SizedBox(
+            width: 0.09.sw,
+            child: Row(
+              children: [
+                Transform.scale(
+                  scale: 0.7,
+                  child: Checkbox(
+                    value: false,
+                    onChanged: (value) {},
+                    side: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                    fillColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.white),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 20.0,
-              ),
-              InkWell(
-                onTap: () => viewPatientInfoReal(patient!),
-                child: Text(
-                  'View',
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  id,
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: ColorPalette.grey),
+                      fontSize: 16.sp,
+                      overflow: TextOverflow.ellipsis,
+                      color: ColorPalette.offBlack),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              ConsoleService.processReadableDate(date),
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              name,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              groupType,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              contact,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              acctTier,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              address,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Row(
+              children: [
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () => editPatientInfoReal(patient!),
+                    child: const Icon(
+                      FontAwesomeIcons.penToSquare,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                InkWell(
+                  onTap: () => viewPatientInfoReal(patient!),
+                  child: Text(
+                    'View',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: ColorPalette.grey),
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -1266,6 +875,7 @@ Widget createdArrowUpDown() {
 
 Widget buildRowItem({bool hasBox = false, String text = ""}) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       if (hasBox)
         Checkbox(
@@ -1291,5 +901,38 @@ Widget buildRowItem({bool hasBox = false, String text = ""}) {
       ),
       createdArrowUpDown(),
     ],
+  );
+}
+Widget buildDashRowItem({bool hasBox = false, String text = ""}) {
+  return SizedBox(
+    width: 0.09.sw,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (hasBox)
+          Checkbox(
+            value: false,
+            onChanged: (value) {},
+            side: const BorderSide(
+              color: Colors.grey,
+            ),
+            fillColor:
+                MaterialStateProperty.resolveWith((states) => Colors.white),
+          ),
+        if (hasBox)
+          const SizedBox(
+            width: 7.0,
+          ),
+        Text(
+          text,
+          style: TextStyle(
+              fontWeight: FontWeight.w500, fontSize: 14.sp, color: Colors.grey),
+        ),
+        const SizedBox(
+          width: 7.0,
+        ),
+        createdArrowUpDown(),
+      ],
+    ),
   );
 }

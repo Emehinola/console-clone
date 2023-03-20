@@ -18,7 +18,7 @@ Future<void> registerUser(Map payload) async {
     await DBProvider.db.insertUser(user);
 
     navigate(DesktopNavigation(), routeName: '/dashboard');
-    showSuccessSheet('Login successful', 'You have successfully logged In!');
+    showSuccessSheet('Success', 'Account created successfully!');
   }catch(e){
     //
   }

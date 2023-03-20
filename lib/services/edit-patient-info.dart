@@ -21,6 +21,13 @@ void editPatientInfo(){
   selectedItem.value = CurrentSelectedNavItem.patientReg;
 }
 
+void editPatientInfoReal(RegPatient patient){
+
+  consoleState.patientToEdit = patient;
+
+  selectedItem.value = CurrentSelectedNavItem.patientReg;
+}
+
 void viewPatientInfo(){
   RegPatient patient = RegPatient(
     id: 'ID',

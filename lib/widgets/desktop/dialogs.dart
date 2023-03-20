@@ -64,7 +64,11 @@ void showErrorDialog(String title, String desc) {
               child: Center(
                 child: Column(
                   children: [
-                    Icon(CupertinoIcons.xmark, size: 0.06.sh, color: Colors.red,),
+                    Icon(
+                      CupertinoIcons.xmark,
+                      size: 0.06.sh,
+                      color: Colors.red,
+                    ),
                     SizedBox(height: 0.02.sh),
                     Text(
                       title,
@@ -124,7 +128,8 @@ void showInfoDialogue(RegPatient patient) {
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
-                    detailRow('Group Type', 'Group 1', 'Account Tier', 'Tier 1'),
+                    detailRow(
+                        'Group Type', 'Group 1', 'Account Tier', 'Tier 1'),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
@@ -153,16 +158,15 @@ void showInfoDialogue(RegPatient patient) {
 }
 
 void showInfoDialogueReal(RegPatient patient) {
-
   String firstName = "";
   String lastName = "";
 
-try{
-  firstName = patient.patientName.split(' ')[0];
-  lastName = patient.patientName.split(' ')[1];
-}catch(e){
-  //
-}
+  try {
+    firstName = patient.patientName.split(' ')[0];
+    lastName = patient.patientName.split(' ')[1];
+  } catch (e) {
+    //
+  }
 
   showDialog(
       context: Get.context!,
@@ -172,43 +176,46 @@ try{
             content: SizedBox(
               height: 0.5.sh,
               width: 0.3.sw,
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Patient Full Information',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Patient Full Information',
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 0.01.sh),
-                    detailRow('First Name', firstName, 'Last Name', lastName),
-                    SizedBox(height: 0.01.sh),
-                    const Divider(),
-                    SizedBox(height: 0.01.sh),
-                    detailRow('Group Type', 'Group 1', 'Account Tier', patient.acctTier),
-                    SizedBox(height: 0.01.sh),
-                    const Divider(),
-                    SizedBox(height: 0.01.sh),
-                    detailRow('Phone', patient.phone, '', ''),
-                    SizedBox(height: 0.01.sh),
-                    const Divider(),
-                    SizedBox(height: 0.01.sh),
-                    detailRow('Address', patient.contactDetails, '', ''),
-                    SizedBox(height: 0.06.sh),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FlatButton(
-                          buttonText: 'Close',
-                          verticalPadding: 0.02.sh,
-                          onTap: () {
-                            Get.back();
-                          }),
-                    ),
-                  ],
+                      SizedBox(height: 0.01.sh),
+                      detailRow('First Name', firstName, 'Last Name', lastName),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Group Type', 'Group 1', 'Account Tier',
+                          patient.acctTier),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Phone', patient.phone, '', ''),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Address', patient.contactDetails, '', ''),
+                      SizedBox(height: 0.06.sh),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FlatButton(
+                            buttonText: 'Close',
+                            verticalPadding: 0.02.sh,
+                            onTap: () {
+                              Get.back();
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -217,37 +224,44 @@ try{
       });
 }
 
-Widget detailRow(String title1, String value1, String title2, String value2){
+Widget detailRow(String title1, String value1, String title2, String value2) {
   return Row(
     children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title1,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 13.sp),
-          ),
-           Text(
-            value1,
-            textAlign: TextAlign.center,
-          ),
-        ],
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title1,
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 13.sp),
+            ),
+            Text(
+              value1,
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
       ),
-      SizedBox(width: 0.08.sw,),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title2,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 13.sp),
-          ),
-          Text(
-            value2,
-            textAlign: TextAlign.center,
-          ),
-        ],
+      SizedBox(
+        width: 0.08.sw,
+      ),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title2,
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 13.sp),
+            ),
+            Text(
+              value2,
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.clip,
+            ),
+          ],
+        ),
       )
     ],
   );

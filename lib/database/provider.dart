@@ -59,12 +59,18 @@ class DBProvider {
 
   List<RegPatient> getAllPatients() {
     List<RegPatient> patients = [];
+    var rawPat;
+    List rawUsersList = [];
 
-    var rawPat = box.get('patients');
+    try{
+      rawPat = box.get('patients');
 
-    List rawUsersList = rawPat.toList();
+      rawUsersList = rawPat.toList();
+    }catch(e){
+      //
+    }
 
-    for (var element in rawUsersList) { print(element.runtimeType); patients.add(RegPatient.fromJson(element)); }
+    for (var element in rawUsersList) { patients.add(RegPatient.fromJson(element)); }
     return patients;
   }
 
@@ -77,7 +83,7 @@ class DBProvider {
 
       print(rawUsersList);
 
-      for (var element in rawUsersList) { patients.add(RegPatient.toJson(jsonDecode(element))); }
+      for (var element in rawUsersList) { patients.add(element); }
       return patients;
     }catch(e){
       print('e: $e');
