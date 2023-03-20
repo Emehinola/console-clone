@@ -7,6 +7,7 @@ import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../api-calls/patients.dart';
 import '../../../../../services/validation-service.dart';
 import '../../../../../widgets/desktop/patient-list-tiles.dart';
 
@@ -151,6 +152,8 @@ class PatientRegForm extends StatefulWidget {
 
 class _PatientRegFormState extends State<PatientRegForm> {
 
+  final _formKey = GlobalKey<FormState>();
+
   final name = TextEditingController();
   final biodata = TextEditingController();
   final contactDetails = TextEditingController();
@@ -180,160 +183,193 @@ class _PatientRegFormState extends State<PatientRegForm> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 0.02.sw, right: 0.1.sw),
-      child: ListView(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: FlatTextField(
-                  controller: name,
-                  hintText: 'Full Name',
+      child: Form(
+        key: _formKey,
+        child: ListView(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: name,
+                    hintText: 'Full Name',
+                    validationService: (String? text) =>
+                        ValidationService.isValidInput(text!),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 20.0,
-              ),
-              Expanded(
-                child: ConsoleDropdown(
-                  label: 'Group Type',
-                  options: const [
-                    'Group 1',
-                    'Group 2',
-                    'Group 3',
-                  ],
-                  value: 'Group 1',
-                  onChanged: (value) {
-                    // TODO: change field
-                  },
+                const SizedBox(
+                  width: 20.0,
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: FlatTextBoxField(
-                    controller: biodata,
-                hintText: 'Bio data',
-                minLines: 3,
-                maxLines: 4,
-              )),
-              const SizedBox(
-                width: 20.0,
-              ),
-              Expanded(
-                  child: FlatTextBoxField(
-                    controller: healthRecord,
-                hintText: 'Health Record',
-                minLines: 3,
-                maxLines: 4,
-              )),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: FlatTextBoxField(
-                    controller: acctTier,
-                hintText: 'Account Tier',
-                minLines: 3,
-                maxLines: 4,
-              )),
-              const SizedBox(
-                width: 20.0,
-              ),
-              Expanded(
-                  child: FlatTextBoxField(
-                    controller: contactDetails,
-                hintText: 'Contact Details',
-                minLines: 3,
-                maxLines: 4,
-              )),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: FlatTextBoxField(
-                    controller: principalDesignation,
-                hintText: 'Principal Designation',
-                minLines: 3,
-                maxLines: 4,
-              )),
-              const SizedBox(
-                width: 20.0,
-              ),
-              Expanded(
-                child: FlatTextBoxField(
-                  controller: principalWork,
-                  hintText: 'Principal Work Details',
+                Expanded(
+                  child: ConsoleDropdown(
+                    label: 'Group Type',
+                    options: const [
+                      'Group 1',
+                      'Group 2',
+                      'Group 3',
+                    ],
+                    value: 'Group 1',
+                    onChanged: (value) {
+                      // TODO: change field
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: FlatTextBoxField(
+                      controller: biodata,
+                  hintText: 'Bio data',
                   minLines: 3,
                   maxLines: 4,
+                      validationService: (String? text) =>
+                          ValidationService.isValidInput(text!),
+                )),
+                const SizedBox(
+                  width: 20.0,
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: ConsoleDropdown(
-                  options: const [
-                    '+234',
-                  ],
-                  value: '+234',
-                  label: 'Code',
-                  onChanged: (value) {
-                    //
+                Expanded(
+                    child: FlatTextBoxField(
+                      controller: healthRecord,
+                  hintText: 'Health Record',
+                  minLines: 3,
+                  maxLines: 4,
+                      validationService: (String? text) =>
+                          ValidationService.isValidInput(text!),
+                )),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: FlatTextBoxField(
+                      controller: acctTier,
+                  hintText: 'Account Tier',
+                  minLines: 3,
+                  maxLines: 4,
+                      validationService: (String? text) =>
+                          ValidationService.isValidInput(text!),
+                )),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                Expanded(
+                    child: FlatTextBoxField(
+                      controller: contactDetails,
+                  hintText: 'Contact Details',
+                  minLines: 3,
+                  maxLines: 4,
+                      validationService: (String? text) =>
+                          ValidationService.isValidInput(text!),
+                )),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: FlatTextBoxField(
+                      controller: principalDesignation,
+                  hintText: 'Principal Designation',
+                  minLines: 3,
+                  maxLines: 4,
+                      validationService: (String? text) =>
+                          ValidationService.isValidInput(text!),
+                )),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                Expanded(
+                  child: FlatTextBoxField(
+                    controller: principalWork,
+                    hintText: 'Principal Work Details',
+                    minLines: 3,
+                    maxLines: 4,
+                    validationService: (String? text) =>
+                        ValidationService.isValidInput(text!),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: ConsoleDropdown(
+                    options: const [
+                      '+234',
+                    ],
+                    value: '+234',
+                    label: 'Code',
+                    onChanged: (value) {
+                      //
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 4,
+                  child: FlatTextField(
+                    controller: phone,
+                    hintText: 'Phone Number',
+                    maxInput: 10,
+                    validationService: (String? text) =>
+                        ValidationService.isValidNumber(text!),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedBtn(
+                  buttonText: 'Preview',
+                  applyingMargin: false,
+                  verticalPadding: 0.018.sh,
+                  borderColor: ColorPalette.mainButtonColor,
+                  textColor: ColorPalette.mainButtonColor,
+                  horPadding: 0.05.sw,
+                ),
+                SizedBox(
+                  width: 0.02.sw,
+                ),
+                FlatButton(
+                  buttonText: 'Submit',
+                  applyingMargin: false,
+                  verticalPadding: 0.018.sh,
+                  horPaddding: 0.05.sw,
+                  onTap: () async {
+                    if(!_formKey.currentState!.validate()) return;
+
+                    Map payload = {
+                      'patientName': name.text,
+                      'phone': phone.text,
+                      'accountTier': acctTier.text,
+                      'bioData': biodata.text,
+                      'contactDetails': contactDetails.text,
+                      'medRecord': healthRecord.text,
+                      'principalDes': principalDesignation.text,
+                      'principalWorkDetails': principalWork.text,
+                    };
+
+                    await registerPatient(payload);
                   },
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 4,
-                child: FlatTextField(
-                  controller: phone,
-                  hintText: 'Phone Number',
-                  maxInput: 10,
-                  validationService: (String? text) =>
-                      ValidationService.isValidNumber(text!),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedBtn(
-                buttonText: 'Preview',
-                applyingMargin: false,
-                verticalPadding: 0.018.sh,
-                borderColor: ColorPalette.mainButtonColor,
-                textColor: ColorPalette.mainButtonColor,
-                horPadding: 0.05.sw,
-              ),
-              SizedBox(
-                width: 0.02.sw,
-              ),
-              FlatButton(
-                buttonText: 'Submit',
-                applyingMargin: false,
-                verticalPadding: 0.018.sh,
-                horPaddding: 0.05.sw,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

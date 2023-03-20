@@ -152,6 +152,71 @@ void showInfoDialogue(RegPatient patient) {
       });
 }
 
+void showInfoDialogueReal(RegPatient patient) {
+
+  String firstName = "";
+  String lastName = "";
+
+try{
+  firstName = patient.patientName.split(' ')[0];
+  lastName = patient.patientName.split(' ')[1];
+}catch(e){
+  //
+}
+
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.5.sh,
+              width: 0.3.sw,
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Patient Full Information',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 0.01.sh),
+                    detailRow('First Name', firstName, 'Last Name', lastName),
+                    SizedBox(height: 0.01.sh),
+                    const Divider(),
+                    SizedBox(height: 0.01.sh),
+                    detailRow('Group Type', 'Group 1', 'Account Tier', patient.acctTier),
+                    SizedBox(height: 0.01.sh),
+                    const Divider(),
+                    SizedBox(height: 0.01.sh),
+                    detailRow('Phone', patient.phone, '', ''),
+                    SizedBox(height: 0.01.sh),
+                    const Divider(),
+                    SizedBox(height: 0.01.sh),
+                    detailRow('Address', patient.contactDetails, '', ''),
+                    SizedBox(height: 0.06.sh),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FlatButton(
+                          buttonText: 'Close',
+                          verticalPadding: 0.02.sh,
+                          onTap: () {
+                            Get.back();
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
 Widget detailRow(String title1, String value1, String title2, String value2){
   return Row(
     children: [

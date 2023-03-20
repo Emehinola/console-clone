@@ -61,6 +61,7 @@ class DBProvider {
     List<RegPatient> patients = [];
 
     var rawPat = box.get('patients');
+
     List rawUsersList = rawPat.toList();
 
     for (var element in rawUsersList) { print(element.runtimeType); patients.add(RegPatient.fromJson(element)); }
@@ -71,13 +72,15 @@ class DBProvider {
     List<Map> patients = [];
 
     try{
-      var rawUsers = box.get('patients');
-      List rawUsersList = rawUsers.toList();
+      var rawPat = box.get('patients');
+      List rawUsersList = rawPat.toList();
 
-      for (var element in rawUsersList) { patients.add(User.toJson(jsonDecode(element))); }
+      print(rawUsersList);
+
+      for (var element in rawUsersList) { patients.add(RegPatient.toJson(jsonDecode(element))); }
       return patients;
     }catch(e){
-      //
+      print('e: $e');
     }
 
     return [];
@@ -85,10 +88,12 @@ class DBProvider {
 
   insertPatient(RegPatient patient) async {
     Map patMap = RegPatient.toJson(patient);
-    List<Map> previousUsers = getLocalPatients();
-    previousUsers.add(patMap);
+    List<Map> previousPatient = getLocalPatients();
+    previousPatient.add(patMap);
 
-    await box.put('patients', previousUsers);
+    print(previousPatient);
+
+    await box.put('patients', previousPatient);
   }
 
   RegPatient? getPatientByID(String id){

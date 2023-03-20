@@ -36,3 +36,8 @@ void viewPatientInfo(){
 
   showInfoDialogue(patient);
 }
+
+void viewPatientInfoReal(RegPatient patient){
+
+  showInfoDialogueReal(patient);
+}

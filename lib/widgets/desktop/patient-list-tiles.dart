@@ -1,6 +1,6 @@
+import 'package:console/database/provider.dart';
 import 'package:console/models/registered-patient.dart';
-import 'package:console/state-management/controller-variables.dart';
-import 'package:console/state-management/state-management.dart';
+import 'package:console/services/console-services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,173 +45,23 @@ class DesktopPatienntCard extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
+            child: ListView.builder(
               shrinkWrap: true,
-              children: [
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-                buildRowContent(
-                    date: "23 Jun, 2023",
-                    name: 'Emehinola Sam',
-                    id: "Q929",
-                    groupType: "Family group",
-                    acctTier: "Tier 1",
-                    contact: "+2348131615393",
-                    address: "8, Expressway, Lagos"),
-                buildRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: 'Emehinola Sam',
-                  id: "Q929",
-                  groupType: "Family group",
-                  acctTier: "Tier 1",
-                  contact: "+2348131615393",
-                  address: "8, Expressway, Lagos",
-                ),
-              ],
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (_, index) {
+                return buildRowContent(
+                  date: DBProvider.db.getAllPatients()[index].date ?? DateTime.now().toIso8601String(),
+                  hasBg: index % 2 == 0,
+                  name: DBProvider.db.getAllPatients()[index].patientName,
+                  id: DBProvider.db.getAllPatients()[index].id ?? "P001",
+                  groupType: DBProvider.db.getAllPatients()[index].groupType ?? "Group 1",
+                  acctTier: DBProvider.db.getAllPatients()[index].acctTier,
+                  contact: DBProvider.db.getAllPatients()[index].phone,
+                  address: DBProvider.db.getAllPatients()[index].contactDetails,
+                  patient: DBProvider.db.getAllPatients()[index],
+                );
+              },
+              itemCount: DBProvider.db.getAllPatients().length,
             ),
           ),
         ],
@@ -875,7 +725,9 @@ Widget buildRowContent(
     String groupType = "",
     String contact = "",
     String acctTier = "",
-    String address = ""}) {
+    String address = "",
+      RegPatient? patient,
+    }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
     child: Padding(
@@ -910,7 +762,7 @@ Widget buildRowContent(
             ],
           ),
           Text(
-            date,
+            ConsoleService.processReadableDate(date),
             style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
@@ -968,7 +820,7 @@ Widget buildRowContent(
                 width: 20.0,
               ),
               InkWell(
-                onTap: viewPatientInfo,
+                onTap: () => viewPatientInfoReal(patient!),
                 child: Text(
                   'View',
                   style: TextStyle(
@@ -1010,7 +862,7 @@ Widget buildScheduleRowContent({
                     color: Colors.grey,
                   ),
                   fillColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.white),
+                      (states) => Colors.white),
                 ),
               ),
               const SizedBox(
@@ -1107,7 +959,7 @@ Widget buildRegRowContent({
                         color: Colors.grey,
                       ),
                       fillColor: MaterialStateProperty.resolveWith(
-                              (states) => Colors.white),
+                          (states) => Colors.white),
                     ),
                   ),
                   const Icon(
@@ -1211,7 +1063,7 @@ Widget buildDemographyRowContent({
                     color: Colors.grey,
                   ),
                   fillColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.white),
+                      (states) => Colors.white),
                 ),
               ),
               const SizedBox(
@@ -1319,7 +1171,7 @@ Widget buildIdentificationRowContent(
                     color: Colors.grey,
                   ),
                   fillColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.white),
+                      (states) => Colors.white),
                 ),
               ),
               const SizedBox(
