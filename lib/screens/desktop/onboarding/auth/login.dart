@@ -100,9 +100,14 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                         applyingMargin: false,
                         verticalPadding: 0.02.sh,
                         onTap: () async {
-
+                          setState(() {
+                            loading = true;
+                          });
                           if(!_formKey.currentState!.validate()) return;
                           await loginUser({'username': emailController.text, 'password': passwordController.text});
+                          setState(() {
+                            loading = false;
+                          });
                         },
                       ),
                       SizedBox(

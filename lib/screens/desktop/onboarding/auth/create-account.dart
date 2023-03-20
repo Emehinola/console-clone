@@ -67,22 +67,32 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                       ),
                       FlatTextField(
                           controller: emailController,
+                          validationService: (String? name) =>
+                              ValidationService.isValidEmail(name!),
                           hintText: 'Email Address'),
                       FlatTextField(
                         controller: biodataController,
                         hintText: 'Bio Details',
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
                       ),
                       FlatTextField(
                         controller: officialDetails,
                         hintText: 'Official Details',
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
                       ),
                       FlatTextField(
                         controller: otherDetails,
                         hintText: 'Other Details',
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
                       ),
                       FlatTextField(
                         controller: passwordController,
                         hintText: 'Password',
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
                       ),
                       SizedBox(
                         height: 0.06.sh,
@@ -101,8 +111,13 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                             'other_details': nameController.text,
                             'password': passwordController.text,
                           };
+                          setState(() {
+                            loading = true;
+                          });
                           await registerUser(payload);
-
+                          setState(() {
+                            loading = false;
+                          });
                         },
                       ),
                       SizedBox(
