@@ -44,6 +44,7 @@ class DesktopPatienntCard extends StatelessWidget {
                 buildDashRowItem(text: 'CONTACT'),
                 buildDashRowItem(text: 'ACCOUNT TIER'),
                 buildDashRowItem(text: 'ADDRESS'),
+                buildDashRowItem(text: 'REG. STATUS'),
                 buildDashRowItem(text: 'ACTION'),
               ],
             ),
@@ -328,7 +329,7 @@ Widget buildRowContent({
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
             child: Row(
               children: [
                 Transform.scale(
@@ -358,7 +359,7 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
             child: Text(
               ConsoleService.processReadableDate(date),
               style: TextStyle(
@@ -369,7 +370,7 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
             child: Text(
               name,
               style: TextStyle(
@@ -380,7 +381,7 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
             child: Text(
               groupType,
               style: TextStyle(
@@ -391,7 +392,7 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
             child: Text(
               contact,
               style: TextStyle(
@@ -402,7 +403,7 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
             child: Text(
               acctTier,
               style: TextStyle(
@@ -413,7 +414,7 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
             child: Text(
               address,
               style: TextStyle(
@@ -424,7 +425,18 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.09.sw,
+            width: 0.08.sw,
+            child: Text(
+              '100%',
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.08.sw,
             child: Row(
               children: [
                 Material(
@@ -978,7 +990,7 @@ Widget buildRowItem({bool hasBox = false, String text = ""}) {
 }
 Widget buildDashRowItem({bool hasBox = false, String text = ""}) {
   return SizedBox(
-    width: 0.09.sw,
+    width: 0.08.sw,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
