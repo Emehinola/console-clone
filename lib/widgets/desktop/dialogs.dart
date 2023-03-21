@@ -168,7 +168,7 @@ void showInfoDialogue(RegPatient patient) {
       });
 }
 
-void showInfoDialogueReal(RegPatient patient) {
+void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
   String firstName = "";
   String lastName = "";
 
@@ -207,11 +207,16 @@ void showInfoDialogueReal(RegPatient patient) {
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: (){
-                                Navigator.pop(context);
-                                ConsoleState.state.regViewText.value = "Update user profile";
-                                Get.to(DesktopNavigation());
                                 ConsoleState.state.patientToEdit = patient;
-                                selectedItem.value = CurrentSelectedNavItem.patientReg;
+                                Navigator.pop(context);
+                                if(fromReg){
+                                  ConsoleState.state.regViewText.value = "Update user profile";
+                                  Get.to(DesktopNavigation());
+                                  selectedItem.value = CurrentSelectedNavItem.patientReg;
+                                }else{
+                                  selectedItem.value = CurrentSelectedNavItem.patientReg;
+                                  ConsoleState.state.regViewText.value = "Update user profile";
+                                }
                               },
                               child: const Icon(
                                 FontAwesomeIcons.penToSquare,

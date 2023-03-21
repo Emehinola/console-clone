@@ -81,7 +81,7 @@ class HeaderMetrics extends StatelessWidget {
                                     height: 0.04.sh,
                                   ),
                                   const Text(
-                                    'Total Users',
+                                    'Total Patients',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   Row(
@@ -192,9 +192,9 @@ Widget buildFigureCard(String text, String subText, {String figure = "", Color c
   return GestureDetector(
     onTap: () {
       if(isRegistered){
-        ConsoleState.state.regViewText.value = "Registered Users (Complete)";
+        ConsoleState.state.regViewText.value = "Registered Patients (Complete)";
       }else{
-        ConsoleState.state.regViewText.value = "Registered Users (Incomplete)";
+        ConsoleState.state.regViewText.value = "Registered Patients (Incomplete)";
       }
       selectedItem.value = CurrentSelectedNavItem.patientReg;
     },

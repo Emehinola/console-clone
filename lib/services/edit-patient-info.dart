@@ -54,6 +54,6 @@ void viewPatientInfo(){
   showInfoDialogue(patient);
 }
 
-void viewPatientInfoReal(RegPatient patient){
-  showInfoDialogueReal(patient);
+void viewPatientInfoReal(RegPatient patient, bool fromReg){
+  showInfoDialogueReal(patient, fromReg: fromReg);
 }

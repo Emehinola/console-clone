@@ -54,7 +54,7 @@ class DesktopPatienntCard extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return InkWell(
-                  onTap: () => viewPatientInfoReal(DBProvider.db.getAllPatients()[index]),
+                  onTap: () => viewPatientInfoReal(DBProvider.db.getAllPatients()[index], false),
                   child: buildRowContent(
                     date: DBProvider.db.getAllPatients()[index].date ??
                         DateTime.now().toIso8601String(),
@@ -67,6 +67,7 @@ class DesktopPatienntCard extends StatelessWidget {
                     contact: DBProvider.db.getAllPatients()[index].phone,
                     address: DBProvider.db.getAllPatients()[index].contactDetails,
                     patient: DBProvider.db.getAllPatients()[index],
+                    fromReg: false,
                   ),
                 );
               },
@@ -294,9 +295,10 @@ class RegisteredPatient extends StatelessWidget {
                     id: DBProvider.db.getAllPatients()[index].id!,
                     percent: "100%",
                     patient: DBProvider.db.getAllPatients()[index],
+                    fromReg: true,
                   );
                 },
-                itemCount: ConsoleState.state.regViewText.value == 'Registered Users (Incomplete)' ? 0 : DBProvider.db.getAllPatients().length,
+                itemCount: ConsoleState.state.regViewText.value == 'Registered Patients (Incomplete)' ? 0 : DBProvider.db.getAllPatients().length,
               );
             })
           ),
@@ -316,6 +318,7 @@ Widget buildRowContent({
   String acctTier = "",
   String address = "",
   RegPatient? patient,
+  required bool fromReg,
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -453,7 +456,7 @@ Widget buildRowContent({
                   width: 20.0,
                 ),
                 InkWell(
-                  onTap: () => viewPatientInfoReal(patient!),
+                  onTap: () => viewPatientInfoReal(patient!, fromReg),
                   child: Text(
                     'View',
                     style: TextStyle(
@@ -595,6 +598,7 @@ Widget buildRegRowContent({
   String status = "",
   String percent = "",
   required RegPatient patient,
+  required bool fromReg,
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -693,7 +697,7 @@ Widget buildRegRowContent({
                   width: 20.0,
                 ),
                 InkWell(
-                  onTap: () => viewPatientInfoReal(patient),
+                  onTap: () => viewPatientInfoReal(patient, fromReg),
                   child: Text(
                     'View',
                     style: TextStyle(

@@ -32,7 +32,7 @@ class _DesktopPatientRegistrationState
     if(ConsoleState.state.patientToEdit != null){
       showForm = true;
     }else{
-      ConsoleState.state.regViewText.value = "Registered Users (Incomplete)";
+      ConsoleState.state.regViewText.value = "Registered Patients (Incomplete)";
     }
 
     super.initState();
