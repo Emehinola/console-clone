@@ -52,7 +52,7 @@ class _DesktopLoginScreenState extends State<DesktopLoginScreen> {
                       SizedBox(
                         height: 0.01.sh,
                       ),
-                      brandText(),
+                      // brandText(),
                       SizedBox(
                         height: 0.07.sh,
                       ),

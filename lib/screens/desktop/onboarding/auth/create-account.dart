@@ -54,7 +54,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                       SizedBox(
                         height: 0.01.sh,
                       ),
-                      brandText(),
+                      // brandText(),
                       SizedBox(
                         height: 0.07.sh,
                       ),

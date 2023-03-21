@@ -120,7 +120,7 @@ class HeaderMetrics extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                Expanded(
+               if(!isUser) Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
