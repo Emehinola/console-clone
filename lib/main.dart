@@ -1,16 +1,14 @@
-import 'dart:io';
-
 import 'package:console/screens/mobile/onboarding/platform-selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 void main() async {
   await ScreenUtil.ensureScreenSize();
-  var path = Directory.current.path;
-  Hive.init(path);
-
+  // var path = Directory.current.path;
+  // Hive.init(path);
+  await Hive.initFlutter();
   await Hive.openBox('console');
   runApp(const MyApp());
   // await testWindowFunctions();
