@@ -27,6 +27,7 @@ class DesktopPatienntCard extends StatelessWidget {
       // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       decoration: const BoxDecoration(
         color: Colors.white,
+        image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
       ),
       child: Column(
         children: [
@@ -62,10 +63,9 @@ class DesktopPatienntCard extends StatelessWidget {
                   onTap: () => viewUserInfoReal(
                       DBProvider.db.getAllUsers()[index], false),
                   child: buildUserRowContent(
-                    user: DBProvider.db.getAllUsers()[index],
-                    fromReg: false,
-                    sn: '${index + 1}'
-                  ),
+                      user: DBProvider.db.getAllUsers()[index],
+                      fromReg: false,
+                      sn: '${index + 1}'),
                 );
               },
               itemCount: ConsoleState.state.isUserRegistered.value
@@ -93,6 +93,7 @@ class DemographicsTable extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
         color: Colors.white,
+          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
       ),
       child: Column(
         children: [
@@ -120,14 +121,14 @@ class DemographicsTable extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return buildDemographyRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: DBProvider.db.getAllPatients()[index].patientName,
-                  id: DBProvider.db.getAllPatients()[index].id!,
-                  facility: "My facility",
-                  state: "Lagos state",
-                  lga: DBProvider.db.getAllPatients()[index].contactDetails,
-                );
+                    hasBg: index % 2 == 0,
+                    date: "23 Jun, 2023",
+                    name: DBProvider.db.getAllPatients()[index].patientName,
+                    id: DBProvider.db.getAllPatients()[index].id!,
+                    facility: "My facility",
+                    state: "Lagos state",
+                    lga: DBProvider.db.getAllPatients()[index].contactDetails,
+                    sn: '${index + 1}');
               },
               itemCount: DBProvider.db.getAllPatients().length,
             ),
@@ -152,6 +153,7 @@ class IdentificationTable extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
         color: Colors.white,
+          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
       ),
       child: Column(
         children: [
@@ -178,11 +180,12 @@ class IdentificationTable extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return buildIdentificationRowContent(
-                  date: "23 Jun, 2023",
-                  name: DBProvider.db.getAllPatients()[index].patientName,
-                  id: DBProvider.db.getAllPatients()[index].id!,
-                  groupId: '#675768',
-                );
+                    date: "23 Jun, 2023",
+                    name: DBProvider.db.getAllPatients()[index].patientName,
+                    id: DBProvider.db.getAllPatients()[index].id!,
+                    groupId: '#675768',
+                    hasBg: index % 2 == 0,
+                    sn: '${index + 1}');
               },
               itemCount: DBProvider.db.getAllPatients().length,
             ),
@@ -207,6 +210,7 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
         color: Colors.white,
+          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
       ),
       child: Column(
         children: [
@@ -232,17 +236,17 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return buildScheduleRowContent(
-                  hasBg: index % 2 == 0,
-                  date: ConsoleService.processReadableDate(DBProvider.db
-                      .getAllSchedules()[index]
-                      .appointmentDate
-                      .value),
-                  name: DBProvider.db.getAllSchedules()[index].patientName,
-                  id: DBProvider.db.getAllSchedules()[index].id ?? 'Nil',
-                  caseType: DBProvider.db.getAllSchedules()[index].patientCase,
-                  schedule: DBProvider.db.getAllSchedules()[index],
-                  sn: '${index+1}'
-                );
+                    hasBg: index % 2 == 0,
+                    date: ConsoleService.processReadableDate(DBProvider.db
+                        .getAllSchedules()[index]
+                        .appointmentDate
+                        .value),
+                    name: DBProvider.db.getAllSchedules()[index].patientName,
+                    id: DBProvider.db.getAllSchedules()[index].id ?? 'Nil',
+                    caseType:
+                        DBProvider.db.getAllSchedules()[index].patientCase,
+                    schedule: DBProvider.db.getAllSchedules()[index],
+                    sn: '${index + 1}');
               },
               itemCount: DBProvider.db.getAllSchedules().length,
             ),
@@ -267,6 +271,7 @@ class RegisteredPatient extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
         color: Colors.white,
+          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
       ),
       child: Column(
         children: [
@@ -295,15 +300,14 @@ class RegisteredPatient extends StatelessWidget {
                   onTap: () => viewPatientInfoReal(
                       DBProvider.db.getAllPatients()[index], true),
                   child: buildRegRowContent(
-                    status: "Completed",
-                    name: DBProvider.db.getAllPatients()[index].patientName,
-                    id: DBProvider.db.getAllPatients()[index].id!,
-                    percent: "100%",
-                    patient: DBProvider.db.getAllPatients()[index],
-                    fromReg: true,
-                    hasBg: index % 2 == 0,
-                    sn: '${index + 1}'
-                  ),
+                      status: "Completed",
+                      name: DBProvider.db.getAllPatients()[index].patientName,
+                      id: DBProvider.db.getAllPatients()[index].id!,
+                      percent: "100%",
+                      patient: DBProvider.db.getAllPatients()[index],
+                      fromReg: true,
+                      hasBg: index % 2 == 0,
+                      sn: '${index + 1}'),
                 );
               },
               itemCount: ConsoleState.state.regViewText.value ==
@@ -470,7 +474,7 @@ Widget buildScheduleRowContent(
     String name = "",
     String date = "",
     String caseType = "",
-    required  String sn,
+    required String sn,
     PatientSchedule? schedule}) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -544,9 +548,15 @@ Widget buildScheduleRowContent(
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      ConsoleState.state.patientSchedule = schedule;
-                      ConsoleState.state.editAction.value = true;
-                      ConsoleState.state.isScheduleViewOnly.value = false;
+                      try {
+                        ConsoleState.state.patientSchedule = schedule;
+                        ConsoleState.state.editAction.value = true;
+                        ConsoleState.state.isScheduleViewOnly.value = false;
+                        ConsoleState.state.patientSchedule?.appointmentDate
+                            .value = schedule!.appointmentDate.value;
+                      } catch (e) {
+                        //
+                      }
                     },
                     child: const Icon(
                       FontAwesomeIcons.penToSquare,
@@ -560,9 +570,15 @@ Widget buildScheduleRowContent(
                 ),
                 InkWell(
                   onTap: () {
-                    ConsoleState.state.patientSchedule = schedule;
-                    ConsoleState.state.editAction.value = true;
-                    ConsoleState.state.isScheduleViewOnly.value = true;
+                    try {
+                      ConsoleState.state.patientSchedule = schedule;
+                      ConsoleState.state.editAction.value = true;
+                      ConsoleState.state.isScheduleViewOnly.value = true;
+                      ConsoleState.state.patientSchedule?.appointmentDate
+                          .value = schedule!.appointmentDate.value;
+                    } catch (e) {
+                      //
+                    }
                   },
                   child: Text(
                     'View',
@@ -722,6 +738,7 @@ Widget buildDemographyRowContent({
   String state = "",
   String lga = "",
   String facility = "",
+  required String sn,
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -730,94 +747,120 @@ Widget buildDemographyRowContent({
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Transform.scale(
-                scale: 0.7,
-                child: Checkbox(
-                  value: false,
-                  onChanged: (value) {},
-                  side: const BorderSide(
-                    color: Colors.grey,
-                  ),
-                  fillColor: MaterialStateProperty.resolveWith(
-                      (states) => Colors.white),
+          SizedBox(
+            width: 0.09.sw,
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 7.0,
                 ),
-              ),
-              const SizedBox(
-                width: 7.0,
-              ),
-              Text(
-                id,
-                style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
-                    color: ColorPalette.offBlack),
-              ),
-            ],
-          ),
-          Text(
-            date,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            name,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            state,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            lga,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            facility,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Row(
-            children: [
-              const Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: editPatientInfo,
-                  child: Icon(
-                    FontAwesomeIcons.penToSquare,
-                    size: 13,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 20.0,
-              ),
-              InkWell(
-                onTap: viewPatientInfo,
-                child: Text(
-                  'View',
+                Text(
+                  '$sn.',
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 14.sp,
-                      color: ColorPalette.grey),
+                      color: ColorPalette.offBlack),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  id,
+                  style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: ColorPalette.offBlack),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              date,
+              style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              name,
+              style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              state,
+              style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              lga,
+              style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              facility,
+              style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Row(
+              children: const [
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: editPatientInfo,
+                    child: Icon(
+                      FontAwesomeIcons.penToSquare,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: viewPatientInfo,
+                    child: Icon(
+                      FontAwesomeIcons.eye,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -830,7 +873,8 @@ Widget buildIdentificationRowContent(
     String id = "",
     String name = "",
     String groupId = "",
-    String date = ""}) {
+    String date = "",
+    required String sn}) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
     child: Padding(
@@ -838,87 +882,103 @@ Widget buildIdentificationRowContent(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Transform.scale(
-                scale: 0.7,
-                child: Checkbox(
-                  value: false,
-                  onChanged: (value) {},
-                  side: const BorderSide(
-                    color: Colors.grey,
-                  ),
-                  fillColor: MaterialStateProperty.resolveWith(
-                      (states) => Colors.white),
+          SizedBox(
+            width: 0.1.sw,
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 7.0,
                 ),
-              ),
-              const SizedBox(
-                width: 7.0,
-              ),
-              Text(
-                id,
-                style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
-                    color: ColorPalette.offBlack),
-              ),
-            ],
-          ),
-          Text(
-            date,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            name,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            groupId,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            'Individual',
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Row(
-            children: [
-              const Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: editPatientInfo,
-                  child: Icon(
-                    FontAwesomeIcons.penToSquare,
-                    size: 13,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 20.0,
-              ),
-              InkWell(
-                onTap: viewPatientInfo,
-                child: Text(
-                  'View',
+                Text(
+                  '$sn.',
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 14.sp,
-                      color: ColorPalette.grey),
+                      color: ColorPalette.offBlack),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  id,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: ColorPalette.offBlack),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 0.1.sw,
+            child: Text(
+              date,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.1.sw,
+            child: Text(
+              name,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.1.sw,
+            child: Text(
+              groupId,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.1.sw,
+            child: Text(
+              'Individual',
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.1.sw,
+            child: Row(
+              children: [
+                const Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: editPatientInfo,
+                    child: Icon(
+                      FontAwesomeIcons.penToSquare,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                InkWell(
+                  onTap: viewPatientInfo,
+                  child: Text(
+                    'View',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: ColorPalette.grey),
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),

@@ -17,17 +17,19 @@ class DesktopWelcome extends StatefulWidget {
 }
 
 class _DesktopWelcomeState extends State<DesktopWelcome> {
-
   @override
   void initState() {
-
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        child: Obx((){
+      body: WillPopScope(
+        onWillPop: () async{
+          return false;
+        },
+        child: SizedBox(child: Obx(() {
           return Row(
             children: [
               SizedBox(width: 0.5.sw, child: const LeftPanel()),
@@ -38,14 +40,13 @@ class _DesktopWelcomeState extends State<DesktopWelcome> {
                       : DesktopSignUpScreen()),
             ],
           );
-        })
+        })),
       ),
     );
   }
 }
 
 class LeftPanel extends StatelessWidget {
-
   const LeftPanel({Key? key}) : super(key: key);
 
   @override
@@ -57,11 +58,11 @@ class LeftPanel extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Text(
+            Text(
               'Welcome,',
               style: TextStyle(fontSize: 25.sp, color: Colors.white),
             ),
-             SizedBox(
+            SizedBox(
               height: 0.2.sh,
             ),
             ClipRRect(
@@ -89,4 +90,3 @@ class LeftPanel extends StatelessWidget {
     );
   }
 }
-

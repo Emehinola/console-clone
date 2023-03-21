@@ -138,28 +138,30 @@ class BuildScheduleCalendar extends StatelessWidget {
                           SchedulePatientCard(
                             status: 'Schedule',
                           ),
-                          CalendarDatePicker2(
-                            config: CalendarDatePicker2Config(
-                                calendarType: CalendarDatePicker2Type.single,
-                                currentDate: DateTime.parse(ConsoleState
-                                        .state
-                                        .patientSchedule
-                                        ?.appointmentDate
-                                        .value ??
-                                    DateTime.now().toIso8601String())),
-                            onValueChanged: (date) {
-                              try {
-                                ConsoleState
-                                    .state
-                                    .patientSchedule!
-                                    .appointmentDate
-                                    .value = date.first!.toIso8601String();
-                              } catch (e) {
-                                //
-                              }
-                            },
-                            initialValue: [],
-                          ),
+                          Obx((){
+                            return CalendarDatePicker2(
+                              config: CalendarDatePicker2Config(
+                                  calendarType: CalendarDatePicker2Type.single,
+                                  currentDate: DateTime.parse(ConsoleState
+                                      .state
+                                      .patientSchedule
+                                      ?.appointmentDate
+                                      .value ??
+                                      DateTime.now().toIso8601String())),
+                              onValueChanged: (date) {
+                                try {
+                                  ConsoleState
+                                      .state
+                                      .patientSchedule!
+                                      .appointmentDate
+                                      .value = date.first!.toIso8601String();
+                                } catch (e) {
+                                  //
+                                }
+                              },
+                              initialValue: [],
+                            );
+                          }),
                           Obx(() => Visibility(
                                 visible: !ConsoleState
                                     .state.isScheduleViewOnly.value,

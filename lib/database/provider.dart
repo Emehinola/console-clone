@@ -181,7 +181,9 @@ class DBProvider {
 
   Future<bool> editSchedule(PatientSchedule schedule) async {
     try {
-      List<Map> newSch = getLocalSchedule().where((element) => element['id'] != schedule.id).toList();
+      List<Map> newSch = getLocalSchedule()
+          .where((element) => element['id'] != schedule.id)
+          .toList();
       insertSchedule(schedule, newSch: newSch);
 
       return true;

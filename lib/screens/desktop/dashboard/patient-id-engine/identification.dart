@@ -20,47 +20,8 @@ class DesktopIdentification extends StatelessWidget {
           height: 20,
         ),
         Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: IdentificationTable(
-                  status: "Complete",
-                ),
-              ),
-              Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          './assets/images/schedule.png',
-                          height: 0.15.sh,
-                        ),
-                        SizedBox(
-                          height: 0.06.sh,
-                        ),
-                        OutlinedBtn(
-                          buttonText: 'Schedule Patient',
-                          verticalPadding: 0.015.sh,
-                          borderColor: ColorPalette.mainButtonColor,
-                          textColor: ColorPalette.mainButtonColor,
-                          onTap: () => selectedItem.value = CurrentSelectedNavItem.patientScheduling,
-                        ),
-                        SizedBox(
-                          height: 0.02.sh,
-                        ),
-                        FlatButton(
-                          buttonText: 'Engage Patient',
-                          verticalPadding: 0.015.sh,
-                          onTap: () => selectedItem.value = CurrentSelectedNavItem.patientEngagementReg,
-                        ),
-                      ],
-                    ),
-                  ))
-            ],
+          child: IdentificationTable(
+            status: "Complete",
           ),
         ),
       ],

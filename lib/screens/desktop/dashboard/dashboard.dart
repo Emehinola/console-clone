@@ -129,7 +129,7 @@ class HeaderMetrics extends StatelessWidget {
                               ? '${DBProvider.db.getAllUsers().length}'
                               : '${DBProvider.db.getAllPatients().length}',
                           isRegistered: true,
-                          isUser: true),
+                          isUser: isUser),
                       SizedBox(
                         height: 0.01.sh,
                       ),
@@ -137,7 +137,7 @@ class HeaderMetrics extends StatelessWidget {
                           figure: '0',
                           color: ColorPalette.lightRed,
                           isRegistered: false,
-                          isUser: true),
+                          isUser: isUser),
                     ],
                   ),
                 )
@@ -175,16 +175,16 @@ class HeaderMetrics extends StatelessWidget {
                                 onTap: () => showFilterDialog(),
                                 child: DesktopConsoleIconButton(
                                   icon: IconlyLight.filter,
-                                  text: 'Filter',
+                                  text: 'Filter/Sort',
                                 ),
                               ),
-                              SizedBox(
-                                width: 0.01.sw,
-                              ),
-                              DesktopConsoleIconButton(
-                                icon: Icons.filter_list,
-                                text: 'Sort',
-                              ),
+                              // SizedBox(
+                              //   width: 0.01.sw,
+                              // ),
+                              // DesktopConsoleIconButton(
+                              //   icon: Icons.filter_list,
+                              //   text: 'Sort',
+                              // ),
                             ],
                           ),
                           SizedBox(

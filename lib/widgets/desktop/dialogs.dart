@@ -378,21 +378,21 @@ void showUserInfoDialogueReal(User user, {required bool fromReg}) {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: (){
-                                ConsoleState.state.userToEdit = user;
-                                Navigator.pop(context);
-                                showUserEditDialog(user, fromReg: fromReg);
-                              },
-                              child: const Icon(
-                                FontAwesomeIcons.penToSquare,
-                                size: 15,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
+                          // Material(
+                          //   color: Colors.transparent,
+                          //   child: InkWell(
+                          //     onTap: (){
+                          //       ConsoleState.state.userToEdit = user;
+                          //       Navigator.pop(context);
+                          //       showUserEditDialog(user, fromReg: fromReg);
+                          //     },
+                          //     child: const Icon(
+                          //       FontAwesomeIcons.penToSquare,
+                          //       size: 15,
+                          //       color: Colors.grey,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                       const Divider(),
