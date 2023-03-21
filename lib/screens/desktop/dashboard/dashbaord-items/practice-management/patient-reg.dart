@@ -44,7 +44,7 @@ class _DesktopPatientRegistrationState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const HeaderMetrics(),
+          HeaderMetrics(),
           const SizedBox(
             height: 20,
           ),

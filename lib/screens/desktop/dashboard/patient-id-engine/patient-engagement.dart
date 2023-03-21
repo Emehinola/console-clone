@@ -32,7 +32,7 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
     return Scaffold(
       body: Column(
         children: [
-          const HeaderMetrics(),
+          HeaderMetrics(),
           const Divider(),
           const SizedBox(
             height: 20,
@@ -41,11 +41,12 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
             child: Row(
               children: [
                 Expanded(
+                  flex: 3,
                   child: DesktopPatienntScheduleTable(
                     status: "Complete",
                   ),
                 ),
-                const Expanded(child: BuildEngagementCard()),
+                const Expanded(flex: 2,child: BuildEngagementCard()),
               ],
             ),
           ),

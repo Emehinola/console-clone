@@ -1,5 +1,6 @@
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
+import 'package:console/models/user.dart';
 import 'package:get/get.dart';
 
 import 'controller-variables.dart';
@@ -21,6 +22,12 @@ class ConsoleState extends GetxController{
   RegPatient? _patientToEdit;
   RegPatient? get patientToEdit => _patientToEdit;
 
+  User? _user;
+  User? get user => _user;
+
+  User? _userToEdit;
+  User? get userToEdit => _userToEdit;
+
   // schedule
   PatientSchedule? _patientSchedule;
   PatientSchedule? get patientSchedule => _patientSchedule;
@@ -32,6 +39,16 @@ class ConsoleState extends GetxController{
 
   set patientSchedule(value){
     _patientSchedule = value;
+    update();
+  }
+
+  set user(value){
+    _user = value;
+    update();
+  }
+
+  set userToEdit(value){
+    _userToEdit = value;
     update();
   }
 }

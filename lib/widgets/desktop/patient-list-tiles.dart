@@ -1,5 +1,6 @@
 import 'package:console/database/provider.dart';
 import 'package:console/models/registered-patient.dart';
+import 'package:console/models/user.dart';
 import 'package:console/services/console-services.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,17 +36,20 @@ class DesktopPatienntCard extends StatelessWidget {
             color: ColorPalette.fairGrey,
             width: double.infinity,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 buildDashRowItem(hasBox: true, text: 'ID'),
                 buildDashRowItem(text: 'DATE CREATED'),
-                buildDashRowItem(text: 'PATIENT NAME'),
-                buildDashRowItem(text: 'GROUP TYPE'),
-                buildDashRowItem(text: 'CONTACT'),
-                buildDashRowItem(text: 'ACCOUNT TIER'),
-                buildDashRowItem(text: 'ADDRESS'),
-                buildDashRowItem(text: 'REG. STATUS'),
+                buildDashRowItem(text: 'FULL NAME'),
+                buildDashRowItem(text: 'OFFICIAL DETAILS'),
+                buildDashRowItem(text: 'OTHER DETAILS'),
+                buildDashRowItem(text: 'BIODATA'),
+                buildDashRowItem(text: 'STATUS'),
                 buildDashRowItem(text: 'ACTION'),
+                // buildDashRowItem(text: 'ACCOUNT TIER'),
+                // buildDashRowItem(text: 'ADDRESS'),
+                // buildDashRowItem(text: 'REG. STATUS'),
+                // buildDashRowItem(text: 'ACTION'),
               ],
             ),
           ),
@@ -55,24 +59,14 @@ class DesktopPatienntCard extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return InkWell(
-                  onTap: () => viewPatientInfoReal(DBProvider.db.getAllPatients()[index], false),
-                  child: buildRowContent(
-                    date: DBProvider.db.getAllPatients()[index].date ??
-                        DateTime.now().toIso8601String(),
-                    hasBg: index % 2 == 0,
-                    name: DBProvider.db.getAllPatients()[index].patientName,
-                    id: DBProvider.db.getAllPatients()[index].id ?? "P001",
-                    groupType: DBProvider.db.getAllPatients()[index].groupType ??
-                        "Group 1",
-                    acctTier: DBProvider.db.getAllPatients()[index].acctTier,
-                    contact: DBProvider.db.getAllPatients()[index].phone,
-                    address: DBProvider.db.getAllPatients()[index].contactDetails,
-                    patient: DBProvider.db.getAllPatients()[index],
+                  onTap: () => viewUserInfoReal(DBProvider.db.getAllUsers()[index], false),
+                  child: buildUserRowContent(
+                    user: DBProvider.db.getAllUsers()[index],
                     fromReg: false,
                   ),
                 );
               },
-              itemCount: DBProvider.db.getAllPatients().length,
+              itemCount: DBProvider.db.getAllUsers().length,
             ),
           ),
         ],
@@ -290,13 +284,17 @@ class RegisteredPatient extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (_, index) {
-                  return buildRegRowContent(
-                    status: "Completed",
-                    name: DBProvider.db.getAllPatients()[index].patientName,
-                    id: DBProvider.db.getAllPatients()[index].id!,
-                    percent: "100%",
-                    patient: DBProvider.db.getAllPatients()[index],
-                    fromReg: true,
+                  return InkWell(
+                    onTap: () => viewPatientInfoReal(DBProvider.db.getAllPatients()[index], true),
+                    child: buildRegRowContent(
+                      status: "Completed",
+                      name: DBProvider.db.getAllPatients()[index].patientName,
+                      id: DBProvider.db.getAllPatients()[index].id!,
+                      percent: "100%",
+                      patient: DBProvider.db.getAllPatients()[index],
+                      fromReg: true,
+                      hasBg: index % 2 == 0,
+                    ),
                   );
                 },
                 itemCount: ConsoleState.state.regViewText.value == 'Registered Patients (Incomplete)' ? 0 : DBProvider.db.getAllPatients().length,
@@ -309,16 +307,9 @@ class RegisteredPatient extends StatelessWidget {
   }
 }
 
-Widget buildRowContent({
+Widget buildUserRowContent({
   hasBg = true,
-  String id = "",
-  String name = "",
-  String date = "",
-  String groupType = "",
-  String contact = "",
-  String acctTier = "",
-  String address = "",
-  RegPatient? patient,
+  User? user,
   required bool fromReg,
 }) {
   return Container(
@@ -326,10 +317,10 @@ Widget buildRowContent({
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Row(
               children: [
                 Transform.scale(
@@ -348,7 +339,7 @@ Widget buildRowContent({
                   width: 7.0,
                 ),
                 Text(
-                  id,
+                  'US23',
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 16.sp,
@@ -359,9 +350,9 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Text(
-              ConsoleService.processReadableDate(date),
+              ConsoleService.processReadableDate(DateTime.now().toIso8601String()),
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -370,9 +361,9 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Text(
-              name,
+              '${user?.fullName}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -381,9 +372,9 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Text(
-              groupType,
+              '${user?.officialDetails}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -392,9 +383,9 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Text(
-              contact,
+              '${user?.otherDetails}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -403,9 +394,9 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Text(
-              acctTier,
+              '${user?.bioData}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -414,18 +405,7 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.08.sw,
-            child: Text(
-              address,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.sp,
-                  overflow: TextOverflow.ellipsis,
-                  color: ColorPalette.grey),
-            ),
-          ),
-          SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Text(
               '100%',
               style: TextStyle(
@@ -436,13 +416,13 @@ Widget buildRowContent({
             ),
           ),
           SizedBox(
-            width: 0.08.sw,
+            width: 0.098.sw,
             child: Row(
               children: [
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () => editPatientInfoReal(patient!),
+                    onTap: () => editUserInfoReal(user!),
                     child: const Icon(
                       FontAwesomeIcons.penToSquare,
                       size: 13,
@@ -453,22 +433,8 @@ Widget buildRowContent({
                 const SizedBox(
                   width: 20.0,
                 ),
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () => showScheduleDialog(patient!),
-                    child: const Icon(
-                      CupertinoIcons.calendar,
-                      size: 13,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
                 InkWell(
-                  onTap: () => viewPatientInfoReal(patient!, fromReg),
+                  onTap: () => viewUserInfoReal(user!, fromReg),
                   child: Text(
                     'View',
                     style: TextStyle(
@@ -700,6 +666,20 @@ Widget buildRegRowContent({
                     onTap: () => editPatientInfoReal(patient, fromReg: true),
                     child: const Icon(
                       FontAwesomeIcons.penToSquare,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () => showScheduleDialog(patient),
+                    child: const Icon(
+                      CupertinoIcons.calendar,
                       size: 13,
                       color: Colors.grey,
                     ),
@@ -990,7 +970,7 @@ Widget buildRowItem({bool hasBox = false, String text = ""}) {
 }
 Widget buildDashRowItem({bool hasBox = false, String text = ""}) {
   return SizedBox(
-    width: 0.08.sw,
+    width: 0.098.sw,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

@@ -14,7 +14,7 @@ class DesktopIdentification extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const HeaderMetrics(),
+        HeaderMetrics(),
         const Divider(),
         const SizedBox(
           height: 20,

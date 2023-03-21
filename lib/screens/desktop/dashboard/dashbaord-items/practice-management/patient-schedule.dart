@@ -35,7 +35,7 @@ class _PatientsListState extends State<DesktopPatientSchedule> {
     return Scaffold(
       body: Column(
         children: [
-          const HeaderMetrics(),
+          HeaderMetrics(),
           const Divider(),
           Expanded(
             child: Row(

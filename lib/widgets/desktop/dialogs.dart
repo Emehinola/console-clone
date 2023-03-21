@@ -13,9 +13,12 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../api-calls/schedule-patient.dart';
+import '../../models/user.dart';
+import '../../services/validation-service.dart';
 import '../../state-management/controller-variables.dart';
 import '../mob-desk/buttons/console-text-button.dart';
 import '../mob-desk/custom/cards.dart';
+import '../mob-desk/forms/console-text-field.dart';
 
 void showSuccessSheet(String title, String desc) {
   showDialog(
@@ -263,6 +266,174 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
       });
 }
 
+void showUserEditDialog(User user, {required bool fromReg}) {
+
+  final name = TextEditingController();
+  final biodata = TextEditingController();
+  final officialDetails = TextEditingController();
+  final otherDetails = TextEditingController();
+  final username = TextEditingController();
+
+  name.text = user.fullName;
+  biodata.text = user.bioData;
+  officialDetails.text = user.officialDetails;
+  otherDetails.text = user.otherDetails;
+  username.text = user.username;
+
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.5.sh,
+              width: 0.3.sw,
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FlatTextField(
+                        controller: name,
+                        hintText: 'Full Name',
+                        isPassword: false,
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
+                      ),
+                      FlatTextField(
+                          controller: username,
+                          validationService: (String? name) =>
+                              ValidationService.isValidEmail(name!),
+                          hintText: 'Email Address'),
+                      FlatTextField(
+                        controller: biodata,
+                        hintText: 'Bio Details',
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
+                      ),
+                      FlatTextField(
+                        controller: officialDetails,
+                        hintText: 'Official Details',
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
+                      ),
+                      FlatTextField(
+                        controller: otherDetails,
+                        hintText: 'Other Details',
+                        validationService: (String? name) =>
+                            ValidationService.isValidInput(name!),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FlatButton(
+                            buttonText: 'Close',
+                            verticalPadding: 0.02.sh,
+                            onTap: () {
+                              Get.back();
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void showUserInfoDialogueReal(User user, {required bool fromReg}) {
+  String firstName = "";
+  String lastName = "";
+
+  try {
+    firstName = user.fullName.split(' ')[0];
+    lastName = user.fullName.split(' ')[1];
+  } catch (e) {
+    //
+  }
+
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.43.sh,
+              width: 0.3.sw,
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'User Full Information',
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (){
+                                ConsoleState.state.userToEdit = user;
+                                Navigator.pop(context);
+                                // TODO: show edit dialog
+                              },
+                              child: const Icon(
+                                FontAwesomeIcons.penToSquare,
+                                size: 15,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('First Name', firstName, 'Last Name', lastName),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Bio Data', user.bioData, '',
+                          '', isFull: true),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Official Details', user.officialDetails, '',
+                          '', isFull: true),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Other Details', user.otherDetails, '',
+                          '', isFull: true),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.03.sh),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FlatButton(
+                            buttonText: 'Close',
+                            verticalPadding: 0.02.sh,
+                            onTap: () {
+                              Get.back();
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
 void showScheduleDialog(RegPatient patient) {
   ConsoleState.state.patientSchedule = PatientSchedule(
     id: patient.id,
@@ -410,7 +581,7 @@ Widget detailRow(String title1, String value1, String title2, String value2, {bo
             Text(
               title1,
               textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 13.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             Text(
               value1,
@@ -429,7 +600,7 @@ Widget detailRow(String title1, String value1, String title2, String value2, {bo
             Text(
               title2,
               textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 13.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             Text(
               value2,

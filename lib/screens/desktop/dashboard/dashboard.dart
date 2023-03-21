@@ -16,7 +16,7 @@ class DesktopDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HeaderMetrics(),
+        HeaderMetrics(isUser: true),
         const SizedBox(
           height: 20,
         ),
@@ -32,7 +32,10 @@ class DesktopDashboard extends StatelessWidget {
 }
 
 class HeaderMetrics extends StatelessWidget {
-  const HeaderMetrics({Key? key}) : super(key: key);
+
+  bool isUser;
+
+  HeaderMetrics({Key? key, this.isUser = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +83,9 @@ class HeaderMetrics extends StatelessWidget {
                                     './assets/images/new-graph.png',
                                     height: 0.04.sh,
                                   ),
-                                  const Text(
-                                    'Total Patients',
-                                    style: TextStyle(color: Colors.white),
+                                   Text(
+                                    'Total ${isUser ? 'Users' : 'Patients'}',
+                                    style:const  TextStyle(color: Colors.white),
                                   ),
                                   Row(
                                     children: [
@@ -95,7 +98,7 @@ class HeaderMetrics extends StatelessWidget {
                                         width: 10,
                                       ),
                                       Text(
-                                        '${DBProvider.db.getAllPatients().length}',
+                                        isUser ? '${DBProvider.db.getAllUsers().length}' : '${DBProvider.db.getAllPatients().length}',
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
@@ -117,7 +120,7 @@ class HeaderMetrics extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      buildFigureCard("Fully", "Registered", figure: '${DBProvider.db.getAllPatients().length}', isRegistered: true),
+                      buildFigureCard("Fully", "Registered", figure: isUser ? '${DBProvider.db.getAllUsers().length}' : '${DBProvider.db.getAllPatients().length}', isRegistered: true),
                       SizedBox(
                         height: 0.01.sh,
                       ),
@@ -188,13 +191,13 @@ class HeaderMetrics extends StatelessWidget {
   }
 }
 
-Widget buildFigureCard(String text, String subText, {String figure = "", Color color = ColorPalette.lightGreen, bool isRegistered = false}){
+Widget buildFigureCard(String text, String subText, {String figure = "", Color color = ColorPalette.lightGreen, bool isRegistered = false, bool isUser = false}){
   return GestureDetector(
     onTap: () {
       if(isRegistered){
-        ConsoleState.state.regViewText.value = "Registered Patients (Complete)";
+        ConsoleState.state.regViewText.value = "Registered ${isUser ? 'Users' : 'Patients'} (Complete)";
       }else{
-        ConsoleState.state.regViewText.value = "Registered Patients (Incomplete)";
+        ConsoleState.state.regViewText.value = "Registered ${isUser ? 'Users' : 'Patients'} (Incomplete)";
       }
       selectedItem.value = CurrentSelectedNavItem.patientReg;
     },
