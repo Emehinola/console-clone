@@ -32,7 +32,7 @@ class _DesktopPatientRegistrationState
     if(ConsoleState.state.patientToEdit != null){
       showForm = true;
     }else{
-      ConsoleState.state.regViewText.value = "Registered Patients (Incomplete)";
+      ConsoleState.state.regViewText.value = "Registered Patients (Complete)";
     }
 
     super.initState();
@@ -44,7 +44,7 @@ class _DesktopPatientRegistrationState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          HeaderMetrics(),
+          HeaderMetrics(isUser: false,),
           const SizedBox(
             height: 20,
           ),

@@ -3,8 +3,7 @@ import 'package:console/models/patient-schedule.dart';
 import 'package:console/state-management/state-management.dart';
 
 Future<bool> schedulePatient() async {
-
-  if(ConsoleState.state.patientSchedule == null) return false;
+  if (ConsoleState.state.patientSchedule == null) return false;
   try {
     PatientSchedule patient = PatientSchedule(
       id: ConsoleState.state.patientSchedule!.id,
@@ -17,6 +16,20 @@ Future<bool> schedulePatient() async {
     return true;
   } catch (e) {
     print('preg: $e');
+  }
+
+  return false;
+}
+
+Future<bool> editSchedule(PatientSchedule schedule) async {
+  await Future.delayed(const Duration(seconds: 3));
+
+  try {
+    if (await DBProvider.db.editSchedule(schedule)) {
+      return true;
+    }
+  } catch (e) {
+    //
   }
 
   return false;

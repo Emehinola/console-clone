@@ -326,10 +326,11 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                       SizedBox(
                         width: double.infinity,
                         child: FlatButton(
-                            buttonText: 'Close',
+                            buttonText: 'Update',
                             verticalPadding: 0.02.sh,
                             onTap: () {
                               Get.back();
+                              showSuccessSheet('Success', 'User updated successfully');
                             }),
                       ),
                     ],
@@ -383,7 +384,7 @@ void showUserInfoDialogueReal(User user, {required bool fromReg}) {
                               onTap: (){
                                 ConsoleState.state.userToEdit = user;
                                 Navigator.pop(context);
-                                // TODO: show edit dialog
+                                showUserEditDialog(user, fromReg: fromReg);
                               },
                               child: const Icon(
                                 FontAwesomeIcons.penToSquare,

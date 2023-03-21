@@ -1,4 +1,7 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:console/database/provider.dart';
+import 'package:console/screens/desktop/dashboard/navigation.dart';
+import 'package:console/screens/mobile/dashboard/dashboard.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/desktop/patient-list-tiles.dart';
@@ -8,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../../api-calls/schedule-patient.dart';
 import '../../../../../state-management/state-management.dart';
 import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
@@ -46,7 +50,7 @@ class _PatientsListState extends State<DesktopPatientSchedule> {
                     status: "Complete",
                   ),
                 ),
-                const Expanded(flex: 2,child: BuildScheduleCalendar()),
+                Expanded(flex: 2, child: BuildScheduleCalendar()),
               ],
             ),
           ),
@@ -57,7 +61,9 @@ class _PatientsListState extends State<DesktopPatientSchedule> {
 }
 
 class BuildScheduleCalendar extends StatelessWidget {
-  const BuildScheduleCalendar({Key? key}) : super(key: key);
+  BuildScheduleCalendar({Key? key}) : super(key: key);
+
+  Rx<bool> loading = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +71,8 @@ class BuildScheduleCalendar extends StatelessWidget {
         width: Get.width,
         // padding: const EdgeInsets.only(left: 20, right: 20),
         alignment: Alignment.topCenter,
-        padding: const EdgeInsets.symmetric(horizontal: 60),
-        child: Obx((){
+        padding: EdgeInsets.symmetric(horizontal: 0.01.sw),
+        child: Obx(() {
           return Visibility(
             visible: ConsoleState.state.editAction.value,
             replacement: Padding(
@@ -85,7 +91,7 @@ class BuildScheduleCalendar extends StatelessWidget {
                       buttonText: 'Add Schedule',
                       verticalPadding: 0.015.sh,
                       onTap: () {
-                        selectedItem.value = CurrentSelectedNavItem.dashboard;
+                        selectedItem.value = CurrentSelectedNavItem.patientReg;
                       }),
                 ],
               ),
@@ -134,33 +140,61 @@ class BuildScheduleCalendar extends StatelessWidget {
                           ),
                           CalendarDatePicker2(
                             config: CalendarDatePicker2Config(
-                              calendarType: CalendarDatePicker2Type.single,
-                              currentDate: DateTime.parse("${ConsoleState.state.patientSchedule?.appointmentDate ?? DateTime.now().toIso8601String()}")
-                            ),
-                            onValueChanged: (dates) {},
+                                calendarType: CalendarDatePicker2Type.single,
+                                currentDate: DateTime.parse(ConsoleState
+                                        .state
+                                        .patientSchedule
+                                        ?.appointmentDate
+                                        .value ??
+                                    DateTime.now().toIso8601String())),
+                            onValueChanged: (date) {
+                              try {
+                                ConsoleState
+                                    .state
+                                    .patientSchedule!
+                                    .appointmentDate
+                                    .value = date.first!.toIso8601String();
+                              } catch (e) {
+                                //
+                              }
+                            },
                             initialValue: [],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              OutlinedBtn(
-                                buttonText: 'Cancel',
-                                verticalPadding: 0.02.sh,
-                                horPadding: 0.02.sw,
-                                borderColor: Colors.red,
-                                textColor: Colors.red,
-                              ),
-                              FlatButton(
-                                buttonText: 'Commit',
-                                verticalPadding: 0.02.sh,
-                                horPaddding: 0.02.sw,
-                                onTap: () {
-                                  showSuccessSheet('Success!',
-                                      'Appointment schedule submitted successfully');
-                                },
-                              ),
-                            ],
-                          )
+                          Obx(() => Visibility(
+                                visible: !ConsoleState
+                                    .state.isScheduleViewOnly.value,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    OutlinedBtn(
+                                      buttonText: 'Cancel',
+                                      verticalPadding: 0.02.sh,
+                                      horPadding: 0.02.sw,
+                                      borderColor: Colors.red,
+                                      textColor: Colors.red,
+                                    ),
+                                    Obx(
+                                      () => FlatButton(
+                                        buttonText: 'Commit',
+                                        verticalPadding: 0.02.sh,
+                                        horPaddding: 0.02.sw,
+                                        loading: loading.value,
+                                        onTap: () async {
+                                          loading.value = true;
+                                          if (await editSchedule(ConsoleState
+                                              .state.patientSchedule!)) {
+                                            Get.to(DesktopNavigation());
+                                            showSuccessSheet('Success!',
+                                                'Appointment schedule edited successfully');
+                                          }
+                                          loading.value = false;
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ))
                         ],
                       ),
                     ),

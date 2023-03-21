@@ -405,6 +405,10 @@ class FlatTextField extends StatelessWidget {
                   borderSide:
                   const BorderSide(color: Colors.transparent, width: 0.0),
                   borderRadius: BorderRadius.circular(12.0),
+                ),errorBorder: OutlineInputBorder(
+                  borderSide:
+                  const BorderSide(color: Colors.transparent, width: 0.0),
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
                 filled: true,
                 fillColor: fillColor ?? ColorPalette.formBg,

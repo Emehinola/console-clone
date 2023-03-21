@@ -27,13 +27,14 @@ void editPatientInfo(){
 void editPatientInfoReal(RegPatient patient, {bool fromReg = false}){
 
   if(fromReg){
-    ConsoleState.state.regViewText.value = "Update user profile";
-    Get.to(DesktopNavigation());
+    ConsoleState.state.regViewText.value = "Update patient info";
     ConsoleState.state.patientToEdit = patient;
+    Get.to(DesktopNavigation());
     selectedItem.value = CurrentSelectedNavItem.patientReg;
 
     return;
   }
+  print('object');
   ConsoleState.state.patientToEdit = patient;
 
   selectedItem.value = CurrentSelectedNavItem.patientReg;

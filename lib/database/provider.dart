@@ -21,20 +21,25 @@ class DBProvider {
     var rawUsers = box.get('users');
     List rawUsersList = rawUsers.toList();
 
-    for (var element in rawUsersList) { print(element.runtimeType); users.add(User.fromJson(element)); }
+    for (var element in rawUsersList) {
+      print(element.runtimeType);
+      users.add(User.fromJson(element));
+    }
     return users;
   }
 
   List<Map> getLocalUsers() {
     List<Map> users = [];
 
-    try{
+    try {
       var rawUsers = box.get('users');
       List rawUsersList = rawUsers.toList();
 
-      for (var element in rawUsersList) { users.add(User.toJson(jsonDecode(element))); }
+      for (var element in rawUsersList) {
+        users.add(User.toJson(jsonDecode(element)));
+      }
       return users;
-    }catch(e){
+    } catch (e) {
       //
     }
 
@@ -42,14 +47,14 @@ class DBProvider {
   }
 
   insertUser(User user) async {
-      Map userMap = User.toJson(user);
-      List<Map> previousUsers = getLocalUsers();
-      previousUsers.add(userMap);
+    Map userMap = User.toJson(user);
+    List<Map> previousUsers = getLocalUsers();
+    previousUsers.add(userMap);
 
-      await box.put('users', previousUsers);
+    await box.put('users', previousUsers);
   }
 
-  User? getUserByUsername(String username){
+  User? getUserByUsername(String username) {
     List<User> users = getAllUsers();
 
     print('users: $users');
@@ -64,30 +69,34 @@ class DBProvider {
     var rawPat;
     List rawUsersList = [];
 
-    try{
+    try {
       rawPat = box.get('patients');
 
       rawUsersList = rawPat.toList();
-    }catch(e){
+    } catch (e) {
       //
     }
 
-    for (var element in rawUsersList) { patients.add(RegPatient.fromJson(element)); }
+    for (var element in rawUsersList) {
+      patients.add(RegPatient.fromJson(element));
+    }
     return patients;
   }
 
   List<Map> getLocalPatients() {
     List<Map> patients = [];
 
-    try{
+    try {
       var rawPat = box.get('patients');
       List rawUsersList = rawPat.toList();
 
       print(rawUsersList);
 
-      for (var element in rawUsersList) { patients.add(element); }
+      for (var element in rawUsersList) {
+        patients.add(element);
+      }
       return patients;
-    }catch(e){
+    } catch (e) {
       print('e: $e');
     }
 
@@ -104,7 +113,7 @@ class DBProvider {
     await box.put('patients', previousPatient);
   }
 
-  RegPatient? getPatientByID(String id){
+  RegPatient? getPatientByID(String id) {
     List<RegPatient> patients = getAllPatients();
 
     print('patients: $patients');
@@ -118,15 +127,17 @@ class DBProvider {
     var rawPat;
     List rawSch = [];
 
-    try{
+    try {
       rawPat = box.get('schedules');
 
       rawSch = rawPat.toList();
-    }catch(e){
+    } catch (e) {
       //
     }
 
-    for (var element in rawSch) { schedules.add(PatientSchedule.fromJson(element)); }
+    for (var element in rawSch) {
+      schedules.add(PatientSchedule.fromJson(element));
+    }
 
     return schedules;
   }
@@ -134,34 +145,50 @@ class DBProvider {
   List<Map> getLocalSchedule() {
     List<Map> schedules = [];
 
-    try{
+    try {
       var rawPat = box.get('schedules');
       List rawSch = rawPat.toList();
 
-
-      for (var element in rawSch) { schedules.add(element); }
+      for (var element in rawSch) {
+        schedules.add(element);
+      }
       return schedules;
-    }catch(e){
+    } catch (e) {
       print('e: $e');
     }
 
     return [];
   }
 
-  insertSchedule(PatientSchedule patient) async {
+  insertSchedule(PatientSchedule patient, {List<Map>? newSch}) async {
     Map patMap = PatientSchedule.toJson(patient);
-    List<Map> previousSch = getLocalSchedule();
+    List<Map> previousSch = newSch ?? getLocalSchedule();
     previousSch.add(patMap);
-
-    print(previousSch);
 
     await box.put('schedules', previousSch);
   }
 
-  PatientSchedule? getScheduleById(String id){
-    List<PatientSchedule> patients = getAllSchedules();
+  PatientSchedule? getScheduleById(String id) {
+    try {
+      List<PatientSchedule> patients = getAllSchedules();
+      return patients.singleWhere((element) => element.id == id);
+    } catch (e) {
+      //
+    }
 
+    return null;
+  }
 
-    return patients.singleWhere((element) => element.id == id);
+  Future<bool> editSchedule(PatientSchedule schedule) async {
+    try {
+      List<Map> newSch = getLocalSchedule().where((element) => element['id'] != schedule.id).toList();
+      insertSchedule(schedule, newSch: newSch);
+
+      return true;
+    } catch (e) {
+      //
+    }
+
+    return false;
   }
 }

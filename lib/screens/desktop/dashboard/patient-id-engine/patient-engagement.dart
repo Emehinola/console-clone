@@ -245,7 +245,7 @@ class BuildEngagementCard extends StatelessWidget {
         width: Get.width,
         // padding: const EdgeInsets.only(left: 20, right: 20),
         alignment: Alignment.topCenter,
-        padding: const EdgeInsets.symmetric(horizontal: 60),
+        padding: EdgeInsets.symmetric(horizontal: 0.01.sw),
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(

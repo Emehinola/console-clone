@@ -32,7 +32,6 @@ class DesktopDashboard extends StatelessWidget {
 }
 
 class HeaderMetrics extends StatelessWidget {
-
   bool isUser;
 
   HeaderMetrics({Key? key, this.isUser = false}) : super(key: key);
@@ -51,7 +50,8 @@ class HeaderMetrics extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => selectedItem.value = CurrentSelectedNavItem.dashboard,
+                    onTap: () =>
+                        selectedItem.value = CurrentSelectedNavItem.dashboard,
                     child: Container(
                         decoration: BoxDecoration(
                             color: ColorPalette.mainButtonColor,
@@ -63,7 +63,8 @@ class HeaderMetrics extends StatelessWidget {
                             Container(
                               decoration: const BoxDecoration(
                                 image: DecorationImage(
-                                    image: AssetImage('./assets/images/wave.png'),
+                                    image:
+                                        AssetImage('./assets/images/wave.png'),
                                     fit: BoxFit.cover),
                               ),
                             ),
@@ -77,19 +78,20 @@ class HeaderMetrics extends StatelessWidget {
                                   horizontal: 20, vertical: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Image.asset(
                                     './assets/images/new-graph.png',
                                     height: 0.04.sh,
                                   ),
-                                   Text(
+                                  Text(
                                     'Total ${isUser ? 'Users' : 'Patients'}',
-                                    style:const  TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                   Row(
                                     children: [
-                                     const Icon(
+                                      const Icon(
                                         IconlyBold.user_2,
                                         color: ColorPalette.secondColor,
                                         size: 20,
@@ -98,7 +100,9 @@ class HeaderMetrics extends StatelessWidget {
                                         width: 10,
                                       ),
                                       Text(
-                                        isUser ? '${DBProvider.db.getAllUsers().length}' : '${DBProvider.db.getAllPatients().length}',
+                                        isUser
+                                            ? '${DBProvider.db.getAllUsers().length}'
+                                            : '${DBProvider.db.getAllPatients().length}',
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
@@ -120,11 +124,20 @@ class HeaderMetrics extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      buildFigureCard("Fully", "Registered", figure: isUser ? '${DBProvider.db.getAllUsers().length}' : '${DBProvider.db.getAllPatients().length}', isRegistered: true),
+                      buildFigureCard("Fully", "Registered",
+                          figure: isUser
+                              ? '${DBProvider.db.getAllUsers().length}'
+                              : '${DBProvider.db.getAllPatients().length}',
+                          isRegistered: true,
+                          isUser: true),
                       SizedBox(
                         height: 0.01.sh,
                       ),
-                      buildFigureCard("Not Fully", "Registered", figure: '0', color: ColorPalette.lightRed, isRegistered: false),
+                      buildFigureCard("Not Fully", "Registered",
+                          figure: '0',
+                          color: ColorPalette.lightRed,
+                          isRegistered: false,
+                          isUser: true),
                     ],
                   ),
                 )
@@ -191,23 +204,35 @@ class HeaderMetrics extends StatelessWidget {
   }
 }
 
-Widget buildFigureCard(String text, String subText, {String figure = "", Color color = ColorPalette.lightGreen, bool isRegistered = false, bool isUser = false}){
+Widget buildFigureCard(String text, String subText,
+    {String figure = "",
+    Color color = ColorPalette.lightGreen,
+    bool isRegistered = false,
+    bool isUser = false}) {
   return GestureDetector(
     onTap: () {
-      if(isRegistered){
-        ConsoleState.state.regViewText.value = "Registered ${isUser ? 'Users' : 'Patients'} (Complete)";
-      }else{
-        ConsoleState.state.regViewText.value = "Registered ${isUser ? 'Users' : 'Patients'} (Incomplete)";
+      if (isUser) {
+        if (isRegistered) {
+          ConsoleState.state.isUserRegistered.value = true;
+        } else {
+          ConsoleState.state.isUserRegistered.value = false;
+        }
+      } else {
+        if (isRegistered) {
+          ConsoleState.state.regViewText.value =
+              "Registered ${isUser ? 'Users' : 'Patients'} (Complete)";
+        } else {
+          ConsoleState.state.regViewText.value =
+              "Registered ${isUser ? 'Users' : 'Patients'} (Incomplete)";
+        }
+        selectedItem.value = CurrentSelectedNavItem.patientReg;
       }
-      selectedItem.value = CurrentSelectedNavItem.patientReg;
     },
     child: Container(
-      decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(8.0)),
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.0)),
       height: 0.065.sh,
-      padding: const EdgeInsets.only(
-          top: 5, bottom: 5, left: 10, right: 30),
+      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -240,9 +265,7 @@ Widget buildFigureCard(String text, String subText, {String figure = "", Color c
               ),
               Text(
                 subText,
-                style: TextStyle(
-                    color: ColorPalette.grey,
-                    fontSize: 14.sp),
+                style: TextStyle(color: ColorPalette.grey, fontSize: 14.sp),
               ),
             ],
           ),

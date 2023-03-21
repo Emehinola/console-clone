@@ -53,22 +53,26 @@ class DesktopPatienntCard extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
+          Expanded(child: Obx(() {
+            return ListView.builder(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return InkWell(
-                  onTap: () => viewUserInfoReal(DBProvider.db.getAllUsers()[index], false),
+                  onTap: () => viewUserInfoReal(
+                      DBProvider.db.getAllUsers()[index], false),
                   child: buildUserRowContent(
                     user: DBProvider.db.getAllUsers()[index],
                     fromReg: false,
+                    sn: '${index + 1}'
                   ),
                 );
               },
-              itemCount: DBProvider.db.getAllUsers().length,
-            ),
-          ),
+              itemCount: ConsoleState.state.isUserRegistered.value
+                  ? DBProvider.db.getAllUsers().length
+                  : 0,
+            );
+          })),
         ],
       ),
     );
@@ -214,7 +218,7 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildRowItem(hasBox: true, text: 'ID'),
+                buildRowItem(hasBox: false, text: 'ID'),
                 buildRowItem(text: 'PATIENT NAME'),
                 buildRowItem(text: 'CASE'),
                 buildRowItem(text: 'APPT. DATE'),
@@ -229,11 +233,15 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
               itemBuilder: (_, index) {
                 return buildScheduleRowContent(
                   hasBg: index % 2 == 0,
-                  date: ConsoleService.processReadableDate(DBProvider.db.getAllSchedules()[index].appointmentDate.value),
+                  date: ConsoleService.processReadableDate(DBProvider.db
+                      .getAllSchedules()[index]
+                      .appointmentDate
+                      .value),
                   name: DBProvider.db.getAllSchedules()[index].patientName,
                   id: DBProvider.db.getAllSchedules()[index].id ?? 'Nil',
                   caseType: DBProvider.db.getAllSchedules()[index].patientCase,
                   schedule: DBProvider.db.getAllSchedules()[index],
+                  sn: '${index+1}'
                 );
               },
               itemCount: DBProvider.db.getAllSchedules().length,
@@ -278,29 +286,32 @@ class RegisteredPatient extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Obx((){
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (_, index) {
-                  return InkWell(
-                    onTap: () => viewPatientInfoReal(DBProvider.db.getAllPatients()[index], true),
-                    child: buildRegRowContent(
-                      status: "Completed",
-                      name: DBProvider.db.getAllPatients()[index].patientName,
-                      id: DBProvider.db.getAllPatients()[index].id!,
-                      percent: "100%",
-                      patient: DBProvider.db.getAllPatients()[index],
-                      fromReg: true,
-                      hasBg: index % 2 == 0,
-                    ),
-                  );
-                },
-                itemCount: ConsoleState.state.regViewText.value == 'Registered Patients (Incomplete)' ? 0 : DBProvider.db.getAllPatients().length,
-              );
-            })
-          ),
+          Expanded(child: Obx(() {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (_, index) {
+                return InkWell(
+                  onTap: () => viewPatientInfoReal(
+                      DBProvider.db.getAllPatients()[index], true),
+                  child: buildRegRowContent(
+                    status: "Completed",
+                    name: DBProvider.db.getAllPatients()[index].patientName,
+                    id: DBProvider.db.getAllPatients()[index].id!,
+                    percent: "100%",
+                    patient: DBProvider.db.getAllPatients()[index],
+                    fromReg: true,
+                    hasBg: index % 2 == 0,
+                    sn: '${index + 1}'
+                  ),
+                );
+              },
+              itemCount: ConsoleState.state.regViewText.value ==
+                      'Registered Patients (Incomplete)'
+                  ? 0
+                  : DBProvider.db.getAllPatients().length,
+            );
+          })),
         ],
       ),
     );
@@ -311,6 +322,7 @@ Widget buildUserRowContent({
   hasBg = true,
   User? user,
   required bool fromReg,
+  required sn,
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -323,17 +335,15 @@ Widget buildUserRowContent({
             width: 0.098.sw,
             child: Row(
               children: [
-                Transform.scale(
-                  scale: 0.7,
-                  child: Checkbox(
-                    value: false,
-                    onChanged: (value) {},
-                    side: const BorderSide(
-                      color: Colors.grey,
-                    ),
-                    fillColor: MaterialStateProperty.resolveWith(
-                        (states) => Colors.white),
-                  ),
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  '$sn.',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: ColorPalette.offBlack),
                 ),
                 const SizedBox(
                   width: 7.0,
@@ -352,7 +362,8 @@ Widget buildUserRowContent({
           SizedBox(
             width: 0.098.sw,
             child: Text(
-              ConsoleService.processReadableDate(DateTime.now().toIso8601String()),
+              ConsoleService.processReadableDate(
+                  DateTime.now().toIso8601String()),
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -433,14 +444,15 @@ Widget buildUserRowContent({
                 const SizedBox(
                   width: 20.0,
                 ),
-                InkWell(
-                  onTap: () => viewUserInfoReal(user!, fromReg),
-                  child: Text(
-                    'View',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        color: ColorPalette.grey),
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () => viewUserInfoReal(user!, false),
+                    child: const Icon(
+                      FontAwesomeIcons.eye,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ],
@@ -452,14 +464,14 @@ Widget buildUserRowContent({
   );
 }
 
-Widget buildScheduleRowContent({
-  hasBg = true,
-  String id = "",
-  String name = "",
-  String date = "",
-  String caseType = "",
-  PatientSchedule? schedule
-}) {
+Widget buildScheduleRowContent(
+    {hasBg = true,
+    String id = "",
+    String name = "",
+    String date = "",
+    String caseType = "",
+    required  String sn,
+    PatientSchedule? schedule}) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
     child: Padding(
@@ -471,17 +483,15 @@ Widget buildScheduleRowContent({
             width: 0.09.sw,
             child: Row(
               children: [
-                Transform.scale(
-                  scale: 0.7,
-                  child: Checkbox(
-                    value: false,
-                    onChanged: (value) {},
-                    side: const BorderSide(
-                      color: Colors.grey,
-                    ),
-                    fillColor: MaterialStateProperty.resolveWith(
-                        (states) => Colors.white),
-                  ),
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  '$sn.',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: ColorPalette.offBlack),
                 ),
                 const SizedBox(
                   width: 7.0,
@@ -536,6 +546,7 @@ Widget buildScheduleRowContent({
                     onTap: () {
                       ConsoleState.state.patientSchedule = schedule;
                       ConsoleState.state.editAction.value = true;
+                      ConsoleState.state.isScheduleViewOnly.value = false;
                     },
                     child: const Icon(
                       FontAwesomeIcons.penToSquare,
@@ -551,6 +562,7 @@ Widget buildScheduleRowContent({
                   onTap: () {
                     ConsoleState.state.patientSchedule = schedule;
                     ConsoleState.state.editAction.value = true;
+                    ConsoleState.state.isScheduleViewOnly.value = true;
                   },
                   child: Text(
                     'View',
@@ -577,6 +589,7 @@ Widget buildRegRowContent({
   String percent = "",
   required RegPatient patient,
   required bool fromReg,
+  required String sn,
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -591,22 +604,15 @@ Widget buildRegRowContent({
               children: [
                 Row(
                   children: [
-                    Transform.scale(
-                      scale: 0.7,
-                      child: Checkbox(
-                        value: false,
-                        onChanged: (value) {},
-                        side: const BorderSide(
-                          color: Colors.grey,
-                        ),
-                        fillColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.white),
-                      ),
+                    const SizedBox(
+                      width: 7.0,
                     ),
-                    const Icon(
-                      CupertinoIcons.person_solid,
-                      size: 15,
-                      color: Colors.grey,
+                    Text(
+                      '$sn.',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14.sp,
+                          color: ColorPalette.offBlack),
                     ),
                   ],
                 ),
@@ -688,14 +694,15 @@ Widget buildRegRowContent({
                 const SizedBox(
                   width: 20.0,
                 ),
-                InkWell(
-                  onTap: () => viewPatientInfoReal(patient, fromReg),
-                  child: Text(
-                    'View',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        color: ColorPalette.grey),
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () => viewPatientInfoReal(patient, true),
+                    child: const Icon(
+                      FontAwesomeIcons.eye,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ],
@@ -941,20 +948,9 @@ Widget buildRowItem({bool hasBox = false, String text = ""}) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        if (hasBox)
-          Checkbox(
-            value: false,
-            onChanged: (value) {},
-            side: const BorderSide(
-              color: Colors.grey,
-            ),
-            fillColor:
-                MaterialStateProperty.resolveWith((states) => Colors.white),
-          ),
-        if (hasBox)
-          const SizedBox(
-            width: 7.0,
-          ),
+        const SizedBox(
+          width: 7.0,
+        ),
         Text(
           text,
           style: TextStyle(
@@ -968,26 +964,16 @@ Widget buildRowItem({bool hasBox = false, String text = ""}) {
     ),
   );
 }
+
 Widget buildDashRowItem({bool hasBox = false, String text = ""}) {
   return SizedBox(
     width: 0.098.sw,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        if (hasBox)
-          Checkbox(
-            value: false,
-            onChanged: (value) {},
-            side: const BorderSide(
-              color: Colors.grey,
-            ),
-            fillColor:
-                MaterialStateProperty.resolveWith((states) => Colors.white),
-          ),
-        if (hasBox)
-          const SizedBox(
-            width: 7.0,
-          ),
+        const SizedBox(
+          width: 7.0,
+        ),
         Text(
           text,
           style: TextStyle(

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Console"
-#define MyAppVersion "1.2"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "My Company, Inc."
 #define MyAppURL "https://www.example.com/"
 #define MyAppExeName "console.exe"
@@ -23,7 +23,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\Firstlady\Mobile\console\installer
-OutputBaseFilename=console1.2
+OutputBaseFilename=console1.0
 SetupIconFile=C:\Users\Firstlady\Downloads\console-large.ico
 Compression=lzma
 SolidCompression=yes
