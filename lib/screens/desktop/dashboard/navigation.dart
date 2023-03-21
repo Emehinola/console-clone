@@ -80,18 +80,12 @@ class SideNavBar extends StatelessWidget {
                    }, child: Obx(() {
                      return Row(
                        children: [
-                         Container(
-                           width: 4,
-                           height: 18,
-                           decoration: BoxDecoration(
-                               color: selectedItem.value ==
-                                   CurrentSelectedNavItem.dashboard
-                                   ? ColorPalette.secondColor
-                                   : ColorPalette.grey,
-                               borderRadius: const BorderRadius.only(
-                                 topRight: Radius.circular(5),
-                                 bottomRight: Radius.circular(5),
-                               )),
+                         ClipRRect(
+                           borderRadius: BorderRadius.circular(5.0),
+                           child: Image.asset(
+                             './assets/images/console.jpeg',
+                             height: 30,
+                           ),
                          ),
                          const SizedBox(
                            width: 20,

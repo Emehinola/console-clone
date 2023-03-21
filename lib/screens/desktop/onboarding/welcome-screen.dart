@@ -52,7 +52,12 @@ class LeftPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorPalette.dark,
+      width: 0.5.sw,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('./assets/images/crsplash.png'),
+              fit: BoxFit.cover),
+          color: Colors.black),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 0.1.sw),
         child: Column(
