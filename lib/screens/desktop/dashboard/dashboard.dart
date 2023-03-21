@@ -48,7 +48,7 @@ class HeaderMetrics extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => selectedItem.value = CurrentSelectedNavItem.patientReg,
+                    onTap: () => selectedItem.value = CurrentSelectedNavItem.dashboard,
                     child: Container(
                         decoration: BoxDecoration(
                             color: ColorPalette.mainButtonColor,

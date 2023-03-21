@@ -41,11 +41,12 @@ class _PatientsListState extends State<DesktopPatientSchedule> {
             child: Row(
               children: [
                 Expanded(
+                  flex: 3,
                   child: DesktopPatienntScheduleTable(
                     status: "Complete",
                   ),
                 ),
-                const Expanded(child: BuildScheduleCalendar()),
+                const Expanded(flex: 2,child: BuildScheduleCalendar()),
               ],
             ),
           ),
@@ -143,14 +144,14 @@ class BuildScheduleCalendar extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               OutlinedBtn(
-                                buttonText: 'Cancel Schedule',
+                                buttonText: 'Cancel',
                                 verticalPadding: 0.02.sh,
                                 horPadding: 0.02.sw,
                                 borderColor: Colors.red,
                                 textColor: Colors.red,
                               ),
                               FlatButton(
-                                buttonText: 'Commit Schedule',
+                                buttonText: 'Commit',
                                 verticalPadding: 0.02.sh,
                                 horPaddding: 0.02.sw,
                                 onTap: () {
