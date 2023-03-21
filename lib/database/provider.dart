@@ -1,7 +1,9 @@
 // create database singleton
 import 'dart:convert';
 
+import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
+import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patients.dart';
 import 'package:hive/hive.dart';
 
 import '../models/user.dart';
@@ -106,6 +108,59 @@ class DBProvider {
     List<RegPatient> patients = getAllPatients();
 
     print('patients: $patients');
+
+    return patients.singleWhere((element) => element.id == id);
+  }
+
+  // schedules
+  List<PatientSchedule> getAllSchedules() {
+    List<PatientSchedule> schedules = [];
+    var rawPat;
+    List rawSch = [];
+
+    try{
+      rawPat = box.get('schedules');
+
+      rawSch = rawPat.toList();
+    }catch(e){
+      //
+    }
+
+    for (var element in rawSch) { schedules.add(PatientSchedule.fromJson(element)); }
+
+    return schedules;
+  }
+
+  List<Map> getLocalSchedule() {
+    List<Map> schedules = [];
+
+    try{
+      var rawPat = box.get('schedules');
+      List rawSch = rawPat.toList();
+
+
+      for (var element in rawSch) { schedules.add(element); }
+      return schedules;
+    }catch(e){
+      print('e: $e');
+    }
+
+    return [];
+  }
+
+  insertSchedule(PatientSchedule patient) async {
+    Map patMap = PatientSchedule.toJson(patient);
+    List<Map> previousSch = getLocalSchedule();
+    previousSch.add(patMap);
+
+    print(previousSch);
+
+    await box.put('schedules', previousSch);
+  }
+
+  PatientSchedule? getScheduleById(String id){
+    List<PatientSchedule> patients = getAllSchedules();
+
 
     return patients.singleWhere((element) => element.id == id);
   }

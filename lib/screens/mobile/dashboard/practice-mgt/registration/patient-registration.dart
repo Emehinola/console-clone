@@ -32,16 +32,16 @@ class _PatientRegistrationState extends State<PatientRegistration> {
 
   @override
   void initState() {
-    if (consoleState.patientToEdit != null) {
-      name.text = consoleState.patientToEdit!.patientName;
-      biodata.text = consoleState.patientToEdit!.biodata;
-      contactDetails.text = consoleState.patientToEdit!.contactDetails;
+    if (ConsoleState.state.patientToEdit != null) {
+      name.text = ConsoleState.state.patientToEdit!.patientName;
+      biodata.text = ConsoleState.state.patientToEdit!.biodata;
+      contactDetails.text = ConsoleState.state.patientToEdit!.contactDetails;
       principalDesignation.text =
-          consoleState.patientToEdit!.principalDesignation;
-      principalWork.text = consoleState.patientToEdit!.principalWorkDetails;
-      phone.text = consoleState.patientToEdit!.phone;
-      healthRecord.text = consoleState.patientToEdit!.medRecord;
-      acctTier.text = consoleState.patientToEdit!.acctTier;
+          ConsoleState.state.patientToEdit!.principalDesignation;
+      principalWork.text = ConsoleState.state.patientToEdit!.principalWorkDetails;
+      phone.text = ConsoleState.state.patientToEdit!.phone;
+      healthRecord.text = ConsoleState.state.patientToEdit!.medRecord;
+      acctTier.text = ConsoleState.state.patientToEdit!.acctTier;
     }
     super.initState();
   }

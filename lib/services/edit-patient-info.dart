@@ -16,14 +16,14 @@ void editPatientInfo(){
     principalDesignation: 'Great principal',
     principalWorkDetails: 'Great principal work details',
   );
-  consoleState.patientToEdit = patient;
+  ConsoleState.state.patientToEdit = patient;
 
   selectedItem.value = CurrentSelectedNavItem.patientReg;
 }
 
 void editPatientInfoReal(RegPatient patient){
 
-  consoleState.patientToEdit = patient;
+  ConsoleState.state.patientToEdit = patient;
 
   selectedItem.value = CurrentSelectedNavItem.patientReg;
 }

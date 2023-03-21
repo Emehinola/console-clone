@@ -16,7 +16,7 @@ void mobilePatientEdit(){
       principalDesignation: 'Great principal',
       principalWorkDetails: 'Great principal work details',
     );
-    consoleState.patientToEdit = patient;
+    ConsoleState.state.patientToEdit = patient;
 
     Get.to(const PatientRegistration());
 

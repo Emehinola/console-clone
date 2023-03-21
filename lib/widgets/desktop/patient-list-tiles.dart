@@ -1,13 +1,16 @@
 import 'package:console/database/provider.dart';
 import 'package:console/models/registered-patient.dart';
 import 'package:console/services/console-services.dart';
+import 'package:console/state-management/state-management.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../models/patient-schedule.dart';
 import '../../services/edit-patient-info.dart';
 import '../mob-desk/theme/color-palette.dart';
+import 'dialogs.dart';
 
 class DesktopPatienntCard extends StatelessWidget {
   String status;
@@ -225,14 +228,15 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (_, index) {
                 return buildScheduleRowContent(
-                  hasBg: false,
-                  date: "23 Jun, 2023",
-                  name: DBProvider.db.getAllPatients()[index].patientName,
-                  id: DBProvider.db.getAllPatients()[index].id!,
-                  caseType: "Family group",
+                  hasBg: index % 2 == 0,
+                  date: ConsoleService.processReadableDate(DBProvider.db.getAllSchedules()[index].appointmentDate.value),
+                  name: DBProvider.db.getAllSchedules()[index].patientName,
+                  id: DBProvider.db.getAllSchedules()[index].id ?? 'Nil',
+                  caseType: DBProvider.db.getAllSchedules()[index].patientCase,
+                  schedule: DBProvider.db.getAllSchedules()[index],
                 );
               },
-              itemCount: DBProvider.db.getAllPatients().length,
+              itemCount: DBProvider.db.getAllSchedules().length,
             ),
           ),
         ],
@@ -427,6 +431,20 @@ Widget buildRowContent({
                 const SizedBox(
                   width: 20.0,
                 ),
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () => showScheduleDialog(patient!),
+                    child: const Icon(
+                      CupertinoIcons.calendar,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
                 InkWell(
                   onTap: () => viewPatientInfoReal(patient!),
                   child: Text(
@@ -452,6 +470,7 @@ Widget buildScheduleRowContent({
   String name = "",
   String date = "",
   String caseType = "",
+  PatientSchedule? schedule
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -509,11 +528,14 @@ Widget buildScheduleRowContent({
           ),
           Row(
             children: [
-              const Material(
+              Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: editPatientInfo,
-                  child: Icon(
+                  onTap: () {
+                    ConsoleState.state.patientSchedule = schedule;
+                    ConsoleState.state.editAction.value = true;
+                  },
+                  child: const Icon(
                     FontAwesomeIcons.penToSquare,
                     size: 13,
                     color: Colors.grey,
@@ -524,7 +546,10 @@ Widget buildScheduleRowContent({
                 width: 20.0,
               ),
               InkWell(
-                onTap: viewPatientInfo,
+                onTap: () {
+                  ConsoleState.state.patientSchedule = schedule;
+                  ConsoleState.state.editAction.value = true;
+                },
                 child: Text(
                   'View',
                   style: TextStyle(

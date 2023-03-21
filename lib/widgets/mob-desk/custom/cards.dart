@@ -1,12 +1,15 @@
+import 'package:console/services/console-services.dart';
 import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../models/registered-patient.dart';
+import '../../../state-management/state-management.dart';
 import '../../mobile/dialogs.dart';
 
 class PatientCard extends StatelessWidget {
@@ -129,13 +132,7 @@ class SchedulePatientCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
         margin: const EdgeInsets.only(bottom: 10.0),
-        decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-          // BoxShadow(
-          //     color: ColorPalette.grey.withOpacity(0.05),
-          //     offset: const Offset(2, 3),
-          //     spreadRadius: 0.1,
-          //     blurRadius: 2)
-        ]),
+        decoration: const BoxDecoration(color: Colors.white,),
         child: Column(
           children: [
             Row(
@@ -155,14 +152,14 @@ class SchedulePatientCard extends StatelessWidget {
                           width: 5.0,
                         ),
                         Text(
-                          "ID: QH29",
+                          ConsoleState.state.patientSchedule != null ? ConsoleState.state.patientSchedule?.id ?? "Nil" : "ID: QH29",
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 14.sp),
                         ),
                       ],
                     ),
                     Text(
-                      "08 Aug 20, 08:00 -> 14 Aug 23, 06:00",
+                      "${ConsoleService.processReadableDate(DateTime.now().toIso8601String())} -> ${ConsoleService.processReadableDate(ConsoleState.state.patientSchedule != null ? ConsoleState.state.patientSchedule?.appointmentDate.toString() : "Nil")}",
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
@@ -205,9 +202,115 @@ class SchedulePatientCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            rowCard("Patient", "Emehinola Samuel", fromSchedule: true),
-            rowCard("Case", "Individual", hasBg: false),
-            rowCard("Appointment Date", "23rd, Mar, 23", fromSchedule: true),
+            rowCard("Patient", ConsoleState.state.patientSchedule!.patientName, fromSchedule: true),
+            rowCard("Case", ConsoleState.state.patientSchedule!.patientCase, hasBg: false),
+            rowCard("Appointment Date", ConsoleService.processReadableDate(ConsoleState.state.patientSchedule!.appointmentDate.toString()), fromSchedule: true),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SchedulePatientCardReal extends StatelessWidget {
+  String status;
+  Function()? onTap;
+  RegPatient patient;
+
+  SchedulePatientCardReal({
+    required this.status,
+    required this.patient,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (onTap != null) onTap!();
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+        margin: const EdgeInsets.only(bottom: 10.0),
+        decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          // BoxShadow(
+          //     color: ColorPalette.grey.withOpacity(0.05),
+          //     offset: const Offset(2, 3),
+          //     spreadRadius: 0.1,
+          //     blurRadius: 2)
+        ]),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          IconlyBold.user_2,
+                          color: ColorPalette.greyIcon,
+                          size: 18.sp,
+                        ),
+                        const SizedBox(
+                          width: 5.0,
+                        ),
+                        Text(
+                          "ID: ${patient.id}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 14.sp),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "${ConsoleService.processReadableDate(DateTime.now().toIso8601String())} -> 14 Aug 23, 06:00",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: ColorPalette.darkBlue),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 3.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: status == "Scheduled"
+                              ? ColorPalette.lightMain
+                              : ColorPalette.lighterSecond),
+                      child: Text(
+                        status,
+                        style: TextStyle(
+                            fontSize: 12.sp,
+                            color: status == "Scheduled"
+                                ? ColorPalette.mainButtonColor
+                                : ColorPalette.secondColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    const Icon(
+                      CupertinoIcons.chevron_right,
+                      size: 15,
+                    )
+                  ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            rowCard("Patient", patient.patientName, fromSchedule: true),
+            rowCard("Case", ConsoleState.state.patientSchedule != null ? ConsoleState.state.patientSchedule!.patientCase : "Nil", hasBg: false),
+            Obx(()=>rowCard("Appointment Date", ConsoleState.state.patientSchedule != null ? ConsoleService.processReadableDate(ConsoleState.state.patientSchedule!.appointmentDate.value) : "Nil", fromSchedule: true),),
           ],
         ),
       ),

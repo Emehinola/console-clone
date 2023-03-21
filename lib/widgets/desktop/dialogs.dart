@@ -1,10 +1,18 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
+import 'package:console/state-management/state-management.dart';
+import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../api-calls/schedule-patient.dart';
+import '../../state-management/controller-variables.dart';
 import '../mob-desk/buttons/console-text-button.dart';
+import '../mob-desk/custom/cards.dart';
 
 void showSuccessSheet(String title, String desc) {
   showDialog(
@@ -210,6 +218,143 @@ void showInfoDialogueReal(RegPatient patient) {
                         child: FlatButton(
                             buttonText: 'Close',
                             verticalPadding: 0.02.sh,
+                            onTap: () {
+                              Get.back();
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void showScheduleDialog(RegPatient patient) {
+  ConsoleState.state.patientSchedule = PatientSchedule(
+    id: patient.id,
+    patientCase: 'Emergency',
+    patientName: patient.patientName,
+    appointmentDate: DateTime.now().toIso8601String().obs,
+  ); // set schedule to state
+
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.5.sh,
+              width: 0.3.sw,
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Patient Scheduler',
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SchedulePatientCardReal(
+                        status: 'Schedule',
+                        patient: patient,
+                      ),
+                      CalendarDatePicker2(
+                        config: CalendarDatePicker2Config(
+                          calendarType: CalendarDatePicker2Type.single,
+                        ),
+                        onValueChanged: (date) {
+                          try{
+                            ConsoleState.state.patientSchedule!.appointmentDate.value = date.first!.toIso8601String();
+                          }catch(e){
+                            //
+                          }
+                        },
+                        initialValue: [],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          OutlinedBtn(
+                            buttonText: 'Cancel',
+                            verticalPadding: 0.02.sh,
+                            horPadding: 0.03.sw,
+                            borderColor: Colors.red,
+                            textColor: Colors.red,
+                            onTap: () => Navigator.pop(context),
+                          ),
+                          Obx((){
+                            return FlatButton(
+                              buttonText: 'Commit',
+                              verticalPadding: 0.02.sh,
+                              horPaddding: 0.03.sw,
+                              loading: ConsoleState.state.loading.value,
+                              onTap: () async {
+                                if(await schedulePatient()){
+                                  Navigator.pop(context);
+                                  selectedItem.value = CurrentSelectedNavItem.patientScheduling;
+                                  showSuccessSheet('Success', 'Patient schedule successful');
+                                }
+                              },
+                            );
+                          })
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void showFilterDialog() {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: Container(
+              constraints: BoxConstraints(maxHeight: 0.3.sh),
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ConsoleDropdown(
+                        label: 'Filter by:',
+                        value: 'Patient Name',
+                        options: const [
+                          'Patient Name',
+                          'ID',
+                          'Date Created',
+                          'Group Type',
+                          'Contact',
+                          'Account Tier',
+                          'Address',
+                        ],
+                        onChanged: (value) {
+                          // TODO: change value
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FlatButton(
+                            buttonText: 'Apply Filter',
+                            verticalPadding: 0.02.sh,
+                            applyingMargin: false,
                             onTap: () {
                               Get.back();
                             }),
