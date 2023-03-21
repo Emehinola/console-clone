@@ -4,7 +4,6 @@ import 'package:console/state-management/state-management.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import '../../../widgets/desktop/dialogs.dart';
 import '../../../widgets/desktop/patient-list-tiles.dart';
@@ -118,11 +117,11 @@ class HeaderMetrics extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      buildFigureCard("Fully", "Registered", figure: '${DBProvider.db.getAllPatients().length}'),
+                      buildFigureCard("Fully", "Registered", figure: '${DBProvider.db.getAllPatients().length}', isRegistered: true),
                       SizedBox(
                         height: 0.01.sh,
                       ),
-                      buildFigureCard("Not Fully", "Registered", figure: '0', color: ColorPalette.lightRed),
+                      buildFigureCard("Not Fully", "Registered", figure: '0', color: ColorPalette.lightRed, isRegistered: false),
                     ],
                   ),
                 )
@@ -189,9 +188,16 @@ class HeaderMetrics extends StatelessWidget {
   }
 }
 
-Widget buildFigureCard(String text, String subText, {String figure = "", Color color = ColorPalette.lightGreen,}){
+Widget buildFigureCard(String text, String subText, {String figure = "", Color color = ColorPalette.lightGreen, bool isRegistered = false}){
   return GestureDetector(
-    onTap: () => selectedItem.value = CurrentSelectedNavItem.patientReg,
+    onTap: () {
+      if(isRegistered){
+        ConsoleState.state.regViewText.value = "Registered Users (Complete)";
+      }else{
+        ConsoleState.state.regViewText.value = "Registered Users (Incomplete)";
+      }
+      selectedItem.value = CurrentSelectedNavItem.patientReg;
+    },
     child: Container(
       decoration: BoxDecoration(
           color: color,

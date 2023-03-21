@@ -1,11 +1,14 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
+import 'package:console/screens/desktop/dashboard/dashboard.dart';
+import 'package:console/screens/desktop/dashboard/navigation.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
@@ -189,14 +192,37 @@ void showInfoDialogueReal(RegPatient patient) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Patient Full Information',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Patient Full Information',
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.pop(context);
+                                ConsoleState.state.regViewText.value = "Update user profile";
+                                Get.to(DesktopNavigation());
+                                ConsoleState.state.patientToEdit = patient;
+                                selectedItem.value = CurrentSelectedNavItem.patientReg;
+                              },
+                              child: const Icon(
+                                FontAwesomeIcons.penToSquare,
+                                size: 15,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      const Divider(),
                       SizedBox(height: 0.01.sh),
                       detailRow('First Name', firstName, 'Last Name', lastName),
                       SizedBox(height: 0.01.sh),
@@ -211,7 +237,7 @@ void showInfoDialogueReal(RegPatient patient) {
                       SizedBox(height: 0.01.sh),
                       const Divider(),
                       SizedBox(height: 0.01.sh),
-                      detailRow('Address', patient.contactDetails, '', ''),
+                      detailRow('Address', patient.contactDetails, '', '', isFull: true),
                       SizedBox(height: 0.06.sh),
                       SizedBox(
                         width: double.infinity,
@@ -369,7 +395,7 @@ void showFilterDialog() {
       });
 }
 
-Widget detailRow(String title1, String value1, String title2, String value2) {
+Widget detailRow(String title1, String value1, String title2, String value2, {bool isFull = false}) {
   return Row(
     children: [
       Expanded(
@@ -388,10 +414,10 @@ Widget detailRow(String title1, String value1, String title2, String value2) {
           ],
         ),
       ),
-      SizedBox(
+      if(!isFull) SizedBox(
         width: 0.08.sw,
       ),
-      Expanded(
+      if(!isFull) Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,6 +1,8 @@
 import 'package:console/widgets/desktop/dialogs.dart';
+import 'package:get/get.dart';
 
 import '../models/registered-patient.dart';
+import '../screens/desktop/dashboard/navigation.dart';
 import '../state-management/controller-variables.dart';
 import '../state-management/state-management.dart';
 
@@ -21,8 +23,16 @@ void editPatientInfo(){
   selectedItem.value = CurrentSelectedNavItem.patientReg;
 }
 
-void editPatientInfoReal(RegPatient patient){
+void editPatientInfoReal(RegPatient patient, {bool fromReg = false}){
 
+  if(fromReg){
+    ConsoleState.state.regViewText.value = "Update user profile";
+    Get.to(DesktopNavigation());
+    ConsoleState.state.patientToEdit = patient;
+    selectedItem.value = CurrentSelectedNavItem.patientReg;
+
+    return;
+  }
   ConsoleState.state.patientToEdit = patient;
 
   selectedItem.value = CurrentSelectedNavItem.patientReg;
@@ -45,6 +55,5 @@ void viewPatientInfo(){
 }
 
 void viewPatientInfoReal(RegPatient patient){
-
   showInfoDialogueReal(patient);
 }

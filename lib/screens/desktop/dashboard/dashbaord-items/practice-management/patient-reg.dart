@@ -1,4 +1,5 @@
 import 'package:console/screens/desktop/dashboard/dashboard.dart';
+import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
@@ -7,6 +8,7 @@ import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../../../api-calls/patients.dart';
 import '../../../../../services/validation-service.dart';
 import '../../../../../widgets/desktop/patient-list-tiles.dart';
@@ -29,7 +31,10 @@ class _DesktopPatientRegistrationState
   void initState() {
     if(ConsoleState.state.patientToEdit != null){
       showForm = true;
+    }else{
+      ConsoleState.state.regViewText.value = "Registered Users (Incomplete)";
     }
+
     super.initState();
   }
 
@@ -49,10 +54,10 @@ class _DesktopPatientRegistrationState
           ),
           Padding(
             padding: EdgeInsets.only(left: 0.02.sw),
-            child: Text(
-              "Patient Registration",
+            child: Obx(()=>Text(
+              ConsoleState.state.regViewText.value,
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
-            ),
+            ),),
           ),
           SizedBox(
             height: 0.03.sh,
@@ -333,12 +338,16 @@ class _PatientRegFormState extends State<PatientRegForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedBtn(
-                  buttonText: 'Preview',
+                  buttonText: 'Clear',
                   applyingMargin: false,
                   verticalPadding: 0.018.sh,
                   borderColor: ColorPalette.mainButtonColor,
                   textColor: ColorPalette.mainButtonColor,
                   horPadding: 0.05.sw,
+                  onTap: (){
+                    ConsoleState.state.patientToEdit = null;
+                    selectedItem.value = CurrentSelectedNavItem.dashboard;
+                  },
                 ),
                 SizedBox(
                   width: 0.02.sw,

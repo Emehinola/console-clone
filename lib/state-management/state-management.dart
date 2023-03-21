@@ -14,7 +14,9 @@ class ConsoleState extends GetxController{
   Rx<bool> loading = false.obs;
   Rx<bool> editAction = false.obs;
 
-  static final ConsoleState state = ConsoleState._();
+  Rx<String> regViewText = "Registered Users (Incomplete)".obs;
+
+  static final ConsoleState state = ConsoleState._(); // singleton
 
   RegPatient? _patientToEdit;
   RegPatient? get patientToEdit => _patientToEdit;

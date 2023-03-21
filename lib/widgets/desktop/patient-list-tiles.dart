@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import '../../models/patient-schedule.dart';
 import '../../services/edit-patient-info.dart';
@@ -273,25 +274,28 @@ class RegisteredPatient extends StatelessWidget {
                 buildRowItem(hasBox: true, text: 'ID'),
                 buildRowItem(text: 'PATIENT NAME'),
                 buildRowItem(text: 'STATUS'),
-                buildRowItem(text: 'STATUS BY PERCENT'),
+                buildRowItem(text: 'STATUS BY %'),
                 buildRowItem(text: 'ACTION'),
               ],
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (_, index) {
-                return buildRegRowContent(
-                  status: "Completed",
-                  name: DBProvider.db.getAllPatients()[index].patientName,
-                  id: DBProvider.db.getAllPatients()[index].id!,
-                  percent: "100%",
-                );
-              },
-              itemCount: DBProvider.db.getAllPatients().length,
-            ),
+            child: Obx((){
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (_, index) {
+                  return buildRegRowContent(
+                    status: "Completed",
+                    name: DBProvider.db.getAllPatients()[index].patientName,
+                    id: DBProvider.db.getAllPatients()[index].id!,
+                    percent: "100%",
+                    patient: DBProvider.db.getAllPatients()[index],
+                  );
+                },
+                itemCount: ConsoleState.state.regViewText.value == 'Registered Users (Incomplete)' ? 0 : DBProvider.db.getAllPatients().length,
+              );
+            })
           ),
         ],
       ),
@@ -572,6 +576,7 @@ Widget buildRegRowContent({
   String name = "",
   String status = "",
   String percent = "",
+  required RegPatient patient,
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
@@ -580,89 +585,107 @@ Widget buildRegRowContent({
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Row(
-                children: [
-                  Transform.scale(
-                    scale: 0.7,
-                    child: Checkbox(
-                      value: false,
-                      onChanged: (value) {},
-                      side: const BorderSide(
-                        color: Colors.grey,
+          SizedBox(
+            width: 0.09.sw,
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    Transform.scale(
+                      scale: 0.7,
+                      child: Checkbox(
+                        value: false,
+                        onChanged: (value) {},
+                        side: const BorderSide(
+                          color: Colors.grey,
+                        ),
+                        fillColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.white),
                       ),
-                      fillColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.white),
                     ),
-                  ),
-                  const Icon(
-                    CupertinoIcons.person_solid,
-                    size: 15,
-                    color: Colors.grey,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 7.0,
-              ),
-              Text(
-                id,
-                style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
-                    color: ColorPalette.offBlack),
-              ),
-            ],
-          ),
-          Text(
-            name,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            status,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Text(
-            percent,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.sp,
-                color: ColorPalette.grey),
-          ),
-          Row(
-            children: [
-              const Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: editPatientInfo,
-                  child: Icon(
-                    FontAwesomeIcons.penToSquare,
-                    size: 13,
-                    color: Colors.grey,
-                  ),
+                    const Icon(
+                      CupertinoIcons.person_solid,
+                      size: 15,
+                      color: Colors.grey,
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(
-                width: 20.0,
-              ),
-              InkWell(
-                onTap: viewPatientInfo,
-                child: Text(
-                  'View',
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  id,
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 14.sp,
-                      color: ColorPalette.grey),
+                      color: ColorPalette.offBlack),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              name,
+              style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              status,
+              style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Text(
+              percent,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  overflow: TextOverflow.ellipsis,
+                  color: ColorPalette.grey),
+            ),
+          ),
+          SizedBox(
+            width: 0.09.sw,
+            child: Row(
+              children: [
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () => editPatientInfoReal(patient, fromReg: true),
+                    child: const Icon(
+                      FontAwesomeIcons.penToSquare,
+                      size: 13,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                InkWell(
+                  onTap: () => viewPatientInfoReal(patient),
+                  child: Text(
+                    'View',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: ColorPalette.grey),
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -899,33 +922,36 @@ Widget createdArrowUpDown() {
 }
 
 Widget buildRowItem({bool hasBox = false, String text = ""}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      if (hasBox)
-        Checkbox(
-          value: false,
-          onChanged: (value) {},
-          side: const BorderSide(
-            color: Colors.grey,
+  return SizedBox(
+    width: 0.09.sw,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (hasBox)
+          Checkbox(
+            value: false,
+            onChanged: (value) {},
+            side: const BorderSide(
+              color: Colors.grey,
+            ),
+            fillColor:
+                MaterialStateProperty.resolveWith((states) => Colors.white),
           ),
-          fillColor:
-              MaterialStateProperty.resolveWith((states) => Colors.white),
+        if (hasBox)
+          const SizedBox(
+            width: 7.0,
+          ),
+        Text(
+          text,
+          style: TextStyle(
+              fontWeight: FontWeight.w500, fontSize: 14.sp, color: Colors.grey),
         ),
-      if (hasBox)
         const SizedBox(
           width: 7.0,
         ),
-      Text(
-        text,
-        style: TextStyle(
-            fontWeight: FontWeight.w500, fontSize: 14.sp, color: Colors.grey),
-      ),
-      const SizedBox(
-        width: 7.0,
-      ),
-      createdArrowUpDown(),
-    ],
+        createdArrowUpDown(),
+      ],
+    ),
   );
 }
 Widget buildDashRowItem({bool hasBox = false, String text = ""}) {
