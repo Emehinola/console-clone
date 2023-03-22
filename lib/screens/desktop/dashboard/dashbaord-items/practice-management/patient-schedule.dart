@@ -15,6 +15,7 @@ import '../../../../../api-calls/schedule-patient.dart';
 import '../../../../../state-management/state-management.dart';
 import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../../widgets/mobile/table.dart';
 import '../../dashboard.dart';
 
 class DesktopPatientSchedule extends StatefulWidget {

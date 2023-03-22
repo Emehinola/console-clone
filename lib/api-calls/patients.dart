@@ -5,12 +5,15 @@ import 'package:console/models/registered-patient.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 import '../models/user.dart';
 import '../screens/desktop/dashboard/navigation.dart';
 import '../widgets/desktop/dialogs.dart';
+import '../widgets/notification/snack-notification.dart';
 
-Future<void> registerPatient(Map payload) async {
+Future<void> registerPatient(Map payload, {bool isMobile = false}) async {
   await Future.delayed(const Duration(seconds: 3));
   try {
     RegPatient patient = RegPatient(
@@ -27,8 +30,13 @@ Future<void> registerPatient(Map payload) async {
     );
     await DBProvider.db.insertPatient(patient);
 
-    selectedItem.value = CurrentSelectedNavItem.dashboard;
-    showSuccessSheet('Success', 'Patient successfully added');
+    if(isMobile){
+      Navigator.popUntil(Get.context!, ModalRoute.withName('/patient-list-mobile'));
+      consoleSnackNotification('Patient added successfully!', header: 'Success');
+    }else{
+      selectedItem.value = CurrentSelectedNavItem.dashboard;
+      showSuccessSheet('Success', 'Patient successfully added');
+    }
   } catch (e) {
     print('preg: $e');
   }

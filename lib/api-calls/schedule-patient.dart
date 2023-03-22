@@ -24,6 +24,8 @@ Future<bool> schedulePatient() async {
 Future<bool> editSchedule(PatientSchedule schedule) async {
   await Future.delayed(const Duration(seconds: 3));
 
+  ConsoleState.state.loading.value = true;
+
   try {
     if (await DBProvider.db.editSchedule(schedule)) {
       return true;
@@ -31,6 +33,8 @@ Future<bool> editSchedule(PatientSchedule schedule) async {
   } catch (e) {
     //
   }
+
+  ConsoleState.state.loading.value = false;
 
   return false;
 }

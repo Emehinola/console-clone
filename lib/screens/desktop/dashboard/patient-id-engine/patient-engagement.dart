@@ -10,6 +10,7 @@ import '../../../../widgets/desktop/dialogs.dart';
 import '../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../widgets/mob-desk/forms/dropdowns.dart';
+import '../../../../widgets/mobile/table.dart';
 import '../dashboard.dart';
 
 class DesktopPatientEngagement extends StatefulWidget {

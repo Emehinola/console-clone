@@ -1,6 +1,10 @@
+import 'package:console/database/provider.dart';
+import 'package:console/screens/mobile/dashboard/practice-mgt/scheduling/all-patients.dart';
+import 'package:console/services/navigate.dart';
+import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mobile/app-bar.dart';
-import 'package:console/widgets/sheets.dart';
+import 'package:console/widgets/mobile/sheets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +14,7 @@ import '../../../../../widgets/mob-desk/buttons/icon-buttons.dart';
 import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../../widgets/mobile/table.dart';
 
 class PatientsSchedulerList extends StatefulWidget {
   const PatientsSchedulerList({Key? key}) : super(key: key);
@@ -42,7 +47,7 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                   child: FlatButton(
                     buttonText: 'Schedule Patient',
                     iconData: CupertinoIcons.calendar,
-                    onTap: () => showScheduleSheet(context),
+                    onTap: () => navigate(const AllPatients(), routeName: '/all-patients-mobile').then((value) => setState((){})) // showScheduleSheet(context),
                   ))),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -88,18 +93,18 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Row(
-                                  children: const [
-                                    Icon(
+                                  children: [
+                                    const Icon(
                                       IconlyBold.user_3,
                                       color: ColorPalette.secondColor,
                                       size: 20,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
-                                      '81',
-                                      style: TextStyle(
+                                      '${DBProvider.db.getAllSchedules().length}',
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
@@ -119,101 +124,11 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: ColorPalette.lightGreen,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, left: 10, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: ColorPalette.mainButtonColor,
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              padding: const EdgeInsets.all(5),
-                              child: const Text(
-                                '64',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'Tomorrow\'s',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  'Appointments',
-                                  style: TextStyle(
-                                      color: ColorPalette.grey, fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      scheduleDatesCard('Tomorrow\'s', 'Appointment', '${DBProvider.db.getAllSchedules().length}'),
                       const SizedBox(
                         height: 20.0,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: ColorPalette.lightRed,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, left: 10, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: ColorPalette.mainButtonColor,
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              padding: const EdgeInsets.all(5),
-                              child: const Text(
-                                '17',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'Weekly',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  'Appointments',
-                                  style: TextStyle(
-                                      color: ColorPalette.grey, fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      scheduleDatesCard('Weekly', 'Appointment', '0', color: ColorPalette.lightRed),
                     ],
                   ),
                 )
@@ -228,7 +143,7 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                     width: Get.width,
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
-                      color: ColorPalette.cardGrey,
+                      color: ColorPalette.grey.withOpacity(0.01),
                       boxShadow: const [
                         // BoxShadow(
                         //   color: ColorPalette.shadowColor,
@@ -284,25 +199,34 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                             ),
                           ),
                           const Divider(),
-                          SchedulePatientCard(
-                            status: "Schedule",
-                            onTap: () {
-                              showScheduleSheet(context);
-                            },
-                          ),
-                          SchedulePatientCard(
-                            status: "Scheduled",
-                            onTap: () {},
-                          ),
-                          SchedulePatientCard(
-                            status: "Schedule",
-                            onTap: () {
-                              showScheduleSheet(context);
-                            },
-                          ),
-                          SchedulePatientCard(
-                            status: "Scheduled",
-                            onTap: () {},
+                          Visibility(
+                            replacement: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(height: 0.1.sh,),
+                                  Image.asset('./assets/images/reg.png', height: 100,),
+                                  const SizedBox(height: 20.0,),
+                                  const Text('No content available', style: TextStyle(fontSize: 12),)
+                                ],
+                              ),
+                            ),
+                            visible:  DBProvider.db
+                                .getAllSchedules().isNotEmpty,
+                            child: Column(
+                              children: DBProvider.db
+                                  .getAllSchedules()
+                                  .map(
+                                    (schedule) => SchedulePatientCard(
+                                      status: "Scheduled",
+                                      onTap: () {
+                                        ConsoleState.state.patientSchedule = schedule;
+                                        showScheduleSheet(context, isUpdate: true);
+                                      },
+                                    ),
+                              )
+                                  .toList(),
+                            ),
                           ),
                         ],
                       ),
@@ -316,4 +240,53 @@ class _PatientsListState extends State<PatientsSchedulerList> {
       ),
     );
   }
+}
+
+Widget scheduleDatesCard(String title, String subtitle, String value, {Color color = ColorPalette.lightGreen,}){
+  return Container(
+    decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(8.0)),
+    height: 50,
+    padding: const EdgeInsets.only(
+        top: 5, bottom: 5, left: 10, right: 30),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: ColorPalette.mainButtonColor,
+              borderRadius: BorderRadius.circular(8.0)),
+          padding: const EdgeInsets.all(5),
+          child: Text(
+            value,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(
+          width: 10.0,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            Text(
+              subtitle,
+              style: const TextStyle(
+                  color: ColorPalette.grey, fontSize: 10),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }

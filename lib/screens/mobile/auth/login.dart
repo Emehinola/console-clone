@@ -1,3 +1,4 @@
+import 'package:console/api-calls/auth.dart';
 import 'package:console/screens/mobile/auth/signup.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
@@ -50,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 0.1.sh,
                     ),
-                    brandText(),
+                    // brandText(),
                     SizedBox(
                       height: 0.05.sh,
                     ),
@@ -97,13 +98,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       loading: loading,
                       applyingMargin: false,
                       verticalPadding: 0.02.sh,
-                      onTap: (){
-                        navigate(const Dashboard(), routeName: '/dashboard');
-                        consoleSnackNotification('Login successful!', header: 'Success');
+                      onTap: () async {
+
+                        if(!_formKey.currentState!.validate()) return;
+
+                        setState(() {
+                          loading = true;
+                        });
+                        Map payload = {
+                          'username': emailController.text,
+                          'password': passwordController.text,
+                        };
+                        await loginUser(payload, isMobile: true);
+                        setState(() {
+                          loading = false;
+                        });
                       },
                     ),
                     SizedBox(
-                      height: 0.02.sh,
+                      height: 0.05.sh,
                     ),
                     Text(
                       "Or login with",

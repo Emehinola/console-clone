@@ -1,3 +1,4 @@
+import 'package:console/database/provider.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patient-registration.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
@@ -11,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../widgets/mob-desk/buttons/icon-buttons.dart';
-import '../../../widgets/mob-desk/custom/cards.dart';
+import '../../../widgets/mobile/table.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -124,182 +125,7 @@ class _MainDashboardState extends State<MainDashboard> {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            height: 150,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: ColorPalette.mainButtonColor,
-                          borderRadius: BorderRadius.circular(8.0)),
-                      height: 130,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('./assets/images/wave.png'),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(8.0)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Image.asset(
-                                  './assets/images/new-graph.png',
-                                  height: 50,
-                                ),
-                                const Text(
-                                  'Total Users',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Row(
-                                  children: const [
-                                    Icon(
-                                      IconlyBold.user_2,
-                                      color: ColorPalette.secondColor,
-                                      size: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      '23',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: ColorPalette.lightGreen,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, left: 10, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: ColorPalette.mainButtonColor,
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              padding: const EdgeInsets.all(5),
-                              child: const Text(
-                                '45',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'Fully',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  'Registered',
-                                  style: TextStyle(
-                                      color: ColorPalette.grey, fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: ColorPalette.lightRed,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, left: 10, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: ColorPalette.mainButtonColor,
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              padding: const EdgeInsets.all(5),
-                              child: const Text(
-                                '13',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'Not Fully',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  'Registered',
-                                  style: TextStyle(
-                                      color: ColorPalette.grey, fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+          const MobileUserMetrics(),
           Expanded(
             child: Column(
               children: [
@@ -310,6 +136,10 @@ class _MainDashboardState extends State<MainDashboard> {
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
                       color: ColorPalette.grey.withOpacity(0.01),
+                      image: const DecorationImage(
+                          image: AssetImage('./assets/images/smiling.jpg'),
+                          opacity: 0.1,
+                          fit: BoxFit.cover),
                       boxShadow: const [
                         BoxShadow(
                           color: ColorPalette.shadowColor,
@@ -365,18 +195,29 @@ class _MainDashboardState extends State<MainDashboard> {
                             ),
                           ),
                           const Divider(),
-                          PatientCard(
-                            status: "Complete",
-                          ),
-                          PatientCard(
-                            status: "Incomplete",
-                          ),
-                          PatientCard(
-                            status: "Incomplete",
-                          ),
-                          PatientCard(
-                            status: "Complete",
-                          ),
+                          Visibility(
+                            visible: DBProvider.db
+                                .getAllUsers().isNotEmpty,
+                            replacement: Center(
+                             child: Column(
+                               children: [
+                                 Image.asset('./assets/images/reg.png'),
+                                 const Text('No content available')
+                               ],
+                             ),
+                            ),
+                            child: Column(
+                              children: DBProvider.db
+                                  .getAllUsers()
+                                  .map(
+                                    (user) => UserDisplayTable(
+                                      user: user,
+                                      status: "Complete",
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -423,6 +264,82 @@ class _MainDashboardState extends State<MainDashboard> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MobileUserMetrics extends StatelessWidget {
+  const MobileUserMetrics({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Container(
+                decoration: BoxDecoration(
+                    color: ColorPalette.mainButtonColor,
+                    borderRadius: BorderRadius.circular(8.0)),
+                height: 80,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('./assets/images/wave.png'),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(8.0)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                            './assets/images/new-graph.png',
+                            height: 30,
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                IconlyBold.user_2,
+                                color: ColorPalette.secondColor,
+                                size: 20,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '${DBProvider.db.getAllUsers().length}',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          SizedBox()
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+          ),
+        ],
       ),
     );
   }

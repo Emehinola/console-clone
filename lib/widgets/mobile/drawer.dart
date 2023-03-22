@@ -62,8 +62,8 @@ class _SideDrawerState extends State<SideDrawer> {
             const SizedBox(
               height: 30,
             ),
-            drawerRow('Patient Registration', FontAwesomeIcons.users, const ScheduledPatients()),
-            drawerRow('Patient Scheduling', FontAwesomeIcons.calendar, const PatientsSchedulerList()),
+            drawerRow('Patient Registration', FontAwesomeIcons.users, const ScheduledPatients(), route: '/patient-list-mobile'),
+            drawerRow('Patient Scheduling', FontAwesomeIcons.calendar, const PatientsSchedulerList(), route: '/schedule-list-mobile'),
             const SizedBox(
               height: 30,
             ),
@@ -82,10 +82,10 @@ class _SideDrawerState extends State<SideDrawer> {
   }
 }
 
-Widget drawerRow(String title, IconData iconData, Widget screen, {active = false}) {
+Widget drawerRow(String title, IconData iconData, Widget screen, {active = false, route = ''}) {
   return GestureDetector(
     onTap: (){
-      navigate(screen);
+      navigate(screen, routeName: route);
     },
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),

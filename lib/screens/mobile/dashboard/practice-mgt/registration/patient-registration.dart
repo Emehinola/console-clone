@@ -1,3 +1,4 @@
+import 'package:console/api-calls/patients.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
 import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
@@ -20,6 +21,8 @@ class PatientRegistration extends StatefulWidget {
 
 class _PatientRegistrationState extends State<PatientRegistration> {
   final _formKey = GlobalKey<FormState>();
+
+  bool loading = false;
 
   final name = TextEditingController();
   final biodata = TextEditingController();
@@ -56,6 +59,30 @@ class _PatientRegistrationState extends State<PatientRegistration> {
         height: 0.09.sh,
         child: FlatButton(
           buttonText: 'SUBMIT',
+          loading: loading,
+          onTap: () async {
+
+            if(!_formKey.currentState!.validate()) return;
+
+            Map payload = {
+              'patientName': name.text,
+              'phone': phone.text,
+              'accountTier': acctTier.text,
+              'bioData': biodata.text,
+              'contactDetails': contactDetails.text,
+              'medRecord': healthRecord.text,
+              'principalDes': principalDesignation.text,
+              'principalWorkDetails': principalWork.text,
+            };
+
+            setState(() {
+              loading = true;
+            });
+            await registerPatient(payload, isMobile: true);
+            setState(() {
+              loading = false;
+            });
+          },
         ),
       ),
       child: Form(

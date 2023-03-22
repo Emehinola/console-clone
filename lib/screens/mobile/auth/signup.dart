@@ -4,6 +4,7 @@ import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../../../api-calls/auth.dart';
 import '../../../services/navigate.dart';
 import '../../../services/validation-service.dart';
 import '../../../widgets/mob-desk/custom/custom-texts.dart';
@@ -24,6 +25,10 @@ class SignupScreenState extends State<SignupScreen> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final biodataController = TextEditingController();
+  final officialDetails = TextEditingController();
+  final otherDetails = TextEditingController();
 
 
   final _formKey = GlobalKey<FormState>();
@@ -52,7 +57,7 @@ class SignupScreenState extends State<SignupScreen> {
                     SizedBox(
                       height: 30.sp,
                     ),
-                    brandText(),
+                    // brandText(),
                     SizedBox(
                       height: 30.0.sp,
                     ),
@@ -72,20 +77,36 @@ class SignupScreenState extends State<SignupScreen> {
                       height: 20.0.sp,
                     ),
                     FlatTextField(
-                      controller: emailController,
+                      controller: nameController,
                       hintText: 'Full Name',
+                      isPassword: false,
+                      validationService: (String? name) =>
+                          ValidationService.isValidInput(name!),
+                    ),FlatTextField(
+                      controller: emailController,
+                      hintText: 'Email Address',
                       isPassword: false,
                       validationService: (String? name) =>
                           ValidationService.isValidInput(name!),
                     ),
                     FlatTextField(
+                      controller: biodataController,
                       hintText: 'Bio Details',
                     ),
                     FlatTextField(
+                      controller: officialDetails,
                       hintText: 'Official Details',
                     ),
                     FlatTextField(
+                      controller: otherDetails,
                       hintText: 'Other Details',
+                    ),
+                    FlatTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      isPassword: false,
+                      validationService: (String? name) =>
+                          ValidationService.isValidInput(name!),
                     ),
                     SizedBox(
                       height: 50.0.sp,
@@ -95,7 +116,23 @@ class SignupScreenState extends State<SignupScreen> {
                         loading: loading,
                         applyingMargin: false,
                         verticalPadding: 0.02.sh,
-                        onTap: () => consoleSnackNotification('Account created successfully!', header: 'Success')
+                        onTap: () async {
+                          Map payload = {
+                            'full_name': nameController.text,
+                            'username': emailController.text,
+                            'biodata': biodataController.text,
+                            'official_details': officialDetails.text,
+                            'other_details': nameController.text,
+                            'password': passwordController.text,
+                          };
+                          setState(() {
+                            loading = true;
+                          });
+                          await registerUser(payload, isMobile: true);
+                          setState(() {
+                            loading = false;
+                          });
+                        }
                     ),
                     SizedBox(
                       height: 30.0.sp,

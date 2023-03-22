@@ -1,15 +1,18 @@
+import 'package:console/database/provider.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patient-registration.dart';
+import 'package:console/services/navigate.dart';
 import 'package:console/widgets/mobile/app-bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../../../../widgets/mob-desk/buttons/console-text-button.dart';
 import '../../../../../widgets/mob-desk/buttons/icon-buttons.dart';
-import '../../../../../widgets/mob-desk/custom/cards.dart';
 import '../../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../../widgets/mobile/table.dart';
 
 class ScheduledPatients extends StatefulWidget {
   const ScheduledPatients({Key? key}) : super(key: key);
@@ -20,6 +23,8 @@ class ScheduledPatients extends StatefulWidget {
 
 class _ScheduledPatientsState extends State<ScheduledPatients> {
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
+  bool complete = true;
 
   @override
   void initState() {
@@ -43,7 +48,7 @@ class _ScheduledPatientsState extends State<ScheduledPatients> {
                     buttonText: 'Add New',
                     iconData: CupertinoIcons.add,
                     applyingMargin: false,
-                    onTap: () => Get.to(const PatientRegistration()),
+                    onTap: () => navigate(const PatientRegistration(), routeName: '/patient-reg-mobile').then((value) => setState((){})),
                   ),
                 ),
               ),
@@ -90,22 +95,22 @@ class _ScheduledPatientsState extends State<ScheduledPatients> {
                                     height: 50,
                                   ),
                                   const Text(
-                                    'Total Registered',
+                                    'Total Patients',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   Row(
-                                    children: const [
-                                      Icon(
+                                    children: [
+                                      const Icon(
                                         IconlyBold.user_2,
                                         color: ColorPalette.secondColor,
                                         size: 20,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Text(
-                                        '23',
-                                        style: TextStyle(
+                                        '${DBProvider.db.getAllPatients().length}',
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),
@@ -124,101 +129,21 @@ class _ScheduledPatientsState extends State<ScheduledPatients> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: ColorPalette.lightGreen,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, left: 10, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: ColorPalette.mainButtonColor,
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              padding: const EdgeInsets.all(5),
-                              child: const Text(
-                                '45',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'Registered',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '(Complete)',
-                                  style: TextStyle(
-                                      color: ColorPalette.grey, fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      GestureDetector(onTap: (){
+                        setState(() {
+                          complete = true;
+                        });
+                      },
+                          child: fullyRegPatientCard('Registered', '(Complete)', '${DBProvider.db.getAllPatients().length}')),
                       const SizedBox(
                         height: 20.0,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: ColorPalette.lightRed,
-                            borderRadius: BorderRadius.circular(8.0)),
-                        height: 50,
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, left: 10, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: ColorPalette.mainButtonColor,
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              padding: const EdgeInsets.all(5),
-                              child: const Text(
-                                '13',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'Registered',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '(Incomplete)',
-                                  style: TextStyle(
-                                      color: ColorPalette.grey, fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      GestureDetector(onTap: (){
+                        setState(() {
+                          complete = false;
+                        });
+                      },
+                          child: fullyRegPatientCard('Registered', '(Incomplete)', '0', color: ColorPalette.lightRed)),
                     ],
                   )
                 ],
@@ -288,12 +213,42 @@ class _ScheduledPatientsState extends State<ScheduledPatients> {
                               ),
                             ),
                             const Divider(),
-                            PatientCard(
-                              status: "Completed",
-                            ),
-                            PatientCard(
-                              status: "Incomplete",
-                            )
+                           if(complete) Visibility(
+                             visible: DBProvider.db
+                                 .getAllPatients().isNotEmpty,
+                             replacement: Center(
+                               child: Column(
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [
+                                   SizedBox(
+                                     height: 0.1.sh,
+                                   ),
+                                   Image.asset(
+                                     './assets/images/reg.png',
+                                     height: 100,
+                                   ),
+                                   const SizedBox(
+                                     height: 20.0,
+                                   ),
+                                   const Text(
+                                     'No content available',
+                                     style: TextStyle(fontSize: 12),
+                                   )
+                                 ],
+                               ),
+                             ),
+                             child: Column(
+                                children: DBProvider.db
+                                    .getAllPatients()
+                                    .map(
+                                      (patient) => UserPatientCard(
+                                        status: "Complete",
+                                        patient: patient
+                                      ),
+                                )
+                                    .toList(),
+                              ),
+                           ),
                           ],
                         ),
                       ),
@@ -307,4 +262,53 @@ class _ScheduledPatientsState extends State<ScheduledPatients> {
       ),
     );
   }
+}
+
+Widget fullyRegPatientCard(String title, String subtitle, String value, {Color color = ColorPalette.lightGreen,}){
+  return Container(
+    decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(8.0)),
+    height: 50,
+    padding: const EdgeInsets.only(
+        top: 5, bottom: 5, left: 10, right: 30),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: ColorPalette.mainButtonColor,
+              borderRadius: BorderRadius.circular(8.0)),
+          padding: const EdgeInsets.all(5),
+          child: Text(
+            value,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(
+          width: 10.0,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+          title,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            Text(
+              subtitle,
+              style: const TextStyle(
+                  color: ColorPalette.grey, fontSize: 10),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }
