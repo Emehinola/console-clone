@@ -286,9 +286,9 @@ class BuildEngagementCard extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      SchedulePatientCard(
-                        status: 'Engaged',
-                      ),
+                      // SchedulePatientCard(
+                      //   status: 'Engaged',
+                      // ),
                       Text(
                         "Pick Engagement Date",
                         style: TextStyle(

@@ -138,6 +138,9 @@ class BuildScheduleCalendar extends StatelessWidget {
                           ),
                           SchedulePatientCard(
                             status: 'Schedule',
+                            schedule: ConsoleState
+                                .state
+                                .patientSchedule!,
                           ),
                           Obx((){
                             return CalendarDatePicker2(

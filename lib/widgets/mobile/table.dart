@@ -419,10 +419,12 @@ class PatientDemography extends StatelessWidget {
 class SchedulePatientCard extends StatelessWidget {
   String status;
   Function()? onTap;
+  PatientSchedule schedule;
 
   SchedulePatientCard({
     required this.status,
     this.onTap,
+    required this.schedule,
   });
 
   @override
@@ -508,14 +510,13 @@ class SchedulePatientCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            rowCard("Patient", ConsoleState.state.patientSchedule!.patientName,
+            rowCard("Patient", schedule.patientName,
                 fromSchedule: true),
-            rowCard("Case", ConsoleState.state.patientSchedule!.patientCase,
+            rowCard("Case", schedule.patientCase,
                 hasBg: false),
             Obx((()=>rowCard(
                 "Appointment Date",
-                ConsoleService.processReadableDate(ConsoleState
-                    .state.patientSchedule!.appointmentDate.value
+                ConsoleService.processReadableDate(schedule.appointmentDate.value
                     .toString()),
                 fromSchedule: true))),
           ],

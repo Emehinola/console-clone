@@ -219,8 +219,9 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                                   .map(
                                     (schedule) => SchedulePatientCard(
                                       status: "Scheduled",
+                                      schedule: schedule,
                                       onTap: () {
-                                        ConsoleState.state.patientSchedule = schedule;
+                                        // ConsoleState.state.patientSchedule = schedule;
                                         showScheduleSheet(context, isUpdate: true);
                                       },
                                     ),

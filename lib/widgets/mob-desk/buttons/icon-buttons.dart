@@ -13,7 +13,7 @@ class ConsoleIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5.0),
@@ -28,11 +28,11 @@ class ConsoleIconButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(icon, color: ColorPalette.greyIcon,),
+            Icon(icon, color: ColorPalette.greyIcon, size: 20,),
             const SizedBox(
-              width: 15,
+              width: 5,
             ),
-            Text(text)
+            Text(text, style: const TextStyle(fontSize: 12),)
           ],
         ),
       ),

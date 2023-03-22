@@ -4,6 +4,7 @@ import 'package:console/screens/mobile/dashboard/identification-engine/identific
 import 'package:console/screens/mobile/dashboard/identification-engine/identification.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patients.dart';
 import 'package:console/services/navigate.dart';
+import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,49 +33,62 @@ class _SideDrawerState extends State<SideDrawer> {
         color: ColorPalette.dark,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Dashboard",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                      color: ColorPalette.secondColor),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Image.asset(
+                        './assets/images/console.jpeg',
+                        height: 25,
+                      ),
+                    ),
+                    const Text(
+                      "Dashboard",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w900,
+                          color: ColorPalette.secondColor),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        CupertinoIcons.xmark,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.xmark,
-                    color: Colors.white,
-                  ),
+                const SizedBox(
+                  height: 20,
                 ),
+                title("Practice Management", textColor: Colors.white),
+                const SizedBox(
+                  height: 30,
+                ),
+                drawerRow('Patient Registration', FontAwesomeIcons.users, const ScheduledPatients(), route: '/patient-list-mobile'),
+                drawerRow('Patient Scheduling', FontAwesomeIcons.calendar, const PatientsSchedulerList(), route: '/schedule-list-mobile'),
+                const SizedBox(
+                  height: 30,
+                ),
+                title('Practice Identification Engine', textColor: Colors.white),
+                const SizedBox(
+                  height: 30,
+                ),
+                drawerRow('Patient Engagement Reg', FontAwesomeIcons.book, const EngagementReg()),
+                drawerRow('Demographics', FontAwesomeIcons.chartPie, const Demography()),
+                drawerRow('Identification', FontAwesomeIcons.passport, const Identification()),
+                drawerRow('Identity Matching', CupertinoIcons.arrow_swap, IdentificationMatching()),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            title("Practice Management", textColor: Colors.white),
-            const SizedBox(
-              height: 30,
-            ),
-            drawerRow('Patient Registration', FontAwesomeIcons.users, const ScheduledPatients(), route: '/patient-list-mobile'),
-            drawerRow('Patient Scheduling', FontAwesomeIcons.calendar, const PatientsSchedulerList(), route: '/schedule-list-mobile'),
-            const SizedBox(
-              height: 30,
-            ),
-            title('Practice Identification Engine', textColor: Colors.white),
-            const SizedBox(
-              height: 30,
-            ),
-            drawerRow('Patient Engagement Reg', FontAwesomeIcons.book, const EngagementReg()),
-            drawerRow('Demographics', FontAwesomeIcons.chartPie, const Demography()),
-            drawerRow('Identification', FontAwesomeIcons.passport, const Identification()),
-            drawerRow('Identity Matching', CupertinoIcons.arrow_swap, IdentificationMatching()),
+            FlatButton(buttonText: 'Sign out', verticalPadding: 15.0, iconData: FontAwesomeIcons.arrowRightFromBracket, iconSize: 15)
           ],
         ),
       ),

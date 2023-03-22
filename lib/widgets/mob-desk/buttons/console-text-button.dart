@@ -92,6 +92,7 @@ class FlatButton extends StatelessWidget {
   IconData? iconData;
   double? verticalPadding;
   double? horPaddding;
+  double? iconSize;
 
   FlatButton({
     required this.buttonText,
@@ -104,6 +105,7 @@ class FlatButton extends StatelessWidget {
     this.iconData,
     this.verticalPadding,
     this.horPaddding,
+    this.iconSize,
   });
 
   @override
@@ -150,6 +152,7 @@ class FlatButton extends StatelessWidget {
                     Icon(
                       iconData,
                       color: Colors.white,
+                      size: iconSize,
                     ),
                   Text(
                     buttonText,
