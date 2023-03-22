@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../models/patient-schedule.dart';
+import '../../screens/desktop/dashboard/dashbaord-items/practice-management/patient-schedule.dart';
 import '../../services/edit-patient-info.dart';
 import '../mob-desk/theme/color-palette.dart';
 import 'dialogs.dart';
@@ -26,9 +27,9 @@ class DesktopPatienntCard extends StatelessWidget {
     return Container(
       // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       decoration: const BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
-      ),
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)),
       child: Column(
         children: [
           Container(
@@ -92,9 +93,9 @@ class DemographicsTable extends StatelessWidget {
       // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
-        color: Colors.white,
-          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
-      ),
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)),
       child: Column(
         children: [
           Container(
@@ -152,9 +153,9 @@ class IdentificationTable extends StatelessWidget {
       // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
-        color: Colors.white,
-          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
-      ),
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)),
       child: Column(
         children: [
           Container(
@@ -196,7 +197,7 @@ class IdentificationTable extends StatelessWidget {
   }
 }
 
-class DesktopPatienntScheduleTable extends StatelessWidget {
+class DesktopPatienntScheduleTable extends StatefulWidget {
   String status;
 
   DesktopPatienntScheduleTable({
@@ -204,14 +205,44 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
   });
 
   @override
+  State<DesktopPatienntScheduleTable> createState() =>
+      _DesktopPatienntScheduleTableState();
+}
+
+class _DesktopPatienntScheduleTableState
+    extends State<DesktopPatienntScheduleTable> {
+  List<PatientSchedule> schedules = [];
+  DesktopTimeType timeSelected = DesktopTimeType.today;
+
+  void getSchedules() {
+    if (timeSelected == DesktopTimeType.today) {
+      schedules = DBProvider.db.getTodaySchedules();
+    } else if (timeSelected == DesktopTimeType.tomorrow) {
+      schedules = DBProvider.db.getTomorrowSchedules();
+    } else {
+      schedules = DBProvider.db.getWeekSchedules();
+    }
+
+    setState(() {
+      // reload
+    });
+  }
+
+  @override
+  void initState() {
+    getSchedules();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
-        color: Colors.white,
-          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
-      ),
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)),
       child: Column(
         children: [
           Container(
@@ -231,25 +262,29 @@ class DesktopPatienntScheduleTable extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (_, index) {
-                return buildScheduleRowContent(
-                    hasBg: index % 2 == 0,
-                    date: ConsoleService.processReadableDate(DBProvider.db
-                        .getAllSchedules()[index]
-                        .appointmentDate
-                        .value),
-                    name: DBProvider.db.getAllSchedules()[index].patientName,
-                    id: DBProvider.db.getAllSchedules()[index].id ?? 'Nil',
-                    caseType:
+            child: Obx((){
+              return Visibility(
+                visible: selectedScheduleType.value == DesktopTimeType.today,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (_, index) {
+                    return buildScheduleRowContent(
+                        hasBg: index % 2 == 0,
+                        date: ConsoleService.processReadableDate(DBProvider.db
+                            .getAllSchedules()[index]
+                            .appointmentDate
+                            .value),
+                        name: DBProvider.db.getAllSchedules()[index].patientName,
+                        id: DBProvider.db.getAllSchedules()[index].id ?? 'Nil',
+                        caseType:
                         DBProvider.db.getAllSchedules()[index].patientCase,
-                    schedule: DBProvider.db.getAllSchedules()[index],
-                    sn: '${index + 1}');
-              },
-              itemCount: DBProvider.db.getAllSchedules().length,
-            ),
+                        schedule: DBProvider.db.getAllSchedules()[index],
+                        sn: '${index + 1}');
+                  },
+                  itemCount: DBProvider.db.getAllSchedules().length,
+                ),);
+            })
           ),
         ],
       ),
@@ -270,9 +305,9 @@ class RegisteredPatient extends StatelessWidget {
       // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: const BoxDecoration(
-        color: Colors.white,
-          image: DecorationImage(image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)
-      ),
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)),
       child: Column(
         children: [
           Container(

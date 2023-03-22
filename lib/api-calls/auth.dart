@@ -43,7 +43,7 @@ Future<Map> loginUser(Map payload, {bool isMobile = false}) async {
 
         if(isMobile){
           navigate(const Dashboard(), routeName: '/mobile-dashboard');
-          showErrorDialog('Success!',
+          showSuccessSheet('Success!',
               'You have logged in successfully');
         }else{
           navigate(DesktopNavigation(), routeName: '/dashboard');
