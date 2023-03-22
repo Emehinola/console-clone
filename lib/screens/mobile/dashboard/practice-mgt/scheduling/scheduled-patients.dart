@@ -1,4 +1,5 @@
 import 'package:console/database/provider.dart';
+import 'package:console/models/patient-schedule.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/scheduling/all-patients.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/state-management/state-management.dart';
@@ -16,6 +17,8 @@ import '../../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
 import '../../../../../widgets/mobile/table.dart';
 
+enum TimeType { today, tomorrow, week }
+
 class PatientsSchedulerList extends StatefulWidget {
   const PatientsSchedulerList({Key? key}) : super(key: key);
 
@@ -29,6 +32,23 @@ class _PatientsListState extends State<PatientsSchedulerList> {
   @override
   void initState() {
     super.initState();
+  }
+
+  List<PatientSchedule> schedules = [];
+  TimeType timeSelected = TimeType.today;
+
+  void getSchedules() {
+    if (timeSelected == TimeType.today) {
+      schedules = DBProvider.db.getTodaySchedules();
+    } else if (timeSelected == TimeType.tomorrow) {
+      schedules = DBProvider.db.getTomorrowSchedules();
+    } else {
+      schedules = DBProvider.db.getWeekSchedules();
+    }
+
+    setState(() {
+      // reload
+    });
   }
 
   @override
@@ -45,10 +65,13 @@ class _PatientsListState extends State<PatientsSchedulerList> {
               child: SizedBox(
                   width: 250,
                   child: FlatButton(
-                    buttonText: 'Schedule Patient',
-                    iconData: CupertinoIcons.calendar,
-                    onTap: () => navigate(const AllPatients(), routeName: '/patient-list-mobile').then((value) => setState((){})) // showScheduleSheet(context),
-                  ))),
+                      buttonText: 'Schedule Patient',
+                      iconData: CupertinoIcons.calendar,
+                      onTap: () => navigate(const AllPatients(),
+                              routeName: '/patient-list-mobile')
+                          .then((value) =>
+                              setState(() {})) // showScheduleSheet(context),
+                      ))),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             height: 150,
@@ -57,65 +80,71 @@ class _PatientsListState extends State<PatientsSchedulerList> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: ColorPalette.mainButtonColor,
-                          borderRadius: BorderRadius.circular(8.0)),
-                      height: 130,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('./assets/images/wave.png'),
-                                  fit: BoxFit.cover),
+                  child: GestureDetector(
+                    onTap: () {
+                      timeSelected = TimeType.today;
+                      getSchedules();
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorPalette.mainButtonColor,
+                            borderRadius: BorderRadius.circular(8.0)),
+                        height: 130,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('./assets/images/wave.png'),
+                                    fit: BoxFit.cover),
+                              ),
                             ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(8.0)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Image.asset(
-                                  './assets/images/new-graph.png',
-                                  height: 50,
-                                ),
-                                const Text(
-                                  'Today\'s Appointments',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      IconlyBold.user_3,
-                                      color: ColorPalette.secondColor,
-                                      size: 20,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      '${DBProvider.db.getTodaySchedules().length}',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(8.0)),
                             ),
-                          ),
-                        ],
-                      )),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Image.asset(
+                                    './assets/images/new-graph.png',
+                                    height: 50,
+                                  ),
+                                  const Text(
+                                    'Today\'s Appointments',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        IconlyBold.calendar,
+                                        color: ColorPalette.secondColor,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        '${DBProvider.db.getTodaySchedules().length}',
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
                 const SizedBox(
                   width: 20,
@@ -124,11 +153,25 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      scheduleDatesCard('Tomorrow\'s', 'Appointment', '${DBProvider.db.getTomorrowSchedules().length}'),
+                      GestureDetector(
+                          onTap: () {
+                            timeSelected = TimeType.tomorrow;
+                            getSchedules();
+                          },
+                          child: scheduleDatesCard('Tomorrow\'s', 'Appointment',
+                              '${DBProvider.db.getTomorrowSchedules().length}')),
                       const SizedBox(
                         height: 20.0,
                       ),
-                      scheduleDatesCard('Weekly', 'Appointment', '${DBProvider.db.getWeekSchedules().length}', color: ColorPalette.lightRed),
+                      GestureDetector(
+                        onTap: () {
+                          timeSelected = TimeType.week;
+                          getSchedules();
+                        },
+                        child: scheduleDatesCard('Weekly', 'Appointment',
+                            '${DBProvider.db.getWeekSchedules().length}',
+                            color: ColorPalette.lightRed),
+                      ),
                     ],
                   ),
                 )
@@ -204,28 +247,37 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(height: 0.1.sh,),
-                                  Image.asset('./assets/images/reg.png', height: 100,),
-                                  const SizedBox(height: 20.0,),
-                                  const Text('No content available', style: TextStyle(fontSize: 12),)
+                                  SizedBox(
+                                    height: 0.1.sh,
+                                  ),
+                                  Image.asset(
+                                    './assets/images/reg.png',
+                                    height: 100,
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  const Text(
+                                    'No content available',
+                                    style: TextStyle(fontSize: 12),
+                                  )
                                 ],
                               ),
                             ),
-                            visible:  DBProvider.db
-                                .getAllSchedules().isNotEmpty,
+                            visible: DBProvider.db.getAllSchedules().isNotEmpty,
                             child: Column(
-                              children: DBProvider.db
-                                  .getAllSchedules()
+                              children: schedules
                                   .map(
                                     (schedule) => SchedulePatientCard(
                                       status: "Scheduled",
                                       schedule: schedule,
                                       onTap: () {
                                         // ConsoleState.state.patientSchedule = schedule;
-                                        showScheduleSheet(context, isUpdate: true);
+                                        showScheduleSheet(context,
+                                            isUpdate: true);
                                       },
                                     ),
-                              )
+                                  )
                                   .toList(),
                             ),
                           ),
@@ -243,14 +295,17 @@ class _PatientsListState extends State<PatientsSchedulerList> {
   }
 }
 
-Widget scheduleDatesCard(String title, String subtitle, String value, {Color color = ColorPalette.lightGreen,}){
+Widget scheduleDatesCard(
+  String title,
+  String subtitle,
+  String value, {
+  Color color = ColorPalette.lightGreen,
+}) {
   return Container(
-    decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8.0)),
+    decoration:
+        BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.0)),
     height: 50,
-    padding: const EdgeInsets.only(
-        top: 5, bottom: 5, left: 10, right: 30),
+    padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 30),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -262,9 +317,7 @@ Widget scheduleDatesCard(String title, String subtitle, String value, {Color col
           child: Text(
             value,
             style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         const SizedBox(
@@ -282,8 +335,7 @@ Widget scheduleDatesCard(String title, String subtitle, String value, {Color col
             ),
             Text(
               subtitle,
-              style: const TextStyle(
-                  color: ColorPalette.grey, fontSize: 10),
+              style: const TextStyle(color: ColorPalette.grey, fontSize: 10),
             ),
           ],
         ),
