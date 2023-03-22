@@ -208,9 +208,15 @@ Widget buildFigureCard(String text, String subText,
     {String figure = "",
     Color color = ColorPalette.lightGreen,
     bool isRegistered = false,
-    bool isUser = false}) {
+    bool isUser = false,
+    Function()?  onTap
+    }) {
   return GestureDetector(
     onTap: () {
+      if(onTap != null){
+        onTap();
+        return;
+      }
       if (isUser) {
         if (isRegistered) {
           ConsoleState.state.isUserRegistered.value = true;

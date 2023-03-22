@@ -264,25 +264,25 @@ class _DesktopPatienntScheduleTableState
           Expanded(
             child: Obx((){
               return Visibility(
-                visible: selectedScheduleType.value == DesktopTimeType.today,
+                visible: selectedScheduleType.value == DesktopTimeType.today || selectedScheduleType.value == DesktopTimeType.tomorrow  || selectedScheduleType.value == DesktopTimeType.week,
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (_, index) {
+                    List<PatientSchedule> newSch = selectedScheduleType.value == DesktopTimeType.today ? DBProvider.db.getTodaySchedules() : selectedScheduleType.value == DesktopTimeType.tomorrow ? DBProvider.db.getTomorrowSchedules() : DBProvider.db.getWeekSchedules();
                     return buildScheduleRowContent(
                         hasBg: index % 2 == 0,
-                        date: ConsoleService.processReadableDate(DBProvider.db
-                            .getAllSchedules()[index]
+                        date: ConsoleService.processReadableDate(newSch[index]
                             .appointmentDate
                             .value),
-                        name: DBProvider.db.getAllSchedules()[index].patientName,
-                        id: DBProvider.db.getAllSchedules()[index].id ?? 'Nil',
+                        name: newSch[index].patientName,
+                        id: newSch[index].id ?? 'Nil',
                         caseType:
-                        DBProvider.db.getAllSchedules()[index].patientCase,
-                        schedule: DBProvider.db.getAllSchedules()[index],
+                        newSch[index].patientCase,
+                        schedule: newSch[index],
                         sn: '${index + 1}');
                   },
-                  itemCount: DBProvider.db.getAllSchedules().length,
+                  itemCount: selectedScheduleType.value == DesktopTimeType.today ? DBProvider.db.getTodaySchedules().length : selectedScheduleType.value == DesktopTimeType.tomorrow ? DBProvider.db.getTomorrowSchedules().length : DBProvider.db.getWeekSchedules().length,
                 ),);
             })
           ),

@@ -23,6 +23,7 @@ import '../../../../../widgets/mobile/table.dart';
 import '../../dashboard.dart';
 
 enum DesktopTimeType { today, tomorrow, week }
+
 Rx<DesktopTimeType> selectedScheduleType = DesktopTimeType.today.obs;
 
 class DesktopPatientSchedule extends StatefulWidget {
@@ -35,14 +36,12 @@ class DesktopPatientSchedule extends StatefulWidget {
 class _PatientsListState extends State<DesktopPatientSchedule> {
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
-
   @override
   void initState() {
     ConsoleState.state.patientSchedule = null; // reset
     ConsoleState.state.editAction.value = false; // reset
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,141 +82,143 @@ class BuildScheduleCalendar extends StatelessWidget {
         alignment: Alignment.topCenter,
         padding: EdgeInsets.symmetric(horizontal: 0.01.sw),
         child: Obx(() {
-          return !ConsoleState.state.editAction.value ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    './assets/images/schedule.png',
-                    height: 0.2.sh,
-                  ),
-                  SizedBox(
-                    height: 0.06.sh,
-                  ),
-                  FlatButton(
-                      buttonText: 'Add Schedule',
-                      verticalPadding: 0.015.sh,
-                      onTap: () {
-                        selectedItem.value = CurrentSelectedNavItem.patientReg;
-                      }),
-                ],
-              ),
-            ) : Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+          return !ConsoleState.state.editAction.value
+              ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  './assets/images/schedule.png',
+                  height: 0.2.sh,
                 ),
+                SizedBox(
+                  height: 0.06.sh,
+                ),
+                FlatButton(
+                    buttonText: 'Add Schedule',
+                    verticalPadding: 0.015.sh,
+                    onTap: () {
+                      selectedItem.value =
+                          CurrentSelectedNavItem.patientReg;
+                    }),
+              ],
+            ),
+          )
+              : Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      ),
-                      color: Colors.white,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
-                    child: Text(
-                      'Patient Re-Scheduler',
-                      style: TextStyle(
-                        color: ColorPalette.grey,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    color: Colors.white,
+                  ),
+                  child: Text(
+                    'Patient Re-Scheduler',
+                    style: TextStyle(
+                      color: ColorPalette.grey,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: ListView(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SchedulePatientCard(
-                            status: 'Schedule',
-                            schedule: ConsoleState
-                                .state
-                                .patientSchedule!,
-                          ),
-                          Obx((){
-                            return CalendarDatePicker2(
-                              config: CalendarDatePicker2Config(
-                                  calendarType: CalendarDatePicker2Type.single,
-                                  currentDate: DateTime.parse(ConsoleState
-                                      .state
-                                      .patientSchedule
-                                      ?.appointmentDate
-                                      .value ??
-                                      DateTime.now().toIso8601String())),
-                              onValueChanged: (date) {
-                                try {
-                                  ConsoleState
-                                      .state
-                                      .patientSchedule!
-                                      .appointmentDate
-                                      .value = date.first!.toIso8601String();
-                                } catch (e) {
-                                  //
-                                }
-                              },
-                              initialValue: [],
-                            );
-                          }),
-                          Obx(() => Visibility(
-                                visible: !ConsoleState
-                                    .state.isScheduleViewOnly.value,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    OutlinedBtn(
-                                      buttonText: 'Cancel',
-                                      verticalPadding: 0.02.sh,
-                                      horPadding: 0.02.sw,
-                                      borderColor: Colors.red,
-                                      textColor: Colors.red,
-                                    ),
-                                    Obx(
-                                      () => FlatButton(
-                                        buttonText: 'Commit',
-                                        verticalPadding: 0.02.sh,
-                                        horPaddding: 0.02.sw,
-                                        loading: loading.value,
-                                        onTap: () async {
-                                          loading.value = true;
-                                          if (await editSchedule(ConsoleState
-                                              .state.patientSchedule!)) {
-                                            Get.to(DesktopNavigation());
-                                            showSuccessSheet('Success!',
-                                                'Appointment schedule edited successfully');
-                                          }
-                                          loading.value = false;
-                                        },
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))
-                        ],
-                      ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SchedulePatientCard(
+                          status: 'Schedule',
+                          schedule: ConsoleState.state.patientSchedule!,
+                        ),
+                        Obx(() {
+                          return CalendarDatePicker2(
+                            config: CalendarDatePicker2Config(
+                                calendarType:
+                                CalendarDatePicker2Type.single,
+                                currentDate: DateTime.parse(ConsoleState
+                                    .state
+                                    .patientSchedule
+                                    ?.appointmentDate
+                                    .value ??
+                                    DateTime.now().toIso8601String())),
+                            onValueChanged: (date) {
+                              try {
+                                ConsoleState.state.patientSchedule!
+                                    .appointmentDate.value =
+                                    date.first!.toIso8601String();
+                              } catch (e) {
+                                //
+                              }
+                            },
+                            initialValue: [],
+                          );
+                        }),
+                        Obx(() =>
+                            Visibility(
+                              visible: !ConsoleState
+                                  .state.isScheduleViewOnly.value,
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceAround,
+                                children: [
+                                  OutlinedBtn(
+                                    buttonText: 'Cancel',
+                                    verticalPadding: 0.02.sh,
+                                    horPadding: 0.02.sw,
+                                    borderColor: Colors.red,
+                                    textColor: Colors.red,
+                                  ),
+                                  Obx(
+                                        () =>
+                                        FlatButton(
+                                          buttonText: 'Commit',
+                                          verticalPadding: 0.02.sh,
+                                          horPaddding: 0.02.sw,
+                                          loading: loading.value,
+                                          onTap: () async {
+                                            loading.value = true;
+                                            if (await editSchedule(
+                                                ConsoleState.state
+                                                    .patientSchedule!)) {
+                                              Get.to(DesktopNavigation());
+                                              showSuccessSheet('Success!',
+                                                  'Appointment schedule edited successfully');
+                                            }
+                                            loading.value = false;
+                                          },
+                                        ),
+                                  )
+                                ],
+                              ),
+                            ))
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
           );
         }));
   }
 }
-
 
 class DesktopScheduleHeader extends StatelessWidget {
   bool isUser;
@@ -288,7 +289,9 @@ class DesktopScheduleHeader extends StatelessWidget {
                                         width: 10,
                                       ),
                                       Text(
-                                       '${DBProvider.db.getTodaySchedules().length}',
+                                        '${DBProvider.db
+                                            .getTodaySchedules()
+                                            .length}',
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
@@ -310,25 +313,25 @@ class DesktopScheduleHeader extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () => selectedScheduleType.value = DesktopTimeType.tomorrow,
-                        child: buildFigureCard("Tomorrow's", "Appointments",
-                            figure:'${DBProvider.db.getTomorrowSchedules().length}'
-                            ,
-                            isRegistered: true,
-                            isUser: false),
-                      ),
+                      buildFigureCard("Tomorrow's", "Appointments",
+                          figure:
+                          '${DBProvider.db
+                              .getTomorrowSchedules()
+                              .length}',
+                          onTap: () =>
+                          selectedScheduleType.value =
+                              DesktopTimeType.tomorrow),
                       SizedBox(
                         height: 0.01.sh,
                       ),
-                      GestureDetector(
-                        onTap: () => selectedScheduleType.value = DesktopTimeType.week,
-                        child: buildFigureCard("Weekly", "Appointments",
-                            figure: '${DBProvider.db.getWeekSchedules().length}',
-                            color: ColorPalette.lightRed,
-                            isRegistered: false,
-                            isUser: false),
-                      ),
+                      buildFigureCard("Weekly", "Appointments",
+                          figure:
+                          '${DBProvider.db
+                              .getWeekSchedules()
+                              .length}',
+                          color: ColorPalette.lightRed,
+                          onTap: () =>
+                          selectedScheduleType.value = DesktopTimeType.week),
                     ],
                   ),
                 )
