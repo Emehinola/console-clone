@@ -101,27 +101,33 @@ void showScheduleSheet(BuildContext context, {bool isUpdate = false}) {
                         initialValue: [],
                       );
                     }),
-                    Obx(((){
-                      return FlatButton(
-                        buttonText: 'Commit',
-                        verticalPadding: 20,
-                        loading: ConsoleState.state.loading.value,
-                        onTap: () async {
-                          if ( isUpdate ? await editSchedule(ConsoleState.state.patientSchedule!) : await schedulePatient()) {
+                   if(isUpdate) OutlinedBtn(buttonText: 'Cancel', verticalPadding: 20, borderColor: Colors.red, textColor: Colors.red, onTap: () => Get.back(),),
+                   if(!isUpdate) Column(
+                     children: [
+                       Obx(((){
+                          return FlatButton(
+                            buttonText: 'Commit',
+                            verticalPadding: 20,
+                            loading: ConsoleState.state.loading.value,
+                            onTap: () async {
+                              if ( isUpdate ? await editSchedule(ConsoleState.state.patientSchedule!) : await schedulePatient()) {
 
-                            Get.to(
-                              DisplaySuccess(
-                                title: isUpdate ? 'Schedule updated' : 'Schedule submitted',
-                                description: 'Your schedule has been submitted!',
-                                nextText: 'Continue',
-                                onNext: () => Navigator.popUntil(context,
-                                    ModalRoute.withName('/schedule-list-mobile')),
-                              ),
-                            );
-                          }
-                        },
-                      );
-                    }))
+                                Get.to(
+                                  DisplaySuccess(
+                                    title: isUpdate ? 'Schedule updated' : 'Schedule submitted',
+                                    description: 'Your schedule has been submitted!',
+                                    nextText: 'Continue',
+                                    onNext: () => Navigator.popUntil(context,
+                                        ModalRoute.withName('/schedule-list-mobile')),
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        })),
+                       OutlinedBtn(buttonText: 'Cancel', verticalPadding: 20, borderColor: Colors.red, textColor: Colors.red, onTap: () => Get.back(),),
+                     ],
+                   )
                   ],
                 ),
               ),
