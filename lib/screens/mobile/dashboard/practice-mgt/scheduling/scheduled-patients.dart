@@ -47,7 +47,7 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                   child: FlatButton(
                     buttonText: 'Schedule Patient',
                     iconData: CupertinoIcons.calendar,
-                    onTap: () => navigate(const AllPatients(), routeName: '/all-patients-mobile').then((value) => setState((){})) // showScheduleSheet(context),
+                    onTap: () => navigate(const AllPatients(), routeName: '/patient-list-mobile').then((value) => setState((){})) // showScheduleSheet(context),
                   ))),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -103,7 +103,7 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                                       width: 10,
                                     ),
                                     Text(
-                                      '${DBProvider.db.getAllSchedules().length}',
+                                      '${DBProvider.db.getTodaySchedules().length}',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -124,11 +124,11 @@ class _PatientsListState extends State<PatientsSchedulerList> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      scheduleDatesCard('Tomorrow\'s', 'Appointment', '${DBProvider.db.getAllSchedules().length}'),
+                      scheduleDatesCard('Tomorrow\'s', 'Appointment', '${DBProvider.db.getTomorrowSchedules().length}'),
                       const SizedBox(
                         height: 20.0,
                       ),
-                      scheduleDatesCard('Weekly', 'Appointment', '0', color: ColorPalette.lightRed),
+                      scheduleDatesCard('Weekly', 'Appointment', '${DBProvider.db.getWeekSchedules().length}', color: ColorPalette.lightRed),
                     ],
                   ),
                 )

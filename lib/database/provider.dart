@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
 import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patients.dart';
+import 'package:console/services/console-services.dart';
 import 'package:hive/hive.dart';
 
 import '../models/user.dart';
@@ -137,6 +138,81 @@ class DBProvider {
 
     for (var element in rawSch) {
       schedules.add(PatientSchedule.fromJson(element));
+    }
+
+    return schedules;
+  }
+
+  List<PatientSchedule> getTodaySchedules() {
+    List<PatientSchedule> schedules = [];
+    PatientSchedule? schedule;
+    var rawPat;
+    List rawSch = [];
+
+    try {
+      rawPat = box.get('schedules');
+
+      rawSch = rawPat.toList();
+    } catch (e) {
+      //
+    }
+
+    for (var element in rawSch) {
+      schedule = PatientSchedule.fromJson(element);
+
+      if (ConsoleService.isToday(schedule.appointmentDate.value)) {
+        schedules.add(schedule);
+      }
+    }
+
+    return schedules;
+  }
+
+  List<PatientSchedule> getTomorrowSchedules() {
+    List<PatientSchedule> schedules = [];
+    PatientSchedule? schedule;
+    var rawPat;
+    List rawSch = [];
+
+    try {
+      rawPat = box.get('schedules');
+
+      rawSch = rawPat.toList();
+    } catch (e) {
+      //
+    }
+
+    for (var element in rawSch) {
+      schedule = PatientSchedule.fromJson(element);
+
+      if (ConsoleService.isTomorrow(schedule.appointmentDate.value)) {
+        schedules.add(schedule);
+      }
+    }
+
+    return schedules;
+  }
+
+  List<PatientSchedule> getWeekSchedules() {
+    List<PatientSchedule> schedules = [];
+    PatientSchedule? schedule;
+    var rawPat;
+    List rawSch = [];
+
+    try {
+      rawPat = box.get('schedules');
+
+      rawSch = rawPat.toList();
+    } catch (e) {
+      //
+    }
+
+    for (var element in rawSch) {
+      schedule = PatientSchedule.fromJson(element);
+
+      if (ConsoleService.isThisWeek(schedule.appointmentDate.value)) {
+        schedules.add(schedule);
+      }
     }
 
     return schedules;

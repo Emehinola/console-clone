@@ -26,4 +26,54 @@ class ConsoleService{
     }
     return "";
   }
+
+  static bool isToday(String date){
+    try{
+      DateTime dateObj = DateTime.parse(date);
+      DateTime today = DateTime.now();
+
+      if(dateObj.day - today.day == 0){
+        return true;
+      }
+
+    }catch(e){
+      //
+    }
+
+    return false;
+  }
+
+  static bool isTomorrow(String date){
+
+    try{
+      DateTime dateObj = DateTime.parse(date);
+      DateTime today = DateTime.now();
+
+      if(dateObj.day - today.day == 1){
+        return true;
+      }
+
+    }catch(e){
+      //
+    }
+
+    return false;
+  }
+
+  static bool isThisWeek(String date){
+
+    try{
+      DateTime dateObj = DateTime.parse(date);
+      DateTime today = DateTime.now();
+
+      if(dateObj.day - today.day <= 7){
+        return true;
+      }
+
+    }catch(e){
+      //
+    }
+
+    return false;
+  }
 }
