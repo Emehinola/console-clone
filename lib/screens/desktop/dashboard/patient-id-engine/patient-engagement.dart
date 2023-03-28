@@ -322,7 +322,7 @@ class BuildEngagementCard extends StatelessWidget {
                             applyingMargin: false,
                             verticalPadding: 0.02.sh,
                             horPaddding: 40,
-                            onTap: () => showSuccessSheet('Success!',
+                            onTap: () => showSuccessDialog('Success!',
                                 'Engagement registered successfully'),
                           ),
                           const SizedBox(

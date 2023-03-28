@@ -50,7 +50,7 @@ Future<void> registerPatient(Map payload, {bool isMobile = false}) async {
       consoleSnackNotification('Patient added successfully!', header: 'Success');
     }else{
       selectedItem.value = CurrentSelectedNavItem.dashboard;
-      showSuccessSheet('Success', 'Patient successfully added');
+      showSuccessDialog('Success', 'Patient successfully added');
     }
   } catch (e) {
     print('preg: $e');
@@ -66,7 +66,7 @@ Future<Map> loginUser(Map payload) async {
     if (user != null) {
       if (user.password == payload['password']) {
         navigate(DesktopNavigation(), routeName: '/dashboard');
-        showSuccessSheet(
+        showSuccessDialog(
             'Login successful', 'You have successfully logged In!');
 
         return {'success': true, 'message': 'Login successful!', 'user': user};
@@ -76,7 +76,7 @@ Future<Map> loginUser(Map payload) async {
     //
   }
 
-  showSuccessSheet(
+  showSuccessDialog(
       'Incorrect username or password', 'You have successfully logged In!');
 
   return {

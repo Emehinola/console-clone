@@ -199,7 +199,7 @@ class BuildScheduleCalendar extends StatelessWidget {
                                                 ConsoleState.state
                                                     .patientSchedule!)) {
                                               Get.to(DesktopNavigation());
-                                              showSuccessSheet('Success!',
+                                              showSuccessDialog('Success!',
                                                   'Appointment schedule edited successfully');
                                             }
                                             loading.value = false;

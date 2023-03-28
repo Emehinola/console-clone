@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:console/database/provider.dart';
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
 import 'package:console/screens/desktop/dashboard/dashboard.dart';
@@ -23,19 +24,20 @@ import '../mob-desk/custom/cards.dart';
 import '../mob-desk/forms/console-text-field.dart';
 import 'tables.dart';
 
-void showSuccessSheet(String title, String desc) {
+void showSuccessDialog(String title, String desc) {
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
             content: SizedBox(
-              height: 0.5.sh,
+              height: 0.45.sh,
+              width: 0.3.sw,
               child: Center(
                 child: Column(
                   children: [
                     Lottie.asset('assets/files/success.json',
-                        width: 250, height: 0.2.sh),
+                        width: 0.2.sw, height: 0.2.sh),
                     SizedBox(height: 0.02.sh),
                     Text(
                       title,
@@ -242,7 +244,6 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
                       SizedBox(height: 0.01.sh),
                       detailRow('Group Type', '${patient.groupType}', '', ''),
                       SizedBox(height: 0.01.sh),
-                      const Divider(),
                       title('Contact Details'),
                       SizedBox(height: 0.01.sh),
                       detailRow('Phone', patient.phone, 'Email', patient.email),
@@ -255,8 +256,7 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
                         'Social Handle',
                         patient.socHandle,
                       ),
-                      SizedBox(height: 0.06.sh),
-                      const Divider(),
+                      SizedBox(height: 0.01.sh),
                       title('Principal Details'),
                       SizedBox(height: 0.01.sh),
                       detailRow(
@@ -300,17 +300,44 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
 }
 
 void showUserEditDialog(User user, {required bool fromReg}) {
-  final name = TextEditingController();
-  final biodata = TextEditingController();
-  final officialDetails = TextEditingController();
-  final otherDetails = TextEditingController();
-  final username = TextEditingController();
 
-  // name.text = user.fullName;
-  // biodata.text = user.bioData;
-  // officialDetails.text = user.officialDetails;
-  // otherDetails.text = user.otherDetails;
-  // username.text = user.username;
+  final emailController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final middleNameController = TextEditingController();
+  final socHandleController = TextEditingController();
+  final phoneController = TextEditingController();
+  final nationalityController = TextEditingController();
+  final ethnicityController = TextEditingController();
+  final religionController = TextEditingController();
+  final lgaController = TextEditingController();
+  final rankController = TextEditingController();
+  final positionController = TextEditingController();
+  final garrisonController = TextEditingController();
+  final divisionController = TextEditingController();
+  final platoonController = TextEditingController();
+  final unitController = TextEditingController();
+  final primaryAssController = TextEditingController();
+
+  if(ConsoleState.state.userToEdit != null){
+    emailController.text = user.username;
+    firstNameController.text = user.firstName;
+    lastNameController.text = user.lastName;
+    middleNameController.text = user.middleName;
+    socHandleController.text = user.socHandle;
+    phoneController.text = user.phone;
+    nationalityController.text = user.nationality;
+    ethnicityController.text = user.ethnicity;
+    religionController.text = user.religion;
+    lgaController.text = user.lga;
+    rankController.text = user.rank;
+    positionController.text = user.position;
+    garrisonController.text = user.garrison;
+    divisionController.text = user.division;
+    platoonController.text = user.platoon;
+    unitController.text = user.unit;
+    primaryAssController.text = user.primaryAssignment;
+  }
 
   showDialog(
       context: Get.context!,
@@ -320,55 +347,235 @@ void showUserEditDialog(User user, {required bool fromReg}) {
             content: SizedBox(
               height: 0.5.sh,
               width: 0.3.sw,
-              child: SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
+                children: [
+                  title('Personal Info'),
+                  FlatTextField(
+                    controller: firstNameController,
+                    hintText: 'First Name',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                  Row(
                     children: [
-                      FlatTextField(
-                        controller: name,
-                        hintText: 'Full Name',
-                        isPassword: false,
-                        validationService: (String? name) =>
-                            ValidationService.isValidInput(name!),
-                      ),
-                      FlatTextField(
-                          controller: username,
+                      Expanded(
+                        child: FlatTextField(
+                          controller: middleNameController,
+                          hintText: 'Middle Name',
+                          isPassword: false,
                           validationService: (String? name) =>
-                              ValidationService.isValidEmail(name!),
-                          hintText: 'Email Address'),
-                      FlatTextField(
-                        controller: biodata,
-                        hintText: 'Bio Details',
-                        validationService: (String? name) =>
-                            ValidationService.isValidInput(name!),
+                              ValidationService.isValidInput(name!),
+                        ),
                       ),
-                      FlatTextField(
-                        controller: officialDetails,
-                        hintText: 'Official Details',
-                        validationService: (String? name) =>
-                            ValidationService.isValidInput(name!),
-                      ),
-                      FlatTextField(
-                        controller: otherDetails,
-                        hintText: 'Other Details',
-                        validationService: (String? name) =>
-                            ValidationService.isValidInput(name!),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: FlatButton(
-                            buttonText: 'Update',
-                            verticalPadding: 0.02.sh,
-                            onTap: () {
-                              Get.back();
-                              showSuccessSheet(
-                                  'Success', 'User updated successfully');
-                            }),
+                      const SizedBox(width: 10.0,),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: lastNameController,
+                          hintText: 'Last Name',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
                       ),
                     ],
                   ),
-                ),
+                  title('Contact Info'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                            controller: emailController,
+                            validationService: (String? name) =>
+                                ValidationService.isValidEmail(name!),
+                            hintText: 'Email Address'),
+                      ),
+                      const SizedBox(width: 10.0,),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: socHandleController,
+                          hintText: 'Social handle(Optional)',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ConsoleDropdown(
+                          options: const [
+                            '+234',
+                          ],
+                          value: '+234',
+                          label: 'Code',
+                          onChanged: (value) {
+                            //
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: phoneController,
+                          hintText: 'Phone Number',
+                          maxInput: 10,
+                          validationService: (String? text) =>
+                              ValidationService.isValidNumber(text!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  title('Identity Details'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                            controller: nationalityController,
+                            validationService: (String? name) =>
+                                ValidationService.isValidEmail(name!),
+                            hintText: 'Nationality'),
+                      ),
+                      const SizedBox(width: 10.0,),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: ethnicityController,
+                          hintText: 'Ethnicity',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                            controller: religionController,
+                            validationService: (String? name) =>
+                                ValidationService.isValidEmail(name!),
+                            hintText: 'Religion'),
+                      ),
+                      const SizedBox(width: 10.0,),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: lgaController,
+                          hintText: 'LGA',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  title('Official Info'),
+                  FlatTextField(
+                    controller: primaryAssController,
+                    hintText: 'Place of Primary Assignment',
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                            controller: rankController,
+                            validationService: (String? name) =>
+                                ValidationService.isValidEmail(name!),
+                            hintText: 'Rank'),
+                      ),
+                      const SizedBox(width: 10.0,),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: positionController,
+                          hintText: 'Position',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                            controller: garrisonController,
+                            validationService: (String? name) =>
+                                ValidationService.isValidEmail(name!),
+                            hintText: 'Garrision'),
+                      ),
+                      const SizedBox(width: 10.0,),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: divisionController,
+                          hintText: 'Division',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                            controller: platoonController,
+                            validationService: (String? name) =>
+                                ValidationService.isValidEmail(name!),
+                            hintText: 'Platoon'),
+                      ),
+                      const SizedBox(width: 10.0,),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: unitController,
+                          hintText: 'Unit',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedBtn(
+                        buttonText: 'Cancel',
+                        applyingMargin: false,
+                        verticalPadding: 0.018.sh,
+                        borderColor: Colors.red,
+                        textColor: Colors.red,
+                        horPadding: 0.05.sw,
+                        onTap: () {
+                          ConsoleState.state.userToEdit = null;
+                          Get.back();
+                        },
+                      ),
+                      SizedBox(
+                        width: 0.02.sw,
+                      ),
+                      FlatButton(
+                        buttonText: 'Update',
+                        applyingMargin: false,
+                        verticalPadding: 0.018.sh,
+                        horPaddding: 0.05.sw,
+                        loading: false,
+                        onTap: () {
+                          Get.back();
+                          showSuccessDialog('Success', 'User updated successfully!');
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             shape: const RoundedRectangleBorder(
@@ -1028,7 +1235,7 @@ void showScheduleDialog(RegPatient patient) {
                                   Navigator.pop(context);
                                   selectedItem.value =
                                       CurrentSelectedNavItem.patientScheduling;
-                                  showSuccessSheet(
+                                  showSuccessDialog(
                                       'Success', 'Patient schedule successful');
                                 }
                               },

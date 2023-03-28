@@ -36,7 +36,7 @@ Future<void> registerUser(Map payload, {bool isMobile = false}) async {
       consoleSnackNotification('Account created successfully!', header: 'Success');
     }else{
       navigate(DesktopNavigation(), routeName: '/dashboard');
-      showSuccessSheet('Success', 'Account created successfully!');
+      showSuccessDialog('Success', 'Account created successfully!');
     }
 
   }catch(e){
@@ -55,11 +55,11 @@ Future<Map> loginUser(Map payload, {bool isMobile = false}) async {
 
         if(isMobile){
           navigate(const Dashboard(), routeName: '/mobile-dashboard');
-          showSuccessSheet('Success!',
+          showSuccessDialog('Success!',
               'You have logged in successfully');
         }else{
           navigate(DesktopNavigation(), routeName: '/dashboard');
-          showSuccessSheet('Login successful',
+          showSuccessDialog('Login successful',
               'You have successfully logged In!');
         }
 
