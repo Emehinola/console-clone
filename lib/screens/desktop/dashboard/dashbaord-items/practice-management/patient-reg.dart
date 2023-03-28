@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import '../../../../../api-calls/patients.dart';
 import '../../../../../services/validation-service.dart';
 import '../../../../../widgets/desktop/patient-list-tiles.dart';
+import '../../../../../widgets/mobile/drawer.dart';
 
 class DesktopPatientRegistration extends StatefulWidget {
   const DesktopPatientRegistration({Key? key}) : super(key: key);
@@ -29,9 +30,9 @@ class _DesktopPatientRegistrationState
 
   @override
   void initState() {
-    if(ConsoleState.state.patientToEdit != null){
+    if (ConsoleState.state.patientToEdit != null) {
       showForm = true;
-    }else{
+    } else {
       ConsoleState.state.regViewText.value = "Registered Patients (Complete)";
     }
 
@@ -44,7 +45,9 @@ class _DesktopPatientRegistrationState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          HeaderMetrics(isUser: false,),
+          HeaderMetrics(
+            isUser: false,
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -54,10 +57,12 @@ class _DesktopPatientRegistrationState
           ),
           Padding(
             padding: EdgeInsets.only(left: 0.02.sw),
-            child: Obx(()=>Text(
-              ConsoleState.state.regViewText.value,
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
-            ),),
+            child: Obx(
+              () => Text(
+                ConsoleState.state.regViewText.value,
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
+              ),
+            ),
           ),
           SizedBox(
             height: 0.03.sh,
@@ -68,11 +73,12 @@ class _DesktopPatientRegistrationState
                 Expanded(
                   flex: 2,
                   child: SizedBox(
-                    height: 0.9.sh,
-                    child: !showForm ? RegisteredPatient(
-                      status: 'Completed',
-                    ) : const PatientRegForm()
-                  ),
+                      height: 0.9.sh,
+                      child: !showForm
+                          ? RegisteredPatient(
+                              status: 'Completed',
+                            )
+                          : const PatientRegForm()),
                 ),
                 Expanded(
                     flex: 1,
@@ -82,7 +88,9 @@ class _DesktopPatientRegistrationState
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            showForm ? './assets/images/reg.png' : './assets/images/reg-new.png',
+                            showForm
+                                ? './assets/images/reg.png'
+                                : './assets/images/reg-new.png',
                             height: 0.2.sh,
                           ),
                           SizedBox(
@@ -156,32 +164,49 @@ class PatientRegForm extends StatefulWidget {
 }
 
 class _PatientRegFormState extends State<PatientRegForm> {
-
   final _formKey = GlobalKey<FormState>();
 
-  final name = TextEditingController();
-  final biodata = TextEditingController();
-  final contactDetails = TextEditingController();
-  final principalWork = TextEditingController();
-  final principalDesignation = TextEditingController();
-  final phone = TextEditingController();
-  final healthRecord = TextEditingController();
-  final acctTier = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final middleNameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final addressController = TextEditingController();
+  final platoonController = TextEditingController();
+  final divisionController = TextEditingController();
+  final unitController = TextEditingController();
+  final primAssController = TextEditingController();
+  final ageController = TextEditingController();
+  final heightController = TextEditingController();
+  final weightController = TextEditingController();
+  final garrisonController = TextEditingController();
+  final positionController = TextEditingController();
+  final rankController = TextEditingController();
+  final socHandleController = TextEditingController();
+
 
   bool loading = false;
 
   @override
   void initState() {
-
-    if(ConsoleState.state.patientToEdit != null){
-      name.text = ConsoleState.state.patientToEdit!.patientName;
-      biodata.text = ConsoleState.state.patientToEdit!.biodata;
-      contactDetails.text = ConsoleState.state.patientToEdit!.contactDetails;
-      principalDesignation.text = ConsoleState.state.patientToEdit!.principalDesignation;
-      principalWork.text = ConsoleState.state.patientToEdit!.principalWorkDetails;
-      phone.text = ConsoleState.state.patientToEdit!.phone;
-      healthRecord.text = ConsoleState.state.patientToEdit!.medRecord;
-      acctTier.text = ConsoleState.state.patientToEdit!.acctTier;
+    if (ConsoleState.state.patientToEdit != null) {
+      firstNameController.text = ConsoleState.state.patientToEdit!.firstName;
+      lastNameController.text = ConsoleState.state.patientToEdit!.lastName;
+      middleNameController.text = ConsoleState.state.patientToEdit!.firstName;
+      phoneController.text = ConsoleState.state.patientToEdit!.phone;
+      emailController.text = ConsoleState.state.patientToEdit!.email;
+      addressController.text = ConsoleState.state.patientToEdit!.address;
+      platoonController.text = ConsoleState.state.patientToEdit!.platoon;
+      divisionController.text = ConsoleState.state.patientToEdit!.division;
+      unitController.text = ConsoleState.state.patientToEdit!.unit;
+      primAssController.text = ConsoleState.state.patientToEdit!.primaryAss;
+      ageController.text = ConsoleState.state.patientToEdit!.age.toString();
+      heightController.text = ConsoleState.state.patientToEdit!.height.toString();
+      weightController.text = ConsoleState.state.patientToEdit!.weight.toString();
+      garrisonController.text = ConsoleState.state.patientToEdit!.garrison.toString();
+      positionController.text = ConsoleState.state.patientToEdit!.position.toString();
+      rankController.text = ConsoleState.state.patientToEdit!.rank.toString();
+      socHandleController.text = ConsoleState.state.patientToEdit!.socHandle.toString();
     }
     super.initState();
   }
@@ -196,28 +221,92 @@ class _PatientRegFormState extends State<PatientRegForm> {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           children: [
+            title('Personal Details'),
             Row(
               children: [
                 Expanded(
                   child: FlatTextField(
-                    controller: name,
-                    hintText: 'Full Name',
-                    validationService: (String? text) =>
-                        ValidationService.isValidInput(text!),
+                    controller: firstNameController,
+                    hintText: 'First Name',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
                   ),
                 ),
                 const SizedBox(
-                  width: 20.0,
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: lastNameController,
+                    hintText: 'Last Name',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: middleNameController,
+                    hintText: 'Middle Name',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
                 ),
                 Expanded(
                   child: ConsoleDropdown(
                     label: 'Group Type',
                     options: const [
-                      'Group 1',
-                      'Group 2',
-                      'Group 3',
+                      'Group',
+                      'Single',
                     ],
-                    value: 'Group 1',
+                    value: 'Group',
+                    onChanged: (value) {
+                      // TODO: change field
+                    },
+                  ),
+                ),
+              ],
+            ),
+            title('Health Records'),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: ConsoleDropdown(
+                    label: 'Blood Group',
+                    options: const ['A+', 'A-', 'B-', 'B+', '0+'],
+                    value: 'A+',
+                    onChanged: (value) {
+                      // TODO: change field
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: ConsoleDropdown(
+                    label: 'Genotype',
+                    options: const [
+                      'AA',
+                      'AS',
+                      'SS',
+                    ],
+                    value: 'AA',
                     onChanged: (value) {
                       // TODO: change field
                     },
@@ -228,108 +317,251 @@ class _PatientRegFormState extends State<PatientRegForm> {
             Row(
               children: [
                 Expanded(
-                    child: FlatTextBoxField(
-                      controller: biodata,
-                  hintText: 'Bio data',
-                  minLines: 3,
-                  maxLines: 4,
-                      validationService: (String? text) =>
-                          ValidationService.isValidInput(text!),
-                )),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                Expanded(
-                    child: FlatTextBoxField(
-                      controller: healthRecord,
-                  hintText: 'Health Record',
-                  minLines: 3,
-                  maxLines: 4,
-                      validationService: (String? text) =>
-                          ValidationService.isValidInput(text!),
-                )),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: FlatTextBoxField(
-                      controller: acctTier,
-                  hintText: 'Account Tier',
-                  minLines: 3,
-                  maxLines: 4,
-                      validationService: (String? text) =>
-                          ValidationService.isValidInput(text!),
-                )),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                Expanded(
-                    child: FlatTextBoxField(
-                      controller: contactDetails,
-                  hintText: 'Contact Details',
-                  minLines: 3,
-                  maxLines: 4,
-                      validationService: (String? text) =>
-                          ValidationService.isValidInput(text!),
-                )),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: FlatTextBoxField(
-                      controller: principalDesignation,
-                  hintText: 'Principal Designation',
-                  minLines: 3,
-                  maxLines: 4,
-                      validationService: (String? text) =>
-                          ValidationService.isValidInput(text!),
-                )),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                Expanded(
-                  child: FlatTextBoxField(
-                    controller: principalWork,
-                    hintText: 'Principal Work Details',
-                    minLines: 3,
-                    maxLines: 4,
-                    validationService: (String? text) =>
-                        ValidationService.isValidInput(text!),
+                  child: FlatTextField(
+                    controller: ageController,
+                    hintText: 'Age',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
                   ),
                 ),
-              ],
-            ),
-            Row(
-              children: [
+                const SizedBox(
+                  width: 10.0,
+                ),
                 Expanded(
-                  flex: 2,
                   child: ConsoleDropdown(
+                    label: 'Sex',
                     options: const [
-                      '+234',
+                      'Male',
+                      'Female',
                     ],
-                    value: '+234',
-                    label: 'Code',
+                    value: 'Male',
                     onChanged: (value) {
-                      //
+                      // TODO: change field
                     },
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: heightController,
+                    hintText: 'Height(cm)',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
                 const SizedBox(
-                  width: 10,
+                  width: 10.0,
                 ),
                 Expanded(
-                  flex: 4,
                   child: FlatTextField(
-                    controller: phone,
-                    hintText: 'Phone Number',
-                    maxInput: 10,
-                    validationService: (String? text) =>
-                        ValidationService.isValidNumber(text!),
+                    controller: weightController,
+                    hintText: 'Weight(kg)',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+              ],
+            ),
+            title('Group Type'),
+            const SizedBox(
+              width: 20.0,
+            ),
+            ConsoleDropdown(
+              label: 'Group Type',
+              options: const [
+                'Group',
+                'Single',
+              ],
+              value: 'Group',
+              onChanged: (value) {
+                // TODO: change field
+              },
+            ),
+            title('Contact Details'),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: phoneController,
+                    hintText: 'Phone',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: emailController,
+                    hintText: 'Email Address',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
                   ),
                 ),
               ],
+            ),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: addressController,
+                    hintText: 'Address',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: socHandleController,
+                    hintText: 'Social Handle',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+              ],
+            ),
+            title('Principal Designation'),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: rankController,
+                    hintText: 'Rank',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: positionController,
+                    hintText: 'Position',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: garrisonController,
+                    hintText: 'Garrison',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: divisionController,
+                    hintText: 'Division',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: platoonController,
+                    hintText: 'Platoon',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: unitController,
+                    hintText: 'Unit',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+              ],
+            ),
+            FlatTextField(
+              controller: primAssController,
+              hintText: 'Place of Primary Assignment',
+              isPassword: false,
+              validationService: (String? name) =>
+                  ValidationService.isValidInput(name!),
+            ),
+            title('Account Tier'),
+            Expanded(
+              child: ConsoleDropdown(
+                label: 'Account Tier',
+                options: const [
+                  'Class 1',
+                  'Class 2',
+                  'Class 3',
+                  'Class 4',
+                  'Class 5',
+                  'Class 6',
+                  'Class 7',
+                  'Class 8',
+                  'Class 9',
+                  'Class 10',
+                ],
+                value: 'Class 1',
+                onChanged: (value) {
+                  // TODO: change field
+                },
+              ),
             ),
             const SizedBox(
               height: 50,
@@ -344,7 +576,7 @@ class _PatientRegFormState extends State<PatientRegForm> {
                   borderColor: ColorPalette.mainButtonColor,
                   textColor: ColorPalette.mainButtonColor,
                   horPadding: 0.05.sw,
-                  onTap: (){
+                  onTap: () {
                     ConsoleState.state.patientToEdit = null;
                     selectedItem.value = CurrentSelectedNavItem.dashboard;
                   },
@@ -359,21 +591,36 @@ class _PatientRegFormState extends State<PatientRegForm> {
                   horPaddding: 0.05.sw,
                   loading: loading,
                   onTap: () async {
-                    if(!_formKey.currentState!.validate()) return;
+                    if (!_formKey.currentState!.validate()) return;
 
                     setState(() {
                       loading = true;
                     });
 
                     Map payload = {
-                      'patientName': name.text,
-                      'phone': phone.text,
-                      'accountTier': acctTier.text,
-                      'bioData': biodata.text,
-                      'contactDetails': contactDetails.text,
-                      'medRecord': healthRecord.text,
-                      'principalDes': principalDesignation.text,
-                      'principalWorkDetails': principalWork.text,
+                      'phone': phoneController.text,
+                      'groupType': 'Single',
+                      'accountTier': 'Class 1',
+                      'firstName': firstNameController.text,
+                      'lastName': lastNameController.text,
+                      'height': heightController.text,
+                      'weight': weightController.text,
+                      'age': ageController.text,
+                      'bloodGroup': 'A+',
+                      'genotype': 'AA',
+                      'bmi': 'None',
+                      'photograph': 'None',
+                      'sex': 'Male',
+                      'email': emailController.text,
+                      'address': addressController.text,
+                      'garrison': garrisonController.text,
+                      'position': positionController.text,
+                      'primaryAss': primAssController.text,
+                      'rank': rankController.text,
+                      'socHandle': socHandleController.text,
+                      'unit': unitController.text,
+                      'platoon': platoonController.text,
+                      'division': divisionController.text,
                     };
 
                     await registerPatient(payload);

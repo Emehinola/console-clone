@@ -43,9 +43,9 @@ class DesktopPatienntCard extends StatelessWidget {
                 buildDashRowItem(hasBox: true, text: 'ID'),
                 buildDashRowItem(text: 'DATE CREATED'),
                 buildDashRowItem(text: 'FULL NAME'),
-                buildDashRowItem(text: 'OFFICIAL DETAILS'),
-                buildDashRowItem(text: 'OTHER DETAILS'),
-                buildDashRowItem(text: 'BIODATA'),
+                buildDashRowItem(text: 'EMAIL ADDRESS'),
+                buildDashRowItem(text: 'PRIM. ASS'),
+                buildDashRowItem(text: 'NATIONALITY'),
                 buildDashRowItem(text: 'STATUS'),
                 buildDashRowItem(text: 'ACTION'),
                 // buildDashRowItem(text: 'ACCOUNT TIER'),
@@ -124,11 +124,11 @@ class DemographicsTable extends StatelessWidget {
                 return buildDemographyRowContent(
                     hasBg: index % 2 == 0,
                     date: "23 Jun, 2023",
-                    name: DBProvider.db.getAllPatients()[index].patientName,
+                    name: DBProvider.db.getAllPatients()[index].firstName,
                     id: DBProvider.db.getAllPatients()[index].id!,
                     facility: "My facility",
                     state: "Lagos state",
-                    lga: DBProvider.db.getAllPatients()[index].contactDetails,
+                    lga: DBProvider.db.getAllPatients()[index].address,
                     sn: '${index + 1}');
               },
               itemCount: DBProvider.db.getAllPatients().length,
@@ -182,7 +182,7 @@ class IdentificationTable extends StatelessWidget {
               itemBuilder: (_, index) {
                 return buildIdentificationRowContent(
                     date: "23 Jun, 2023",
-                    name: DBProvider.db.getAllPatients()[index].patientName,
+                    name: DBProvider.db.getAllPatients()[index].firstName,
                     id: DBProvider.db.getAllPatients()[index].id!,
                     groupId: '#675768',
                     hasBg: index % 2 == 0,
@@ -336,7 +336,7 @@ class RegisteredPatient extends StatelessWidget {
                       DBProvider.db.getAllPatients()[index], true),
                   child: buildRegRowContent(
                       status: "Completed",
-                      name: DBProvider.db.getAllPatients()[index].patientName,
+                      name: DBProvider.db.getAllPatients()[index].firstName,
                       id: DBProvider.db.getAllPatients()[index].id!,
                       percent: "100%",
                       patient: DBProvider.db.getAllPatients()[index],
@@ -424,7 +424,7 @@ Widget buildUserRowContent({
           SizedBox(
             width: 0.098.sw,
             child: Text(
-              '${user?.primaryAssignment}',
+              '${user?.username}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -435,7 +435,7 @@ Widget buildUserRowContent({
           SizedBox(
             width: 0.098.sw,
             child: Text(
-              '${user?.ethnicity}',
+              '${user?.primaryAssignment}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,

@@ -5,6 +5,8 @@ import 'package:console/screens/desktop/dashboard/dashboard.dart';
 import 'package:console/screens/desktop/dashboard/navigation.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
+import 'package:console/widgets/mob-desk/theme/color-palette.dart';
+import 'package:console/widgets/mobile/drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -173,16 +175,6 @@ void showInfoDialogue(RegPatient patient) {
 }
 
 void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
-  String firstName = "";
-  String lastName = "";
-
-  try {
-    firstName = patient.patientName.split(' ')[0];
-    lastName = patient.patientName.split(' ')[1];
-  } catch (e) {
-    //
-  }
-
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
@@ -210,17 +202,10 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
                           Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: (){
+                              onTap: () {
                                 ConsoleState.state.patientToEdit = patient;
                                 Navigator.pop(context);
-                                if(fromReg){
-                                  ConsoleState.state.regViewText.value = "Update user profile";
-                                  Get.to(DesktopNavigation());
-                                  selectedItem.value = CurrentSelectedNavItem.patientReg;
-                                }else{
-                                  selectedItem.value = CurrentSelectedNavItem.patientReg;
-                                  ConsoleState.state.regViewText.value = "Update user profile";
-                                }
+                                showPatientEditDialog(patient);
                               },
                               child: const Icon(
                                 FontAwesomeIcons.penToSquare,
@@ -231,22 +216,69 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
                           ),
                         ],
                       ),
+                      title('Personal Info'),
                       const Divider(),
                       SizedBox(height: 0.01.sh),
-                      detailRow('First Name', firstName, 'Last Name', lastName),
+                      detailRow('First Name', patient.firstName, 'Last Name',
+                          patient.lastName),
+                      SizedBox(height: 0.01.sh),
+                      title('Health Records'),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Blood Group', patient.bloodGroup, 'Genotype',
+                          patient.genotype),
                       SizedBox(height: 0.01.sh),
                       const Divider(),
                       SizedBox(height: 0.01.sh),
-                      detailRow('Group Type', 'Group 1', 'Account Tier',
-                          patient.acctTier),
+                      detailRow('Age', '${patient.age}', 'Sex', patient.sex),
                       SizedBox(height: 0.01.sh),
                       const Divider(),
                       SizedBox(height: 0.01.sh),
-                      detailRow('Phone', patient.phone, '', ''),
+                      detailRow('Height', '${patient.height}', 'Weight',
+                          '${patient.weight}'),
+                      SizedBox(height: 0.01.sh),
+                      title('Group Type'),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Group Type', '${patient.groupType}', '', ''),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      title('Contact Details'),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Phone', patient.phone, 'Email', patient.email),
                       SizedBox(height: 0.01.sh),
                       const Divider(),
                       SizedBox(height: 0.01.sh),
-                      detailRow('Address', patient.contactDetails, '', '', isFull: true),
+                      detailRow(
+                        'Address',
+                        patient.address,
+                        'Social Handle',
+                        patient.socHandle,
+                      ),
+                      SizedBox(height: 0.06.sh),
+                      const Divider(),
+                      title('Principal Details'),
+                      SizedBox(height: 0.01.sh),
+                      detailRow(
+                          'Rank', patient.rank, 'Position', patient.position),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow(
+                        'Garrison',
+                        patient.garrison,
+                        'Division',
+                        patient.division,
+                      ),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow(
+                        'Platoon',
+                        patient.platoon,
+                        'Unit',
+                        patient.unit,
+                      ),
                       SizedBox(height: 0.06.sh),
                       SizedBox(
                         width: double.infinity,
@@ -268,7 +300,6 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
 }
 
 void showUserEditDialog(User user, {required bool fromReg}) {
-
   final name = TextEditingController();
   final biodata = TextEditingController();
   final officialDetails = TextEditingController();
@@ -331,7 +362,8 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                             verticalPadding: 0.02.sh,
                             onTap: () {
                               Get.back();
-                              showSuccessSheet('Success', 'User updated successfully');
+                              showSuccessSheet(
+                                  'Success', 'User updated successfully');
                             }),
                       ),
                     ],
@@ -344,8 +376,483 @@ void showUserEditDialog(User user, {required bool fromReg}) {
       });
 }
 
-void showUserInfoDialogueReal(User user, {required bool fromReg}) {
+void showPatientEditDialog(RegPatient patient) {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final middleNameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final addressController = TextEditingController();
+  final platoonController = TextEditingController();
+  final divisionController = TextEditingController();
+  final unitController = TextEditingController();
+  final primAssController = TextEditingController();
+  final ageController = TextEditingController();
+  final heightController = TextEditingController();
+  final weightController = TextEditingController();
+  final garrisonController = TextEditingController();
+  final positionController = TextEditingController();
+  final rankController = TextEditingController();
+  final socHandleController = TextEditingController();
 
+  if (ConsoleState.state.patientToEdit != null) {
+    firstNameController.text = ConsoleState.state.patientToEdit!.firstName;
+    lastNameController.text = ConsoleState.state.patientToEdit!.lastName;
+    middleNameController.text = ConsoleState.state.patientToEdit!.firstName;
+    phoneController.text = ConsoleState.state.patientToEdit!.phone;
+    emailController.text = ConsoleState.state.patientToEdit!.email;
+    addressController.text = ConsoleState.state.patientToEdit!.address;
+    platoonController.text = ConsoleState.state.patientToEdit!.platoon;
+    divisionController.text = ConsoleState.state.patientToEdit!.division;
+    unitController.text = ConsoleState.state.patientToEdit!.unit;
+    primAssController.text = ConsoleState.state.patientToEdit!.primaryAss;
+    ageController.text = ConsoleState.state.patientToEdit!.age.toString();
+    heightController.text = ConsoleState.state.patientToEdit!.height.toString();
+    weightController.text = ConsoleState.state.patientToEdit!.weight.toString();
+    garrisonController.text =
+        ConsoleState.state.patientToEdit!.garrison.toString();
+    positionController.text =
+        ConsoleState.state.patientToEdit!.position.toString();
+    rankController.text = ConsoleState.state.patientToEdit!.rank.toString();
+    socHandleController.text =
+        ConsoleState.state.patientToEdit!.socHandle.toString();
+  }
+
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.5.sh,
+              width: 0.3.sw,
+              child: ListView(
+                children: [
+                  title('Personal Details'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: firstNameController,
+                          hintText: 'First Name',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: lastNameController,
+                          hintText: 'Last Name',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: middleNameController,
+                          hintText: 'Middle Name',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: ConsoleDropdown(
+                          label: 'Group Type',
+                          options: const [
+                            'Group',
+                            'Single',
+                          ],
+                          value: 'Group',
+                          onChanged: (value) {
+                            // TODO: change field
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  title('Health Records'),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ConsoleDropdown(
+                          label: 'Blood Group',
+                          options: const ['A+', 'A-', 'B-', 'B+', '0+'],
+                          value: 'A+',
+                          onChanged: (value) {
+                            // TODO: change field
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: ConsoleDropdown(
+                          label: 'Genotype',
+                          options: const [
+                            'AA',
+                            'AS',
+                            'SS',
+                          ],
+                          value: 'AA',
+                          onChanged: (value) {
+                            // TODO: change field
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: ageController,
+                          hintText: 'Age',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: ConsoleDropdown(
+                          label: 'Sex',
+                          options: const [
+                            'Male',
+                            'Female',
+                          ],
+                          value: 'Male',
+                          onChanged: (value) {
+                            // TODO: change field
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: heightController,
+                          hintText: 'Height(cm)',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: weightController,
+                          hintText: 'Weight(kg)',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                    ],
+                  ),
+                  title('Group Type'),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  ConsoleDropdown(
+                    label: 'Group Type',
+                    options: const [
+                      'Group',
+                      'Single',
+                    ],
+                    value: 'Group',
+                    onChanged: (value) {
+                      // TODO: change field
+                    },
+                  ),
+                  title('Contact Details'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: phoneController,
+                          hintText: 'Phone',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: emailController,
+                          hintText: 'Email Address',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: addressController,
+                          hintText: 'Address',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: socHandleController,
+                          hintText: 'Social Handle',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                    ],
+                  ),
+                  title('Principal Designation'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: rankController,
+                          hintText: 'Rank',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: positionController,
+                          hintText: 'Position',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: garrisonController,
+                          hintText: 'Garrison',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: divisionController,
+                          hintText: 'Division',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatTextField(
+                          controller: platoonController,
+                          hintText: 'Platoon',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: FlatTextField(
+                          controller: unitController,
+                          hintText: 'Unit',
+                          isPassword: false,
+                          validationService: (String? name) =>
+                              ValidationService.isValidInput(name!),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                    ],
+                  ),
+                  FlatTextField(
+                    controller: primAssController,
+                    hintText: 'Place of Primary Assignment',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                  title('Account Tier'),
+                  Expanded(
+                    child: ConsoleDropdown(
+                      label: 'Account Tier',
+                      options: const [
+                        'Class 1',
+                        'Class 2',
+                        'Class 3',
+                        'Class 4',
+                        'Class 5',
+                        'Class 6',
+                        'Class 7',
+                        'Class 8',
+                        'Class 9',
+                        'Class 10',
+                      ],
+                      value: 'Class 1',
+                      onChanged: (value) {
+                        // TODO: change field
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedBtn(
+                        buttonText: 'Clear',
+                        applyingMargin: false,
+                        verticalPadding: 0.018.sh,
+                        borderColor: ColorPalette.mainButtonColor,
+                        textColor: ColorPalette.mainButtonColor,
+                        horPadding: 0.05.sw,
+                        onTap: () {
+                          ConsoleState.state.patientToEdit = null;
+                          selectedItem.value =
+                              CurrentSelectedNavItem.dashboard;
+                        },
+                      ),
+                      SizedBox(
+                        width: 0.02.sw,
+                      ),
+                      FlatButton(
+                        buttonText: 'Submit',
+                        applyingMargin: false,
+                        verticalPadding: 0.018.sh,
+                        horPaddding: 0.05.sw,
+                        loading: false,
+                        onTap: () async {
+
+                          Get.back();
+                          // if (!_formKey.currentState!.validate()) return;
+
+                          // setState(() {
+                          //   loading = true;
+                          // });
+
+                          Map payload = {
+                            'phone': phoneController.text,
+                            'groupType': 'Single',
+                            'accountTier': 'Class 1',
+                            'firstName': firstNameController.text,
+                            'lastName': lastNameController.text,
+                            'height': heightController.text,
+                            'weight': weightController.text,
+                            'age': ageController.text,
+                            'bloodGroup': 'A+',
+                            'genotype': 'AA',
+                            'bmi': 'None',
+                            'photograph': 'None',
+                            'sex': 'Male',
+                            'email': emailController.text,
+                            'address': addressController.text,
+                            'garrison': garrisonController.text,
+                            'position': positionController.text,
+                            'primaryAss': primAssController.text,
+                            'rank': rankController.text,
+                            'socHandle': socHandleController.text,
+                            'unit': unitController.text,
+                            'platoon': platoonController.text,
+                            'division': divisionController.text,
+                          };
+
+                          // await registerPatient(payload);
+                          // setState(() {
+                          //   loading = false;
+                          // });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void showUserInfoDialogueReal(User user, {required bool fromReg}) {
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
@@ -387,24 +894,46 @@ void showUserInfoDialogueReal(User user, {required bool fromReg}) {
                           // ),
                         ],
                       ),
-                      // const Divider(),
-                      // SizedBox(height: 0.01.sh),
-                      // detailRow('First Name', firstName, 'Last Name', lastName),
-                      // SizedBox(height: 0.01.sh),
-                      // const Divider(),
-                      // SizedBox(height: 0.01.sh),
-                      // detailRow('Bio Data', user.bioData, '',
-                      //     '', isFull: true),
-                      // SizedBox(height: 0.01.sh),
-                      // const Divider(),
-                      // SizedBox(height: 0.01.sh),
-                      // detailRow('Official Details', user.officialDetails, '',
-                      //     '', isFull: true),
-                      // SizedBox(height: 0.01.sh),
-                      // const Divider(),
-                      // SizedBox(height: 0.01.sh),
-                      // detailRow('Other Details', user.otherDetails, '',
-                      //     '', isFull: true),
+                      title('Personal Details'),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('First Name', user.firstName, 'Middle Name',
+                          user.middleName),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Last Name', user.lastName, 'Email Address',
+                          user.username),
+                      SizedBox(height: 0.01.sh),
+                      title('Identity Details'),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Nationality', user.nationality, 'Ethnicity',
+                          user.ethnicity),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Religion', user.religion, 'LGA', user.lga),
+                      SizedBox(height: 0.01.sh),
+                      title('Official Details'),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Rank', user.rank, 'Position', user.position),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow(
+                          'Garrison', user.garrison, 'Division', user.division),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Platoon', user.platoon, 'Unit', user.unit),
+                      SizedBox(height: 0.01.sh),
+                      const Divider(),
+                      SizedBox(height: 0.01.sh),
+                      detailRow('Place of Primary Assignment',
+                          user.primaryAssignment, '', '',
+                          isFull: true),
                       SizedBox(height: 0.01.sh),
                       const Divider(),
                       SizedBox(height: 0.03.sh),
@@ -431,7 +960,7 @@ void showScheduleDialog(RegPatient patient) {
   ConsoleState.state.patientSchedule = PatientSchedule(
     id: patient.id,
     patientCase: 'Emergency',
-    patientName: patient.patientName,
+    patientName: patient.firstName,
     appointmentDate: DateTime.now().toIso8601String().obs,
   ); // set schedule to state
 
@@ -468,9 +997,10 @@ void showScheduleDialog(RegPatient patient) {
                           calendarType: CalendarDatePicker2Type.single,
                         ),
                         onValueChanged: (date) {
-                          try{
-                            ConsoleState.state.patientSchedule!.appointmentDate.value = date.first!.toIso8601String();
-                          }catch(e){
+                          try {
+                            ConsoleState.state.patientSchedule!.appointmentDate
+                                .value = date.first!.toIso8601String();
+                          } catch (e) {
                             //
                           }
                         },
@@ -487,17 +1017,19 @@ void showScheduleDialog(RegPatient patient) {
                             textColor: Colors.red,
                             onTap: () => Navigator.pop(context),
                           ),
-                          Obx((){
+                          Obx(() {
                             return FlatButton(
                               buttonText: 'Commit',
                               verticalPadding: 0.02.sh,
                               horPaddding: 0.03.sw,
                               loading: ConsoleState.state.loading.value,
                               onTap: () async {
-                                if(await schedulePatient()){
+                                if (await schedulePatient()) {
                                   Navigator.pop(context);
-                                  selectedItem.value = CurrentSelectedNavItem.patientScheduling;
-                                  showSuccessSheet('Success', 'Patient schedule successful');
+                                  selectedItem.value =
+                                      CurrentSelectedNavItem.patientScheduling;
+                                  showSuccessSheet(
+                                      'Success', 'Patient schedule successful');
                                 }
                               },
                             );
@@ -564,7 +1096,8 @@ void showFilterDialog() {
       });
 }
 
-Widget detailRow(String title1, String value1, String title2, String value2, {bool isFull = false}) {
+Widget detailRow(String title1, String value1, String title2, String value2,
+    {bool isFull = false}) {
   return Row(
     children: [
       Expanded(
@@ -583,26 +1116,28 @@ Widget detailRow(String title1, String value1, String title2, String value2, {bo
           ],
         ),
       ),
-      if(!isFull) SizedBox(
-        width: 0.08.sw,
-      ),
-      if(!isFull) Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title2,
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 12.sp),
-            ),
-            Text(
-              value2,
-              textAlign: TextAlign.left,
-              overflow: TextOverflow.clip,
-            ),
-          ],
+      if (!isFull)
+        SizedBox(
+          width: 0.08.sw,
         ),
-      )
+      if (!isFull)
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title2,
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 12.sp),
+              ),
+              Text(
+                value2,
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.clip,
+              ),
+            ],
+          ),
+        )
     ],
   );
 }

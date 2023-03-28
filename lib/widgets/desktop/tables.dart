@@ -106,7 +106,7 @@ class SchedulePatientCardReal extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            rowCard("Patient", patient.patientName, fromSchedule: true),
+            rowCard("Patient", patient.firstName, fromSchedule: true),
             rowCard("Case", ConsoleState.state.patientSchedule != null ? ConsoleState.state.patientSchedule!.patientCase : "Nil", hasBg: false),
             Obx(()=>rowCard("Appointment Date", ConsoleState.state.patientSchedule != null ? ConsoleService.processReadableDate(ConsoleState.state.patientSchedule!.appointmentDate.value) : "Nil", fromSchedule: true),),
           ],

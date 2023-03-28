@@ -31,7 +31,7 @@ class UserPatientCard extends StatelessWidget {
           ConsoleState.state.patientSchedule = PatientSchedule(
             id: patient.id,
             patientCase: 'Emergency',
-            patientName: patient.patientName,
+            patientName: patient.firstName,
             appointmentDate: DateTime.now().toIso8601String().obs,
           ); //
           showScheduleSheet(context);
@@ -110,11 +110,11 @@ class UserPatientCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            rowCard("Patient", patient.patientName),
+            rowCard("Patient", patient.firstName),
             rowCard("Group Type", '${patient.groupType}', hasBg: false),
-            rowCard("Contact", patient.contactDetails),
+            rowCard("Contact", patient.address),
             rowCard("Account Tier", patient.acctTier, hasBg: false),
-            rowCard("Medical Record", patient.medRecord),
+            rowCard("Medical Record", 'patient.medRecord'),
           ],
         ),
       ),

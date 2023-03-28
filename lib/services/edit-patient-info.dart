@@ -8,36 +8,28 @@ import '../state-management/controller-variables.dart';
 import '../state-management/state-management.dart';
 
 void editPatientInfo(){
-  RegPatient patient = RegPatient(
-    id: 'ID',
-    phone: '8131615393',
-    acctTier: 'Tier 1',
-    biodata: 'A software developer',
-    contactDetails: 'developer@mailinator.com',
-    medRecord: 'Neutral',
-    patientName: 'Emehinola Samuel',
-    principalDesignation: 'Great principal',
-    principalWorkDetails: 'Great principal work details',
-  );
-  ConsoleState.state.patientToEdit = patient;
-
-  selectedItem.value = CurrentSelectedNavItem.patientReg;
+  // RegPatient patient = RegPatient(
+  //   id: 'ID',
+  //   phone: '8131615393',
+  //   acctTier: 'Tier 1',
+  //   biodata: 'A software developer',
+  //   contactDetails: 'developer@mailinator.com',
+  //   medRecord: 'Neutral',
+  //   patientName: 'Emehinola Samuel',
+  //   principalDesignation: 'Great principal',
+  //   principalWorkDetails: 'Great principal work details',
+  // );
+  // ConsoleState.state.patientToEdit = patient;
+  //
+  // selectedItem.value = CurrentSelectedNavItem.patientReg;
 }
 
 void editPatientInfoReal(RegPatient patient, {bool fromReg = false}){
 
-  if(fromReg){
-    ConsoleState.state.regViewText.value = "Update patient info";
-    ConsoleState.state.patientToEdit = patient;
-    Get.to(DesktopNavigation());
-    selectedItem.value = CurrentSelectedNavItem.patientReg;
-
-    return;
-  }
-  print('object');
   ConsoleState.state.patientToEdit = patient;
-
   selectedItem.value = CurrentSelectedNavItem.patientReg;
+
+  showPatientEditDialog(patient);
 }
 
 void editUserInfoReal(User user, {bool fromReg = false}){
@@ -56,19 +48,19 @@ void editUserInfoReal(User user, {bool fromReg = false}){
 }
 
 void viewPatientInfo(){
-  RegPatient patient = RegPatient(
-    id: 'ID',
-    phone: '8131615393',
-    acctTier: 'Tier 1',
-    biodata: 'A software developer',
-    contactDetails: 'developer@mailinator.com',
-    medRecord: 'Neutral',
-    patientName: 'Emehinola Samuel',
-    principalDesignation: 'Great principal',
-    principalWorkDetails: 'Great principal work details',
-  );
-
-  showInfoDialogue(patient);
+  // RegPatient patient = RegPatient(
+  //   id: 'ID',
+  //   phone: '8131615393',
+  //   acctTier: 'Tier 1',
+  //   biodata: 'A software developer',
+  //   contactDetails: 'developer@mailinator.com',
+  //   medRecord: 'Neutral',
+  //   patientName: 'Emehinola Samuel',
+  //   principalDesignation: 'Great principal',
+  //   principalWorkDetails: 'Great principal work details',
+  // );
+  //
+  // showInfoDialogue(patient);
 }
 
 void viewPatientInfoReal(RegPatient patient, bool fromReg){

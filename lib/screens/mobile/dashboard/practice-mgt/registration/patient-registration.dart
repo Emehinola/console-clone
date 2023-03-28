@@ -24,7 +24,8 @@ class _PatientRegistrationState extends State<PatientRegistration> {
 
   bool loading = false;
 
-  final name = TextEditingController();
+  final firstName = TextEditingController();
+  final lastName = TextEditingController();
   final biodata = TextEditingController();
   final contactDetails = TextEditingController();
   final principalWork = TextEditingController();
@@ -35,17 +36,18 @@ class _PatientRegistrationState extends State<PatientRegistration> {
 
   @override
   void initState() {
-    if (ConsoleState.state.patientToEdit != null) {
-      name.text = ConsoleState.state.patientToEdit!.patientName;
-      biodata.text = ConsoleState.state.patientToEdit!.biodata;
-      contactDetails.text = ConsoleState.state.patientToEdit!.contactDetails;
-      principalDesignation.text =
-          ConsoleState.state.patientToEdit!.principalDesignation;
-      principalWork.text = ConsoleState.state.patientToEdit!.principalWorkDetails;
-      phone.text = ConsoleState.state.patientToEdit!.phone;
-      healthRecord.text = ConsoleState.state.patientToEdit!.medRecord;
-      acctTier.text = ConsoleState.state.patientToEdit!.acctTier;
-    }
+    // if (ConsoleState.state.patientToEdit != null) {
+    //   firstName.text = ConsoleState.state.patientToEdit!.firstName;
+    //   lastName.text = ConsoleState.state.patientToEdit!.lastName;
+    //   biodata.text = ConsoleState.state.patientToEdit!.biodata;
+    //   contactDetails.text = ConsoleState.state.patientToEdit!.contactDetails;
+    //   principalDesignation.text =
+    //       ConsoleState.state.patientToEdit!.principalDesignation;
+    //   principalWork.text = ConsoleState.state.patientToEdit!.principalWorkDetails;
+    //   phone.text = ConsoleState.state.patientToEdit!.phone;
+    //   healthRecord.text = ConsoleState.state.patientToEdit!.medRecord;
+    //   acctTier.text = ConsoleState.state.patientToEdit!.acctTier;
+    // }
     super.initState();
   }
 
@@ -65,7 +67,8 @@ class _PatientRegistrationState extends State<PatientRegistration> {
             if(!_formKey.currentState!.validate()) return;
 
             Map payload = {
-              'patientName': name.text,
+              'firstName': firstName.text,
+              'lastName': lastName.text,
               'phone': phone.text,
               'accountTier': acctTier.text,
               'bioData': biodata.text,
@@ -92,7 +95,7 @@ class _PatientRegistrationState extends State<PatientRegistration> {
           children: [
             title('Personal Info', textColor: ColorPalette.offBlack),
             FlatTextField(
-              controller: name,
+              // controller: name,
               hintText: 'Full Name',
             ),
             FlatTextBoxField(

@@ -119,6 +119,10 @@ class DBProvider {
     return patients.singleWhere((element) => element.id == id);
   }
 
+  Future<void> deleteAllPatients() async{
+    await box.put('patients', []);
+  }
+
   // schedules
   List<PatientSchedule> getAllSchedules() {
     List<PatientSchedule> schedules = [];

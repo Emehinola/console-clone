@@ -1,6 +1,7 @@
 import 'package:console/database/provider.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
+import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -120,27 +121,28 @@ class HeaderMetrics extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-               if(!isUser) Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildFigureCard("Fully", "Registered",
-                          figure: isUser
-                              ? '${DBProvider.db.getAllUsers().length}'
-                              : '${DBProvider.db.getAllPatients().length}',
-                          isRegistered: true,
-                          isUser: isUser),
-                      SizedBox(
-                        height: 0.01.sh,
-                      ),
-                      buildFigureCard("Not Fully", "Registered",
-                          figure: '0',
-                          color: ColorPalette.lightRed,
-                          isRegistered: false,
-                          isUser: isUser),
-                    ],
-                  ),
-                )
+                if (!isUser)
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        buildFigureCard("Fully", "Registered",
+                            figure: isUser
+                                ? '${DBProvider.db.getAllUsers().length}'
+                                : '${DBProvider.db.getAllPatients().length}',
+                            isRegistered: true,
+                            isUser: isUser),
+                        SizedBox(
+                          height: 0.01.sh,
+                        ),
+                        buildFigureCard("Not Fully", "Registered",
+                            figure: '0',
+                            color: ColorPalette.lightRed,
+                            isRegistered: false,
+                            isUser: isUser),
+                      ],
+                    ),
+                  )
               ],
             ),
           ),
@@ -163,6 +165,12 @@ class HeaderMetrics extends StatelessWidget {
                           fillColor: Colors.white,
                         ),
                       ),
+                      SizedBox(
+                        height: 0.075.sh,
+                          child: FlatButton(
+                        buttonText: 'Search',
+                        horPaddding: 0.02.sw
+                      )),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -209,11 +217,10 @@ Widget buildFigureCard(String text, String subText,
     Color color = ColorPalette.lightGreen,
     bool isRegistered = false,
     bool isUser = false,
-    Function()?  onTap
-    }) {
+    Function()? onTap}) {
   return GestureDetector(
     onTap: () {
-      if(onTap != null){
+      if (onTap != null) {
         onTap();
         return;
       }

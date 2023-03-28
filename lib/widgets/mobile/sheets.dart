@@ -226,17 +226,6 @@ void displayUserInfoSheet(BuildContext context, User user) {
 }
 
 void displayPatientInfoSheet(BuildContext context, RegPatient patient) {
-  DateTime dt = DateTime.now();
-
-  String firstName = "";
-  String lastName = "";
-
-  try {
-    firstName = patient.patientName.split(' ')[0];
-    lastName = patient.patientName.split(' ')[1];
-  } catch (e) {
-    //
-  }
 
   showModalBottomSheet(
     context: context,
@@ -287,22 +276,22 @@ void displayPatientInfoSheet(BuildContext context, RegPatient patient) {
                   children: [
                     const Divider(),
                     SizedBox(height: 0.01.sh),
-                    detailRow('First Name', firstName, 'Last Name', lastName),
+                    detailRow('First Name', patient.firstName, 'Last Name', patient.lastName),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
-                    detailRow('Principal Details', patient.principalDesignation,
-                        'Principal Work Details', patient.principalWorkDetails),
+                    detailRow('Principal Details', 'patient.principalDesignation',
+                        'Principal Work Details', 'patient.principalWorkDetails'),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
-                    detailRow('Health Record', patient.medRecord, 'Group Type',
+                    detailRow('Health Record', 'patient.medRecord', 'Group Type',
                         '${patient.groupType}'),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
                     detailRow('Account Tier', patient.acctTier, 'Biodata',
-                        patient.biodata),
+                        'patient.biodata'),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),

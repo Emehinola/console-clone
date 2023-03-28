@@ -94,61 +94,61 @@ class _PatientsListState extends State<Demography> {
                           PatientDemography(
                             status: "Completed",
                             onTap: () {
-                               showMobileInfoDialogue(RegPatient(
-                                 id: 'ID',
-                                  phone: '+2348131615393',
-                                  acctTier: 'Tier 1',
-                                  biodata: 'Grate',
-                                  contactDetails: 'emehinolasam@gmail.com',
-                                  medRecord: 'Greate',
-                                  patientName: 'Big Sam',
-                                  principalDesignation: 'principalDesignation',
-                                  principalWorkDetails: 'principalWorkDetails'));
+                               // showMobileInfoDialogue(RegPatient(
+                               //   id: 'ID',
+                               //    phone: '+2348131615393',
+                               //    acctTier: 'Tier 1',
+                               //    biodata: 'Grate',
+                               //    contactDetails: 'emehinolasam@gmail.com',
+                               //    medRecord: 'Greate',
+                               //    patientName: 'Big Sam',
+                               //    principalDesignation: 'principalDesignation',
+                               //    principalWorkDetails: 'principalWorkDetails'));
                             },
                           ),
                           PatientDemography(
                             status: "Incomplete",
                             onTap: () {
-                              showMobileInfoDialogue(RegPatient(
-                                  id: 'ID',
-                                  phone: '+2348131615393',
-                                  acctTier: 'Tier 1',
-                                  biodata: 'Grate',
-                                  contactDetails: 'emehinolasam@gmail.com',
-                                  medRecord: 'Greate',
-                                  patientName: 'Big Sam',
-                                  principalDesignation: 'principalDesignation',
-                                  principalWorkDetails: 'principalWorkDetails'));
+                              // showMobileInfoDialogue(RegPatient(
+                              //     id: 'ID',
+                              //     phone: '+2348131615393',
+                              //     acctTier: 'Tier 1',
+                              //     biodata: 'Grate',
+                              //     contactDetails: 'emehinolasam@gmail.com',
+                              //     medRecord: 'Greate',
+                              //     patientName: 'Big Sam',
+                              //     principalDesignation: 'principalDesignation',
+                              //     principalWorkDetails: 'principalWorkDetails'));
                             },
                           ),
                           PatientDemography(
                             status: "Completed",
                             onTap: () {
-                              showMobileInfoDialogue(RegPatient(
-                                  id: 'ID',
-                                  phone: '+2348131615393',
-                                  acctTier: 'Tier 1',
-                                  biodata: 'Grate',
-                                  contactDetails: 'emehinolasam@gmail.com',
-                                  medRecord: 'Greate',
-                                  patientName: 'Big Sam',
-                                  principalDesignation: 'principalDesignation',
-                                  principalWorkDetails: 'principalWorkDetails'));
+                              // showMobileInfoDialogue(RegPatient(
+                              //     id: 'ID',
+                              //     phone: '+2348131615393',
+                              //     acctTier: 'Tier 1',
+                              //     biodata: 'Grate',
+                              //     contactDetails: 'emehinolasam@gmail.com',
+                              //     medRecord: 'Greate',
+                              //     patientName: 'Big Sam',
+                              //     principalDesignation: 'principalDesignation',
+                              //     principalWorkDetails: 'principalWorkDetails'));
                             },
                           ),
                           PatientDemography(
                             status: "Incomplete",
                             onTap: () {
-                              showMobileInfoDialogue(RegPatient(
-                                  id: 'ID',
-                                  phone: '+2348131615393',
-                                  acctTier: 'Tier 1',
-                                  biodata: 'Grate',
-                                  contactDetails: 'emehinolasam@gmail.com',
-                                  medRecord: 'Greate',
-                                  patientName: 'Big Sam',
-                                  principalDesignation: 'principalDesignation',
-                                  principalWorkDetails: 'principalWorkDetails'));
+                              // showMobileInfoDialogue(RegPatient(
+                              //     id: 'ID',
+                              //     phone: '+2348131615393',
+                              //     acctTier: 'Tier 1',
+                              //     biodata: 'Grate',
+                              //     contactDetails: 'emehinolasam@gmail.com',
+                              //     medRecord: 'Greate',
+                              //     patientName: 'Big Sam',
+                              //     principalDesignation: 'principalDesignation',
+                              //     principalWorkDetails: 'principalWorkDetails'));
                             },
                           ),
                         ],
