@@ -1179,23 +1179,23 @@ void showIdentityTypes() {
                     children: [
                       Column(
                         children: [
-                          Image.asset('./assets/images/barcode.png', height: 100,),
-                          const SizedBox(height: 10,),
+                          Image.asset('./assets/images/barcode.png', height: 0.05.sw,),
+                          SizedBox(height: 0.01.sh,),
                           FlatButton(buttonText: 'Use Barcode', onTap: () => Get.back(),),
                         ],
                       ),
                       Column(
                         children: [
-                          Image.asset('./assets/images/fingerprint1.jpg', height: 100,),
-                          const SizedBox(height: 10,),
+                          Image.asset('./assets/images/fingerprint1.jpg', height: 0.05.sw,),
+                          SizedBox(height: 0.01.sh,),
                           FlatButton(buttonText: 'Use Fingerprint', onTap: () => Get.back()),
                         ],
                       ),
                       Column(
                         children: [
                           Image.asset(
-                            './assets/images/id.png', height: 100,),
-                          const SizedBox(height: 10,),
+                            './assets/images/id.png', height: 0.05.sw,),
+                          SizedBox(height: 0.01.sh,),
                           FlatButton(buttonText: 'Use ID', onTap: () => Get.back()),
                         ],
                       )
