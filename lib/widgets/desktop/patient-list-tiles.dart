@@ -242,7 +242,7 @@ class _DesktopPatienntScheduleTableState
       decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
-              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)),
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08, fit: BoxFit.cover)),
       child: Column(
         children: [
           Container(
@@ -307,7 +307,7 @@ class RegisteredPatient extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
-              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08)),
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08, fit: BoxFit.cover)),
       child: Column(
         children: [
           Container(

@@ -1163,6 +1163,52 @@ void showUserInfoDialogueReal(User user, {required bool fromReg}) {
       });
 }
 
+void showIdentityTypes() {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.15.sh,
+              width: 0.4.sw,
+              child: ListView(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Image.asset('./assets/images/barcode.png', height: 100,),
+                          const SizedBox(height: 10,),
+                          FlatButton(buttonText: 'Use Barcode', onTap: () => Get.back(),),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Image.asset('./assets/images/fingerprint1.jpg', height: 100,),
+                          const SizedBox(height: 10,),
+                          FlatButton(buttonText: 'Use Fingerprint', onTap: () => Get.back()),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Image.asset(
+                            './assets/images/id.png', height: 100,),
+                          const SizedBox(height: 10,),
+                          FlatButton(buttonText: 'Use ID', onTap: () => Get.back()),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
 void showScheduleDialog(RegPatient patient) {
   ConsoleState.state.patientSchedule = PatientSchedule(
     id: patient.id,

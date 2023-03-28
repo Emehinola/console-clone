@@ -1,3 +1,4 @@
+import 'package:console/database/provider.dart';
 import 'package:console/services/navigate.dart';
 import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';

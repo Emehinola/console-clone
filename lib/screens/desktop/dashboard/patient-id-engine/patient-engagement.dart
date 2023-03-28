@@ -1,16 +1,13 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:console/widgets/desktop/patient-list-tiles.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../services/validation-service.dart';
 import '../../../../widgets/desktop/dialogs.dart';
-import '../../../../widgets/mob-desk/custom/cards.dart';
+import '../../../../widgets/desktop/patient-list-tiles.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
-import '../../../../widgets/mob-desk/forms/dropdowns.dart';
-import '../../../../widgets/mobile/table.dart';
 import '../dashboard.dart';
 
 class DesktopPatientEngagement extends StatefulWidget {
@@ -43,11 +40,11 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
               children: [
                 Expanded(
                   flex: 3,
-                  child: DesktopPatienntScheduleTable(
+                  child: RegisteredPatient(
                     status: "Complete",
                   ),
                 ),
-                const Expanded(flex: 2,child: BuildEngagementCard()),
+                const Expanded(flex: 2,child: EngagementRegForm()),
               ],
             ),
           ),
@@ -57,185 +54,6 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
   }
 }
 
-class EngagemenntRegistration extends StatelessWidget {
-  const EngagemenntRegistration({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: Get.width,
-        // padding: const EdgeInsets.only(left: 20, right: 20),
-        alignment: Alignment.topCenter,
-        padding: const EdgeInsets.symmetric(horizontal: 60),
-        child: Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  color: Colors.white,
-                ),
-                child: Text(
-                  'Patient Engagement Registration',
-                  style: TextStyle(
-                    color: ColorPalette.grey,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: FlatTextField(
-                              hintText: 'Full Name',
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20.0,
-                          ),
-                          Expanded(
-                            child: ConsoleDropdown(
-                              label: 'Group Type',
-                              options: const [
-                                'Group 1',
-                                'Group 2',
-                                'Group 3',
-                              ],
-                              value: 'Group 1',
-                              onChanged: (value) {
-                                //
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: FlatTextField(
-                            hintText: 'Bio data',
-                          )),
-                          const SizedBox(
-                            width: 20.0,
-                          ),
-                          Expanded(
-                              child: FlatTextField(
-                            hintText: 'Health Record',
-                          )),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: FlatTextField(
-                            hintText: 'Account Tier',
-                          )),
-                          const SizedBox(
-                            width: 20.0,
-                          ),
-                          Expanded(
-                              child: FlatTextField(
-                            hintText: 'Contact Details',
-                          )),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: FlatTextField(
-                            hintText: 'Principal Designation',
-                          )),
-                          const SizedBox(
-                            width: 20.0,
-                          ),
-                          Expanded(
-                            child: FlatTextField(
-                              hintText: 'Principal Work Details',
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ConsoleDropdown(
-                              options: const [
-                                '+234',
-                              ],
-                              value: '+234',
-                              label: 'Code',
-                              onChanged: (value) {
-                                //
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: FlatTextField(
-                              hintText: 'Phone Number',
-                              maxInput: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 0.01.sh,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedBtn(
-                            buttonText: 'Clear Fields',
-                            verticalPadding: 0.02.sh,
-                            horPadding: 40,
-                            borderColor: ColorPalette.mainButtonColor,
-                            textColor: ColorPalette.mainButtonColor,
-                            applyingMargin: false,
-                          ),
-                          const SizedBox(
-                            width: 20.0,
-                          ),
-                          FlatButton(
-                            buttonText: 'Register',
-                            applyingMargin: false,
-                            verticalPadding: 0.02.sh,
-                            horPaddding: 40,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ));
-  }
-}
 
 class BuildEngagementCard extends StatelessWidget {
   const BuildEngagementCard({Key? key}) : super(key: key);
@@ -339,3 +157,195 @@ class BuildEngagementCard extends StatelessWidget {
         ));
   }
 }
+
+class EngagementRegForm extends StatefulWidget {
+  const EngagementRegForm({Key? key}) : super(key: key);
+
+  @override
+  State<EngagementRegForm> createState() => _PatientRegFormState();
+}
+
+class _PatientRegFormState extends State<EngagementRegForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  final tempController = TextEditingController();
+  final lowerBloodController = TextEditingController();
+  final upperBloodController = TextEditingController();
+  final pulseController = TextEditingController();
+  final oxygenSaturationController = TextEditingController();
+  final respiratoryController = TextEditingController();
+  final heightController = TextEditingController();
+  final weightController = TextEditingController();
+
+  bool loading = false;
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0.02.sw),
+      child: Form(
+        key: _formKey,
+        child: ListView(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: tempController,
+                    hintText: 'Temperature',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: pulseController,
+                    hintText: 'Pulse',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: upperBloodController,
+                    hintText: 'Upper Blood Pressure',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: lowerBloodController,
+                    hintText: 'Lower Blood Pressure',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: oxygenSaturationController,
+                    hintText: 'Oxygen Saturation',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: respiratoryController,
+                    hintText: 'Respiratory Rate',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: FlatTextField(
+                    controller: heightController,
+                    hintText: 'Height(cm)',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: FlatTextField(
+                    controller: weightController,
+                    hintText: 'Weight(kg)',
+                    isPassword: false,
+                    validationService: (String? name) =>
+                        ValidationService.isValidInput(name!),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedBtn(
+                  buttonText: 'Clear',
+                  applyingMargin: false,
+                  verticalPadding: 0.018.sh,
+                  borderColor: ColorPalette.mainButtonColor,
+                  textColor: ColorPalette.mainButtonColor,
+                  horPadding: 0.05.sw,
+                  onTap: () {
+                    //
+                  },
+                ),
+                SizedBox(
+                  width: 0.02.sw,
+                ),
+                FlatButton(
+                  buttonText: 'Submit',
+                  applyingMargin: false,
+                  verticalPadding: 0.018.sh,
+                  horPaddding: 0.05.sw,
+                  loading: loading,
+                  onTap: () async {
+                    showSuccessDialog('Success', 'Patient engagement submitted');
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

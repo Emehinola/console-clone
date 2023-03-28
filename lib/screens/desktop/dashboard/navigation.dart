@@ -6,6 +6,7 @@ import 'package:console/screens/desktop/dashboard/patient-id-engine/identificati
 import 'package:console/screens/desktop/onboarding/welcome-screen.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
+import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +31,7 @@ class DesktopNavigation extends StatelessWidget {
         const DesktopPatientEngagement(),
     CurrentSelectedNavItem.demographics: DesktopDemography(),
     CurrentSelectedNavItem.identification: DesktopIdentification(),
-    CurrentSelectedNavItem.identityMatching: DesktopIdentificationMatching(),
+    // CurrentSelectedNavItem.identityMatching: DesktopIdentificationMatching(),
   };
 
   @override
@@ -166,7 +167,7 @@ class SideNavBar extends StatelessWidget {
                          active: selectedItem.value ==
                              CurrentSelectedNavItem.identification),
                      desktopNavItem('Identity Matching', CupertinoIcons.arrow_swap,
-                         CurrentSelectedNavItem.identityMatching,
+                         null,
                          active: selectedItem.value ==
                              CurrentSelectedNavItem.identityMatching),
                    ],
@@ -193,10 +194,14 @@ class SideNavBar extends StatelessWidget {
 }
 
 Widget desktopNavItem(
-    String title, IconData iconData, CurrentSelectedNavItem screen,
+    String title, IconData iconData, CurrentSelectedNavItem? screen,
     {active = false}) {
   return GestureDetector(
     onTap: () {
+      if(screen == null){
+        showIdentityTypes();
+        return;
+      }
       ConsoleState.state.patientToEdit = null;
       selectedItem.value = screen;
     },
