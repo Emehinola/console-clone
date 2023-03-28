@@ -1171,6 +1171,8 @@ void showScheduleDialog(RegPatient patient) {
     appointmentDate: DateTime.now().toIso8601String().obs,
   ); // set schedule to state
 
+  ConsoleState.state.loading.value = false;
+
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
