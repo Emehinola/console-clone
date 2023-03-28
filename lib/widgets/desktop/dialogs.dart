@@ -275,11 +275,11 @@ void showUserEditDialog(User user, {required bool fromReg}) {
   final otherDetails = TextEditingController();
   final username = TextEditingController();
 
-  name.text = user.fullName;
-  biodata.text = user.bioData;
-  officialDetails.text = user.officialDetails;
-  otherDetails.text = user.otherDetails;
-  username.text = user.username;
+  // name.text = user.fullName;
+  // biodata.text = user.bioData;
+  // officialDetails.text = user.officialDetails;
+  // otherDetails.text = user.otherDetails;
+  // username.text = user.username;
 
   showDialog(
       context: Get.context!,
@@ -345,15 +345,6 @@ void showUserEditDialog(User user, {required bool fromReg}) {
 }
 
 void showUserInfoDialogueReal(User user, {required bool fromReg}) {
-  String firstName = "";
-  String lastName = "";
-
-  try {
-    firstName = user.fullName.split(' ')[0];
-    lastName = user.fullName.split(' ')[1];
-  } catch (e) {
-    //
-  }
 
   showDialog(
       context: Get.context!,
@@ -396,24 +387,24 @@ void showUserInfoDialogueReal(User user, {required bool fromReg}) {
                           // ),
                         ],
                       ),
-                      const Divider(),
-                      SizedBox(height: 0.01.sh),
-                      detailRow('First Name', firstName, 'Last Name', lastName),
-                      SizedBox(height: 0.01.sh),
-                      const Divider(),
-                      SizedBox(height: 0.01.sh),
-                      detailRow('Bio Data', user.bioData, '',
-                          '', isFull: true),
-                      SizedBox(height: 0.01.sh),
-                      const Divider(),
-                      SizedBox(height: 0.01.sh),
-                      detailRow('Official Details', user.officialDetails, '',
-                          '', isFull: true),
-                      SizedBox(height: 0.01.sh),
-                      const Divider(),
-                      SizedBox(height: 0.01.sh),
-                      detailRow('Other Details', user.otherDetails, '',
-                          '', isFull: true),
+                      // const Divider(),
+                      // SizedBox(height: 0.01.sh),
+                      // detailRow('First Name', firstName, 'Last Name', lastName),
+                      // SizedBox(height: 0.01.sh),
+                      // const Divider(),
+                      // SizedBox(height: 0.01.sh),
+                      // detailRow('Bio Data', user.bioData, '',
+                      //     '', isFull: true),
+                      // SizedBox(height: 0.01.sh),
+                      // const Divider(),
+                      // SizedBox(height: 0.01.sh),
+                      // detailRow('Official Details', user.officialDetails, '',
+                      //     '', isFull: true),
+                      // SizedBox(height: 0.01.sh),
+                      // const Divider(),
+                      // SizedBox(height: 0.01.sh),
+                      // detailRow('Other Details', user.otherDetails, '',
+                      //     '', isFull: true),
                       SizedBox(height: 0.01.sh),
                       const Divider(),
                       SizedBox(height: 0.03.sh),

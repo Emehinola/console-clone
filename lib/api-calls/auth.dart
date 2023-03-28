@@ -10,12 +10,24 @@ Future<void> registerUser(Map payload, {bool isMobile = false}) async {
   await Future.delayed(const Duration(seconds: 3));
   try{
     User user = User(
-      fullName: payload['full_name'],
-      bioData: payload['biodata'],
-      officialDetails: payload['official_details'],
-      otherDetails: payload['other_details'],
-      username: payload['username'],
-      password: payload['password'],
+        firstName: payload['firstName'],
+        middleName: payload['middleName'],
+        lastName: payload['lastName'],
+        username: payload['username'],
+        socHandle: payload['socHandle'],
+        phone: payload['phone'],
+        lga: payload['lga'],
+        division: payload['division'],
+        ethnicity: payload['ethnicity'],
+        garrison: payload['garrison'],
+        nationality: payload['nationality'],
+        platoon: payload['platoon'],
+        position: payload['position'],
+        primaryAssignment: payload['primaryAssignment'],
+        rank: payload['rank'],
+        religion: payload['religion'],
+        unit: payload['unit'],
+        password: payload['password'],
     );
     await DBProvider.db.insertUser(user);
 
@@ -28,7 +40,7 @@ Future<void> registerUser(Map payload, {bool isMobile = false}) async {
     }
 
   }catch(e){
-    //
+    print(e);
   }
 }
 

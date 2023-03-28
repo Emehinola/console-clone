@@ -3,13 +3,14 @@ import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/auth/social-icons.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
+import 'package:console/widgets/mobile/drawer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../services/validation-service.dart';
-import '../../../../widgets/mob-desk/custom/custom-texts.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
+import '../../../../widgets/mob-desk/forms/dropdowns.dart';
 import '../../../../widgets/mob-desk/theme/color-palette.dart';
 
 class DesktopSignUpScreen extends StatefulWidget {
@@ -23,10 +24,23 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final nameController = TextEditingController();
-  final biodataController = TextEditingController();
-  final officialDetails = TextEditingController();
-  final otherDetails = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final middleNameController = TextEditingController();
+  final socHandleController = TextEditingController();
+  final phoneController = TextEditingController();
+  final nationalityController = TextEditingController();
+  final ethnicityController = TextEditingController();
+  final religionController = TextEditingController();
+  final lgaController = TextEditingController();
+  final rankController = TextEditingController();
+  final positionController = TextEditingController();
+  final garrisonController = TextEditingController();
+  final divisionController = TextEditingController();
+  final platoonController = TextEditingController();
+  final unitController = TextEditingController();
+  final primaryAssController = TextEditingController();
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -39,7 +53,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 0.13.sw),
+        padding: EdgeInsets.symmetric(horizontal: 0.07.sw),
         child: Form(
           key: _formKey,
           child: Column(
@@ -52,41 +66,202 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: 0.01.sh,
+                        height: 0.08.sh,
                       ),
                       // brandText(),
-                      SizedBox(
-                        height: 0.07.sh,
-                      ),
+                      title('Personal Info'),
                       FlatTextField(
-                        controller: nameController,
-                        hintText: 'Full Name',
+                        controller: firstNameController,
+                        hintText: 'First Name',
                         isPassword: false,
                         validationService: (String? name) =>
                             ValidationService.isValidInput(name!),
                       ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FlatTextField(
+                              controller: middleNameController,
+                              hintText: 'Middle Name',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                          const SizedBox(width: 10.0,),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: lastNameController,
+                              hintText: 'Last Name',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                        ],
+                      ),
+                      title('Contact Info'),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FlatTextField(
+                                controller: emailController,
+                                validationService: (String? name) =>
+                                    ValidationService.isValidEmail(name!),
+                                hintText: 'Email Address'),
+                          ),
+                          const SizedBox(width: 10.0,),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: socHandleController,
+                              hintText: 'Social handle(Optional)',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ConsoleDropdown(
+                              options: const [
+                                '+234',
+                              ],
+                              value: '+234',
+                              label: 'Code',
+                              onChanged: (value) {
+                                //
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: phoneController,
+                              hintText: 'Phone Number',
+                              maxInput: 10,
+                              validationService: (String? text) =>
+                                  ValidationService.isValidNumber(text!),
+                            ),
+                          ),
+                        ],
+                      ),
+                      title('Identity Details'),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FlatTextField(
+                              controller: nationalityController,
+                                validationService: (String? name) =>
+                                    ValidationService.isValidEmail(name!),
+                                hintText: 'Nationality'),
+                          ),
+                          const SizedBox(width: 10.0,),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: ethnicityController,
+                              hintText: 'Ethnicity',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FlatTextField(
+                              controller: religionController,
+                                validationService: (String? name) =>
+                                    ValidationService.isValidEmail(name!),
+                                hintText: 'Religion'),
+                          ),
+                          const SizedBox(width: 10.0,),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: lgaController,
+                              hintText: 'LGA',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                        ],
+                      ),
+                      title('Official Info'),
                       FlatTextField(
-                          controller: emailController,
-                          validationService: (String? name) =>
-                              ValidationService.isValidEmail(name!),
-                          hintText: 'Email Address'),
-                      FlatTextField(
-                        controller: biodataController,
-                        hintText: 'Bio Details',
+                        controller: primaryAssController,
+                        hintText: 'Place of Primary Assignment',
                         validationService: (String? name) =>
                             ValidationService.isValidInput(name!),
                       ),
-                      FlatTextField(
-                        controller: officialDetails,
-                        hintText: 'Official Details',
-                        validationService: (String? name) =>
-                            ValidationService.isValidInput(name!),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FlatTextField(
+                              controller: rankController,
+                                validationService: (String? name) =>
+                                    ValidationService.isValidEmail(name!),
+                                hintText: 'Rank'),
+                          ),
+                          const SizedBox(width: 10.0,),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: positionController,
+                              hintText: 'Position',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                        ],
                       ),
-                      FlatTextField(
-                        controller: otherDetails,
-                        hintText: 'Other Details',
-                        validationService: (String? name) =>
-                            ValidationService.isValidInput(name!),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FlatTextField(
+                              controller: garrisonController,
+                                validationService: (String? name) =>
+                                    ValidationService.isValidEmail(name!),
+                                hintText: 'Garrision'),
+                          ),
+                          const SizedBox(width: 10.0,),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: divisionController,
+                              hintText: 'Division',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FlatTextField(
+                              controller: platoonController,
+                                validationService: (String? name) =>
+                                    ValidationService.isValidEmail(name!),
+                                hintText: 'Platoon'),
+                          ),
+                          const SizedBox(width: 10.0,),
+                          Expanded(
+                            child: FlatTextField(
+                              controller: unitController,
+                              hintText: 'Unit',
+                              isPassword: false,
+                              validationService: (String? name) =>
+                                  ValidationService.isValidInput(name!),
+                            ),
+                          ),
+                        ],
                       ),
                       FlatTextField(
                         controller: passwordController,
@@ -104,11 +279,23 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         verticalPadding: 0.02.sh,
                         onTap: () async {
                           Map payload = {
-                            'full_name': nameController.text,
+                            'firstName': firstNameController.text,
+                            'middleName': middleNameController.text,
+                            'lastName': lastNameController.text,
+                            'socHandle': socHandleController.text,
+                            'phone': phoneController.text,
+                            'nationality': nationalityController.text,
+                            'ethnicity': ethnicityController.text,
+                            'religion': religionController.text,
+                            'lga': lgaController.text,
                             'username': emailController.text,
-                            'biodata': biodataController.text,
-                            'official_details': officialDetails.text,
-                            'other_details': nameController.text,
+                            'primaryAssignment': primaryAssController.text,
+                            'rank': rankController.text,
+                            'position': positionController.text,
+                            'garrison': garrisonController.text,
+                            'division': divisionController.text,
+                            'platoon': platoonController.text,
+                            'unit': unitController.text,
                             'password': passwordController.text,
                           };
                           setState(() {

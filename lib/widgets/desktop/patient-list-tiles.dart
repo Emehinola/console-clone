@@ -413,7 +413,7 @@ Widget buildUserRowContent({
           SizedBox(
             width: 0.098.sw,
             child: Text(
-              '${user?.fullName}',
+              '${user?.firstName} ${user?.lastName}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -424,7 +424,7 @@ Widget buildUserRowContent({
           SizedBox(
             width: 0.098.sw,
             child: Text(
-              '${user?.officialDetails}',
+              '${user?.primaryAssignment}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -435,7 +435,7 @@ Widget buildUserRowContent({
           SizedBox(
             width: 0.098.sw,
             child: Text(
-              '${user?.otherDetails}',
+              '${user?.ethnicity}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
@@ -446,7 +446,7 @@ Widget buildUserRowContent({
           SizedBox(
             width: 0.098.sw,
             child: Text(
-              '${user?.bioData}',
+              '${user?.nationality}',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,

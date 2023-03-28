@@ -140,17 +140,6 @@ void showScheduleSheet(BuildContext context, {bool isUpdate = false}) {
 }
 
 void displayUserInfoSheet(BuildContext context, User user) {
-  DateTime dt = DateTime.now();
-
-  String firstName = "";
-  String lastName = "";
-
-  try {
-    firstName = user.fullName.split(' ')[0];
-    lastName = user.fullName.split(' ')[1];
-  } catch (e) {
-    //
-  }
 
   showModalBottomSheet(
     context: context,
@@ -201,20 +190,20 @@ void displayUserInfoSheet(BuildContext context, User user) {
                   children: [
                     const Divider(),
                     SizedBox(height: 0.01.sh),
-                    detailRow('First Name', firstName, 'Last Name', lastName),
+                    detailRow('First Name', user.firstName, 'Last Name', user.lastName),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
                     detailRow('Email Address', user.username, 'Biodata',
-                        user.bioData),
+                        'user.bioData'),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
-                    detailRow('Official Details', user.officialDetails, '', ''),
+                    detailRow('Official Details', 'user.officialDetails', '', ''),
                     SizedBox(height: 0.01.sh),
                     const Divider(),
                     SizedBox(height: 0.01.sh),
-                    detailRow('Other Details', user.otherDetails, '', ''),
+                    detailRow('Other Details', 'user.otherDetails', '', ''),
                     SizedBox(height: 0.06.sh),
                     SizedBox(
                       width: double.infinity,

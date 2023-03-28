@@ -23,7 +23,6 @@ class DBProvider {
     List rawUsersList = rawUsers.toList();
 
     for (var element in rawUsersList) {
-      print(element.runtimeType);
       users.add(User.fromJson(element));
     }
     return users;
@@ -57,8 +56,6 @@ class DBProvider {
 
   User? getUserByUsername(String username) {
     List<User> users = getAllUsers();
-
-    print('users: $users');
 
     return users.singleWhere((element) => element.username == username);
   }
