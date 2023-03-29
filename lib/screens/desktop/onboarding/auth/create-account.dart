@@ -205,7 +205,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                             child: FlatTextField(
                               controller: rankController,
                                 validationService: (String? name) =>
-                                    ValidationService.isValidEmail(name!),
+                                    ValidationService.isValidInput(name!),
                                 hintText: 'Rank'),
                           ),
                           const SizedBox(width: 10.0,),
@@ -226,7 +226,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                             child: FlatTextField(
                               controller: garrisonController,
                                 validationService: (String? name) =>
-                                    ValidationService.isValidEmail(name!),
+                                    ValidationService.isValidInput(name!),
                                 hintText: 'Garrision'),
                           ),
                           const SizedBox(width: 10.0,),

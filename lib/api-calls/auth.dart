@@ -3,6 +3,8 @@ import 'package:console/screens/mobile/dashboard/dashboard.dart';
 import 'package:console/services/navigate.dart';
 import '../models/user.dart';
 import '../screens/desktop/dashboard/navigation.dart';
+import '../state-management/controller-variables.dart';
+import '../state-management/state-management.dart';
 import '../widgets/desktop/dialogs.dart';
 import '../widgets/notification/snack-notification.dart';
 
@@ -35,7 +37,8 @@ Future<void> registerUser(Map payload, {bool isMobile = false}) async {
       navigate(const Dashboard(), routeName: '/mobile-dashboard');
       consoleSnackNotification('Account created successfully!', header: 'Success');
     }else{
-      navigate(DesktopNavigation(), routeName: '/dashboard');
+      // navigate(DesktopNavigation(), routeName: '/dashboard');
+      currentScreen.value = CurrentAuthScreen.login;
       showSuccessDialog('Success', 'Account created successfully!');
     }
 
