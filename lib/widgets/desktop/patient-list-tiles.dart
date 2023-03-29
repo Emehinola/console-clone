@@ -765,23 +765,30 @@ Widget buildEngagementRowContent({
               ],
             ),
           ),
-          Row(
-            children:
-                PatientEngagement.toJson(engagement!).values.map((element) {
-              return SizedBox(
-                width: 0.05.sw,
-                child: Text(
-                  element,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: ColorPalette.grey),
-                ),
-              );
-            }).toList(),
-          )
+          text(engagement!.schedule!.patient!.firstName,),
+          text(engagement.temperature,),
+          text(engagement.pulse,),
+          text(engagement.upperBloodPressure,),
+          text(engagement.lowerBloodPressure,),
+          text(engagement.oxySaturation,),
+          text(engagement.respiratoryRate,),
+          text(engagement.height,),
+          text(engagement.weight,),
         ],
       ),
+    ),
+  );
+}
+
+Widget text(String text){
+  return SizedBox(
+    width: 0.05.sw,
+    child: Text(
+      text,
+      style: TextStyle(
+          fontWeight: FontWeight.w400,
+          fontSize: 14.sp,
+          color: ColorPalette.grey),
     ),
   );
 }
