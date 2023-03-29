@@ -595,26 +595,24 @@ class _PatientRegFormState extends State<PatientRegForm> {
                   ValidationService.isValidInput(name!),
             ),
             title('Account Tier'),
-            Expanded(
-              child: ConsoleDropdown(
-                label: 'Account Tier',
-                options: const [
-                  'Class 1',
-                  'Class 2',
-                  'Class 3',
-                  'Class 4',
-                  'Class 5',
-                  'Class 6',
-                  'Class 7',
-                  'Class 8',
-                  'Class 9',
-                  'Class 10',
-                ],
-                value: 'Class 1',
-                onChanged: (value) {
-                  // TODO: change field
-                },
-              ),
+            ConsoleDropdown(
+              label: 'Account Tier',
+              options: const [
+                'Class 1',
+                'Class 2',
+                'Class 3',
+                'Class 4',
+                'Class 5',
+                'Class 6',
+                'Class 7',
+                'Class 8',
+                'Class 9',
+                'Class 10',
+              ],
+              value: 'Class 1',
+              onChanged: (value) {
+                // TODO: change field
+              },
             ),
             const SizedBox(height: 20,),
             Align(

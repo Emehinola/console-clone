@@ -4,10 +4,9 @@ import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../database/provider.dart';
 import '../../../../services/validation-service.dart';
-import '../../../../state-management/controller-variables.dart';
 import '../../../../widgets/desktop/dialogs.dart';
 import '../../../../widgets/desktop/patient-list-tiles.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
@@ -50,23 +49,26 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
                   ),
                 ),
                 Expanded(
-                  flex: 2,
-                  child: Obx((){
-                    return Visibility(
-                      visible: ConsoleState.state.showEngagementForm.value,
-                      replacement: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('No patient selected', style: TextStyle(fontSize: 20.sp, color: Colors.grey),),
-                          ],
+                    flex: 2,
+                    child: Obx(() {
+                      return Visibility(
+                        visible: ConsoleState.state.showEngagementForm.value,
+                        replacement: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'No patient selected',
+                                style: TextStyle(
+                                    fontSize: 20.sp, color: Colors.grey),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      child: const EngagementRegForm(),
-                    );
-                  })
-                ),
+                        child: const EngagementRegForm(),
+                      );
+                    })),
               ],
             ),
           ),
@@ -316,7 +318,7 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                     hintText: 'Height(cm)',
                     isPassword: false,
                     validationService: (String? name) =>
-                        ValidationService.isValidInput(name!),
+                        ValidationService.isValidNumber(name!),
                   ),
                 ),
                 const SizedBox(
@@ -328,7 +330,7 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                     hintText: 'Weight(kg)',
                     isPassword: false,
                     validationService: (String? name) =>
-                        ValidationService.isValidInput(name!),
+                        ValidationService.isValidNumber(name!),
                   ),
                 ),
                 const SizedBox(
@@ -363,6 +365,7 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                   horPaddding: 0.05.sw,
                   loading: loading,
                   onTap: () async {
+                    if(!_formKey.currentState!.validate()) return;
                     showSuccessDialog(
                         'Success', 'Patient engagement submitted');
                   },

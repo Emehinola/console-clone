@@ -1,3 +1,4 @@
+import 'package:console/database/provider.dart';
 import 'package:console/screens/mobile/onboarding/platform-selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,7 @@ void main() async {
   // Hive.init(path);
   await Hive.initFlutter();
   await Hive.openBox('console');
+
   runApp(const MyApp());
   // await testWindowFunctions();
 }
