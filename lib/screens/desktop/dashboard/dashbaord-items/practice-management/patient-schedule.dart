@@ -85,22 +85,24 @@ class BuildScheduleCalendar extends StatelessWidget {
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        './assets/images/schedule.png',
-                        height: 0.2.sh,
+                      Text('Active Appointments', style: TextStyle(fontSize: 18.sp),),
+                      const SizedBox(height: 20.0,),
+                      CalendarDatePicker2(
+                        config: CalendarDatePicker2Config(
+                            calendarType:
+                            CalendarDatePicker2Type.multi,
+                            currentDate: DateTime.now()),
+                        onValueChanged: (date) {
+                          try {
+                            //
+                          } catch (e) {
+                            //
+                          }
+                        },
+                        initialValue: DBProvider.db.getAllSchedules().map((e) => DateTime.parse(e.appointmentDate.value)).toList(),
                       ),
-                      SizedBox(
-                        height: 0.06.sh,
-                      ),
-                      FlatButton(
-                          buttonText: 'Add Schedule',
-                          verticalPadding: 0.015.sh,
-                          onTap: () {
-                            selectedItem.value =
-                                CurrentSelectedNavItem.patientReg;
-                          }),
                     ],
                   ),
                 )

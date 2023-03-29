@@ -13,7 +13,7 @@ class ValidationService{
     String? result = isValidInput(data, minLength: minLength);
     if(result != null) return result;
 
-    final RegExp charRegExp = RegExp(r'^-?[0-9]+$');
+    final RegExp charRegExp = RegExp(r'^-?[0-9].+$');
     if(charRegExp.hasMatch(data)) return null;
     return 'Input is not a valid number';
   }
