@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
-import 'package:console/screens/mobile/dashboard/practice-mgt/registration/patients.dart';
 import 'package:console/services/console-services.dart';
 import 'package:hive/hive.dart';
 
@@ -110,16 +109,22 @@ class DBProvider {
   }
 
   RegPatient? getPatientByID(String id) {
-    List<RegPatient> patients = getAllPatients();
+    try {
+      List<RegPatient> patients = getAllPatients();
 
-    return patients.singleWhere((element) => element.id == id);
+      return patients.singleWhere((element) => element.id.toString() == id);
+    } catch (e) {
+      // TODO: handle exception
+    }
+
+    return null;
   }
 
-  Future<void> deleteAllPatients() async{
+  Future<void> deleteAllPatients() async {
     await box.put('patients', []);
   }
 
-  Future<void> deleteAllSchedules() async{
+  Future<void> deleteAllSchedules() async {
     await box.put('schedules', []);
   }
 

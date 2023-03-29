@@ -2,8 +2,6 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:console/database/provider.dart';
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
-import 'package:console/screens/desktop/dashboard/dashboard.dart';
-import 'package:console/screens/desktop/dashboard/navigation.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
@@ -17,10 +15,10 @@ import 'package:lottie/lottie.dart';
 
 import '../../api-calls/schedule-patient.dart';
 import '../../models/user.dart';
+import '../../services/edit-patient-info.dart';
 import '../../services/validation-service.dart';
 import '../../state-management/controller-variables.dart';
 import '../mob-desk/buttons/console-text-button.dart';
-import '../mob-desk/custom/cards.dart';
 import '../mob-desk/forms/console-text-field.dart';
 import 'tables.dart';
 
@@ -300,7 +298,6 @@ void showInfoDialogueReal(RegPatient patient, {required bool fromReg}) {
 }
 
 void showUserEditDialog(User user, {required bool fromReg}) {
-
   final emailController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -319,7 +316,7 @@ void showUserEditDialog(User user, {required bool fromReg}) {
   final unitController = TextEditingController();
   final primaryAssController = TextEditingController();
 
-  if(ConsoleState.state.userToEdit != null){
+  if (ConsoleState.state.userToEdit != null) {
     emailController.text = user.username;
     firstNameController.text = user.firstName;
     lastNameController.text = user.lastName;
@@ -368,7 +365,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                               ValidationService.isValidInput(name!),
                         ),
                       ),
-                      const SizedBox(width: 10.0,),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
                       Expanded(
                         child: FlatTextField(
                           controller: lastNameController,
@@ -390,7 +389,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                                 ValidationService.isValidEmail(name!),
                             hintText: 'Email Address'),
                       ),
-                      const SizedBox(width: 10.0,),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
                       Expanded(
                         child: FlatTextField(
                           controller: socHandleController,
@@ -440,7 +441,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                                 ValidationService.isValidEmail(name!),
                             hintText: 'Nationality'),
                       ),
-                      const SizedBox(width: 10.0,),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
                       Expanded(
                         child: FlatTextField(
                           controller: ethnicityController,
@@ -461,7 +464,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                                 ValidationService.isValidEmail(name!),
                             hintText: 'Religion'),
                       ),
-                      const SizedBox(width: 10.0,),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
                       Expanded(
                         child: FlatTextField(
                           controller: lgaController,
@@ -489,7 +494,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                                 ValidationService.isValidEmail(name!),
                             hintText: 'Rank'),
                       ),
-                      const SizedBox(width: 10.0,),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
                       Expanded(
                         child: FlatTextField(
                           controller: positionController,
@@ -510,7 +517,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                                 ValidationService.isValidEmail(name!),
                             hintText: 'Garrision'),
                       ),
-                      const SizedBox(width: 10.0,),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
                       Expanded(
                         child: FlatTextField(
                           controller: divisionController,
@@ -531,7 +540,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                                 ValidationService.isValidEmail(name!),
                             hintText: 'Platoon'),
                       ),
-                      const SizedBox(width: 10.0,),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
                       Expanded(
                         child: FlatTextField(
                           controller: unitController,
@@ -543,7 +554,9 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -570,7 +583,8 @@ void showUserEditDialog(User user, {required bool fromReg}) {
                         loading: false,
                         onTap: () {
                           Get.back();
-                          showSuccessDialog('Success', 'User updated successfully!');
+                          showSuccessDialog(
+                              'Success', 'User updated successfully!');
                         },
                       ),
                     ],
@@ -992,8 +1006,7 @@ void showPatientEditDialog(RegPatient patient) {
                         horPadding: 0.05.sw,
                         onTap: () {
                           ConsoleState.state.patientToEdit = null;
-                          selectedItem.value =
-                              CurrentSelectedNavItem.dashboard;
+                          selectedItem.value = CurrentSelectedNavItem.dashboard;
                         },
                       ),
                       SizedBox(
@@ -1006,7 +1019,6 @@ void showPatientEditDialog(RegPatient patient) {
                         horPaddding: 0.05.sw,
                         loading: false,
                         onTap: () async {
-
                           Get.back();
                           // if (!_formKey.currentState!.validate()) return;
 
@@ -1179,27 +1191,98 @@ void showIdentityTypes() {
                     children: [
                       Column(
                         children: [
-                          Image.asset('./assets/images/barcode.png', height: 0.05.sw,),
-                          SizedBox(height: 0.01.sh,),
-                          FlatButton(buttonText: 'Use Barcode', onTap: () => Get.back(),),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Image.asset('./assets/images/fingerprint1.jpg', height: 0.05.sw,),
-                          SizedBox(height: 0.01.sh,),
-                          FlatButton(buttonText: 'Use Fingerprint', onTap: () => Get.back()),
+                          Image.asset(
+                            './assets/images/barcode.png',
+                            height: 0.05.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                            buttonText: 'Use Barcode',
+                            onTap: () => Get.back(),
+                          ),
                         ],
                       ),
                       Column(
                         children: [
                           Image.asset(
-                            './assets/images/id.png', height: 0.05.sw,),
-                          SizedBox(height: 0.01.sh,),
-                          FlatButton(buttonText: 'Use ID', onTap: () => Get.back()),
+                            './assets/images/fingerprint1.jpg',
+                            height: 0.05.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                              buttonText: 'Use Fingerprint',
+                              onTap: () => Get.back()),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Image.asset(
+                            './assets/images/id.png',
+                            height: 0.05.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                              buttonText: 'Use ID',
+                              onTap: () {
+                                Get.back();
+                                showIdForm();
+                                // viewPatientInfoReal(
+                                //     DBProvider.db.getAllPatients()[index], true);
+                              }),
                         ],
                       )
                     ],
+                  )
+                ],
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void showIdForm() {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final idController = TextEditingController();
+
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.19.sh,
+              width: 0.2.sw,
+              child: ListView(
+                children: [
+                  FlatTextField(
+                    controller: idController,
+                    hintText: 'Enter Patient ID',
+                  ),
+                  SizedBox(
+                    height: 0.015.sh,
+                  ),
+                  FlatButton(
+                    buttonText: 'Match Identity',
+                    verticalPadding: 0.02.sh,
+                    horPaddding: 0.03.sw,
+                    onTap: () {
+                      Get.back();
+
+                      RegPatient? patient = DBProvider.db.getPatientByID(idController.text);
+
+                      if(patient != null){
+                        viewPatientInfoReal(patient, false);
+                      }else{
+                        showEmpty();
+                      }
+
+                    },
                   )
                 ],
               ),
@@ -1296,6 +1379,29 @@ void showScheduleDialog(RegPatient patient) {
                   ),
                 ),
               ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void showEmpty() {
+
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.1.sh,
+              width: 0.1.sw,
+              child: Column(
+                children: [
+                  Icon(CupertinoIcons.xmark, size: 0.03.sw,),
+                  SizedBox(height: 0.01.sh,),
+                  Text('No patient matched', style: TextStyle(fontSize: 18.sp),)
+                ],
+              )
             ),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))));
