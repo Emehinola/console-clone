@@ -213,8 +213,12 @@ class _PatientRegFormState extends State<PatientRegForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: EdgeInsets.only(left: 0.02.sw, right: 0.1.sw),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08, fit: BoxFit.cover)),
       child: Form(
         key: _formKey,
         child: ListView(
@@ -322,7 +326,7 @@ class _PatientRegFormState extends State<PatientRegForm> {
                     hintText: 'Age',
                     isPassword: false,
                     validationService: (String? name) =>
-                        ValidationService.isValidInput(name!),
+                        ValidationService.isValidNumber(name!),
                   ),
                 ),
                 const SizedBox(
@@ -354,7 +358,7 @@ class _PatientRegFormState extends State<PatientRegForm> {
                     hintText: 'Height(cm)',
                     isPassword: false,
                     validationService: (String? name) =>
-                        ValidationService.isValidInput(name!),
+                        ValidationService.isValidNumber(name!),
                   ),
                 ),
                 const SizedBox(
@@ -366,7 +370,7 @@ class _PatientRegFormState extends State<PatientRegForm> {
                     hintText: 'Weight(kg)',
                     isPassword: false,
                     validationService: (String? name) =>
-                        ValidationService.isValidInput(name!),
+                        ValidationService.isValidNumber(name!),
                   ),
                 ),
                 const SizedBox(
@@ -410,7 +414,7 @@ class _PatientRegFormState extends State<PatientRegForm> {
                     hintText: 'Email Address',
                     isPassword: false,
                     validationService: (String? name) =>
-                        ValidationService.isValidInput(name!),
+                        ValidationService.isValidEmail(name!),
                   ),
                 ),
               ],
