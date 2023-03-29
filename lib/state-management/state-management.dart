@@ -24,6 +24,9 @@ class ConsoleState extends GetxController{
   RegPatient? _patientToEdit;
   RegPatient? get patientToEdit => _patientToEdit;
 
+  RegPatient? _patientToEngage;
+  RegPatient? get patientToEngage => _patientToEngage;
+
   User? _user;
   User? get user => _user;
 
@@ -51,6 +54,11 @@ class ConsoleState extends GetxController{
 
   set userToEdit(value){
     _userToEdit = value;
+    update();
+  }
+
+  set patientToEngage(value){
+    _patientToEngage = value;
     update();
   }
 }

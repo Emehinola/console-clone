@@ -199,9 +199,11 @@ class IdentificationTable extends StatelessWidget {
 
 class DesktopPatienntScheduleTable extends StatefulWidget {
   String status;
+  bool fromEngagement;
 
   DesktopPatienntScheduleTable({
     required this.status,
+    this.fromEngagement = false,
   });
 
   @override
@@ -242,7 +244,9 @@ class _DesktopPatienntScheduleTableState
       decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
-              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08, fit: BoxFit.cover)),
+              image: AssetImage('./assets/images/smiling.jpg'),
+              opacity: 0.08,
+              fit: BoxFit.cover)),
       child: Column(
         children: [
           Container(
@@ -261,31 +265,41 @@ class _DesktopPatienntScheduleTableState
               ],
             ),
           ),
-          Expanded(
-            child: Obx((){
-              return Visibility(
-                visible: selectedScheduleType.value == DesktopTimeType.today || selectedScheduleType.value == DesktopTimeType.tomorrow  || selectedScheduleType.value == DesktopTimeType.week,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (_, index) {
-                    List<PatientSchedule> newSch = selectedScheduleType.value == DesktopTimeType.today ? DBProvider.db.getTodaySchedules() : selectedScheduleType.value == DesktopTimeType.tomorrow ? DBProvider.db.getTomorrowSchedules() : DBProvider.db.getWeekSchedules();
-                    return buildScheduleRowContent(
-                        hasBg: index % 2 == 0,
-                        date: ConsoleService.processReadableDate(newSch[index]
-                            .appointmentDate
-                            .value),
-                        name: newSch[index].patientName,
-                        id: newSch[index].id ?? 'Nil',
-                        caseType:
-                        newSch[index].patientCase,
-                        schedule: newSch[index],
-                        sn: '${index + 1}');
-                  },
-                  itemCount: selectedScheduleType.value == DesktopTimeType.today ? DBProvider.db.getTodaySchedules().length : selectedScheduleType.value == DesktopTimeType.tomorrow ? DBProvider.db.getTomorrowSchedules().length : DBProvider.db.getWeekSchedules().length,
-                ),);
-            })
-          ),
+          Expanded(child: Obx(() {
+            return Visibility(
+              visible: selectedScheduleType.value == DesktopTimeType.today ||
+                  selectedScheduleType.value == DesktopTimeType.tomorrow ||
+                  selectedScheduleType.value == DesktopTimeType.week,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (_, index) {
+                  List<PatientSchedule> newSch = selectedScheduleType.value ==
+                          DesktopTimeType.today
+                      ? DBProvider.db.getTodaySchedules()
+                      : selectedScheduleType.value == DesktopTimeType.tomorrow
+                          ? DBProvider.db.getTomorrowSchedules()
+                          : DBProvider.db.getWeekSchedules();
+                  return buildScheduleRowContent(
+                    hasBg: index % 2 == 0,
+                    date: ConsoleService.processReadableDate(
+                        newSch[index].appointmentDate.value),
+                    name: newSch[index].patientName,
+                    id: newSch[index].id ?? 'Nil',
+                    caseType: newSch[index].patientCase,
+                    schedule: newSch[index],
+                    sn: '${index + 1}',
+                    fromEngagement: widget.fromEngagement,
+                  );
+                },
+                itemCount: selectedScheduleType.value == DesktopTimeType.today
+                    ? DBProvider.db.getTodaySchedules().length
+                    : selectedScheduleType.value == DesktopTimeType.tomorrow
+                        ? DBProvider.db.getTomorrowSchedules().length
+                        : DBProvider.db.getWeekSchedules().length,
+              ),
+            );
+          })),
         ],
       ),
     );
@@ -307,7 +321,9 @@ class RegisteredPatient extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
-              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08, fit: BoxFit.cover)),
+              image: AssetImage('./assets/images/smiling.jpg'),
+              opacity: 0.08,
+              fit: BoxFit.cover)),
       child: Column(
         children: [
           Container(
@@ -503,14 +519,16 @@ Widget buildUserRowContent({
   );
 }
 
-Widget buildScheduleRowContent(
-    {hasBg = true,
-    String id = "",
-    String name = "",
-    String date = "",
-    String caseType = "",
-    required String sn,
-    PatientSchedule? schedule}) {
+Widget buildScheduleRowContent({
+  hasBg = true,
+  String id = "",
+  String name = "",
+  String date = "",
+  String caseType = "",
+  bool fromEngagement = false,
+  required String sn,
+  PatientSchedule? schedule,
+}) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
     child: Padding(
@@ -577,53 +595,64 @@ Widget buildScheduleRowContent(
           ),
           SizedBox(
             width: 0.09.sw,
-            child: Row(
-              children: [
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
+            child: Visibility(
+              visible: !fromEngagement,
+              replacement: InkWell(
+                  onTap: () {
+                    ConsoleState.state.patientToEngage = schedule?.patient;
+                  },
+                  child: const Text(
+                    "Engage Patient",
+                    style: TextStyle(color: ColorPalette.mainButtonColor),
+                  )),
+              child: Row(
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        try {
+                          ConsoleState.state.patientSchedule = schedule;
+                          ConsoleState.state.editAction.value = true;
+                          ConsoleState.state.isScheduleViewOnly.value = false;
+                          ConsoleState.state.patientSchedule?.appointmentDate
+                              .value = schedule!.appointmentDate.value;
+                        } catch (e) {
+                          //
+                        }
+                      },
+                      child: const Icon(
+                        FontAwesomeIcons.penToSquare,
+                        size: 13,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  InkWell(
                     onTap: () {
                       try {
                         ConsoleState.state.patientSchedule = schedule;
                         ConsoleState.state.editAction.value = true;
-                        ConsoleState.state.isScheduleViewOnly.value = false;
+                        ConsoleState.state.isScheduleViewOnly.value = true;
                         ConsoleState.state.patientSchedule?.appointmentDate
                             .value = schedule!.appointmentDate.value;
                       } catch (e) {
                         //
                       }
                     },
-                    child: const Icon(
-                      FontAwesomeIcons.penToSquare,
-                      size: 13,
-                      color: Colors.grey,
+                    child: Text(
+                      'View',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14.sp,
+                          color: ColorPalette.grey),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                InkWell(
-                  onTap: () {
-                    try {
-                      ConsoleState.state.patientSchedule = schedule;
-                      ConsoleState.state.editAction.value = true;
-                      ConsoleState.state.isScheduleViewOnly.value = true;
-                      ConsoleState.state.patientSchedule?.appointmentDate
-                          .value = schedule!.appointmentDate.value;
-                    } catch (e) {
-                      //
-                    }
-                  },
-                  child: Text(
-                    'View',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        color: ColorPalette.grey),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],

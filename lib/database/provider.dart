@@ -106,21 +106,21 @@ class DBProvider {
     List<Map> previousPatient = getLocalPatients();
     previousPatient.add(patMap);
 
-    print(previousPatient);
-
     await box.put('patients', previousPatient);
   }
 
   RegPatient? getPatientByID(String id) {
     List<RegPatient> patients = getAllPatients();
 
-    print('patients: $patients');
-
     return patients.singleWhere((element) => element.id == id);
   }
 
   Future<void> deleteAllPatients() async{
     await box.put('patients', []);
+  }
+
+  Future<void> deleteAllSchedules() async{
+    await box.put('schedules', []);
   }
 
   // schedules
@@ -237,8 +237,8 @@ class DBProvider {
     return [];
   }
 
-  insertSchedule(PatientSchedule patient, {List<Map>? newSch}) async {
-    Map patMap = PatientSchedule.toJson(patient);
+  insertSchedule(PatientSchedule schedule, {List<Map>? newSch}) async {
+    Map patMap = PatientSchedule.toJson(schedule);
     List<Map> previousSch = newSch ?? getLocalSchedule();
     previousSch.add(patMap);
 

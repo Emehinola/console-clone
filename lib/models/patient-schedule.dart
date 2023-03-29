@@ -1,9 +1,11 @@
+import 'package:console/models/registered-patient.dart';
 import 'package:get/get.dart';
 
 class PatientSchedule {
   String? id;
   String patientName;
   String patientCase;
+  RegPatient? patient;
   Rx<String> appointmentDate;
 
   PatientSchedule({
@@ -11,6 +13,7 @@ class PatientSchedule {
     required this.patientCase,
     required this.patientName,
     required this.appointmentDate,
+    this.patient,
   });
 
   factory PatientSchedule.fromJson(Map json) {
@@ -18,6 +21,7 @@ class PatientSchedule {
       id: json['id'],
       patientCase: json['patientCase'],
       patientName: json['patientName'],
+      patient: RegPatient.fromJson(json['patient']),
       appointmentDate: (json['appointmentDate'] as String).obs,
     );
   }
@@ -28,6 +32,7 @@ class PatientSchedule {
       'id': patient.id,
       'appointmentDate': patient.appointmentDate.value,
       'patientCase': patient.patientCase,
+      'patient': RegPatient.toJson(patient.patient!),
     };
   }
 }

@@ -32,6 +32,7 @@ class UserPatientCard extends StatelessWidget {
             id: patient.id,
             patientCase: 'Emergency',
             patientName: patient.firstName,
+            patient: patient,
             appointmentDate: DateTime.now().toIso8601String().obs,
           ); //
           showScheduleSheet(context);

@@ -10,6 +10,7 @@ Future<bool> schedulePatient() async {
       patientName: ConsoleState.state.patientSchedule!.patientName,
       patientCase: ConsoleState.state.patientSchedule!.patientCase,
       appointmentDate: ConsoleState.state.patientSchedule!.appointmentDate,
+      patient: ConsoleState.state.patientSchedule!.patient,
     );
     await DBProvider.db.insertSchedule(patient);
 

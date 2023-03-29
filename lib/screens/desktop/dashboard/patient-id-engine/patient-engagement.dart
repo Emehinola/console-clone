@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:console/database/provider.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,8 +41,9 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
               children: [
                 Expanded(
                   flex: 3,
-                  child: RegisteredPatient(
+                  child: DesktopPatienntScheduleTable(
                     status: "Complete",
+                    fromEngagement: true,
                   ),
                 ),
                 const Expanded(flex: 2,child: EngagementRegForm()),
@@ -195,6 +197,8 @@ class _PatientRegFormState extends State<EngagementRegForm> {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           children: [
+            Text('Patient Engagement', style: TextStyle(fontSize: 20.sp,),),
+            SizedBox(height: 0.05.sh,),
             Row(
               children: [
                 Expanded(

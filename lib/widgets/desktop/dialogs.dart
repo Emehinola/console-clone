@@ -1214,6 +1214,7 @@ void showScheduleDialog(RegPatient patient) {
     id: patient.id,
     patientCase: 'Emergency',
     patientName: patient.firstName,
+    patient: patient,
     appointmentDate: DateTime.now().toIso8601String().obs,
   ); // set schedule to state
 
