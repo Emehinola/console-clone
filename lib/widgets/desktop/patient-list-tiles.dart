@@ -599,7 +599,8 @@ Widget buildScheduleRowContent({
               visible: !fromEngagement,
               replacement: InkWell(
                   onTap: () {
-                    ConsoleState.state.patientToEngage = schedule?.patient;
+                    // ConsoleState.state.patientToEngage = schedule?.patient;
+                    ConsoleState.state.showEngagementForm.value = true;
                   },
                   child: const Text(
                     "Engage Patient",

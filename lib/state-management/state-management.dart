@@ -16,6 +16,7 @@ class ConsoleState extends GetxController{
   Rx<bool> editAction = false.obs;
   Rx<bool> isScheduleViewOnly = true.obs;
   Rx<bool> isUserRegistered = true.obs;
+  Rx<bool> showEngagementForm = false.obs;
 
   Rx<String> regViewText = "Registered Patients (Incomplete)".obs;
 
