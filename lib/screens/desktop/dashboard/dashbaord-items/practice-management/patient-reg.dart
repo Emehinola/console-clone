@@ -6,9 +6,12 @@ import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
 import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
 import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
+
 import '../../../../../api-calls/patients.dart';
 import '../../../../../services/validation-service.dart';
 import '../../../../../widgets/desktop/patient-list-tiles.dart';
@@ -184,7 +187,6 @@ class _PatientRegFormState extends State<PatientRegForm> {
   final rankController = TextEditingController();
   final socHandleController = TextEditingController();
 
-
   bool loading = false;
 
   @override
@@ -201,12 +203,17 @@ class _PatientRegFormState extends State<PatientRegForm> {
       unitController.text = ConsoleState.state.patientToEdit!.unit;
       primAssController.text = ConsoleState.state.patientToEdit!.primaryAss;
       ageController.text = ConsoleState.state.patientToEdit!.age.toString();
-      heightController.text = ConsoleState.state.patientToEdit!.height.toString();
-      weightController.text = ConsoleState.state.patientToEdit!.weight.toString();
-      garrisonController.text = ConsoleState.state.patientToEdit!.garrison.toString();
-      positionController.text = ConsoleState.state.patientToEdit!.position.toString();
+      heightController.text =
+          ConsoleState.state.patientToEdit!.height.toString();
+      weightController.text =
+          ConsoleState.state.patientToEdit!.weight.toString();
+      garrisonController.text =
+          ConsoleState.state.patientToEdit!.garrison.toString();
+      positionController.text =
+          ConsoleState.state.patientToEdit!.position.toString();
       rankController.text = ConsoleState.state.patientToEdit!.rank.toString();
-      socHandleController.text = ConsoleState.state.patientToEdit!.socHandle.toString();
+      socHandleController.text =
+          ConsoleState.state.patientToEdit!.socHandle.toString();
     }
     super.initState();
   }
@@ -218,13 +225,48 @@ class _PatientRegFormState extends State<PatientRegForm> {
       decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
-              image: AssetImage('./assets/images/smiling.jpg'), opacity: 0.08, fit: BoxFit.cover)),
+              image: AssetImage('./assets/images/smiling.jpg'),
+              opacity: 0.08,
+              fit: BoxFit.cover)),
       child: Form(
         key: _formKey,
         child: ListView(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           children: [
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                height: 100,
+                width: 100,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    const CircleAvatar(
+                      backgroundImage: AssetImage('./assets/images/06.png'),
+                    ),
+                    Positioned(
+                        bottom: 5,
+                        right: 5,
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.withOpacity(0.7)),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                CupertinoIcons.camera,
+                                size: 15,
+                                color: Colors.white,
+                              )),
+                        ))
+                  ],
+                ),
+              ),
+            ),
             title('Personal Details'),
             Row(
               children: [
@@ -567,6 +609,26 @@ class _PatientRegFormState extends State<PatientRegForm> {
                 },
               ),
             ),
+            const SizedBox(height: 20,),
+            Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: 200,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      border: Border.all(color: Colors.grey, width: 1.5)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Icon(CupertinoIcons.check_mark, color: Colors.green, size: 50,),
+                      Container(height: 100, color: Colors.grey, width: 1,),
+                      Image.asset(
+                        './assets/images/fingerprint1.jpg',
+                        height: 60,
+                      ),
+                    ],
+                  ),
+                )),
             const SizedBox(
               height: 50,
             ),
