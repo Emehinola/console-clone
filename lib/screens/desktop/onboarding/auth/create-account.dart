@@ -7,7 +7,6 @@ import 'package:console/widgets/mobile/drawer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../services/validation-service.dart';
 import '../../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../../widgets/mob-desk/forms/dropdowns.dart';
@@ -157,7 +156,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                             child: FlatTextField(
                               controller: nationalityController,
                                 validationService: (String? name) =>
-                                    ValidationService.isValidEmail(name!),
+                                    ValidationService.isValidInput(name!),
                                 hintText: 'Nationality'),
                           ),
                           const SizedBox(width: 10.0,),
@@ -178,7 +177,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                             child: FlatTextField(
                               controller: religionController,
                                 validationService: (String? name) =>
-                                    ValidationService.isValidEmail(name!),
+                                    ValidationService.isValidInput(name!),
                                 hintText: 'Religion'),
                           ),
                           const SizedBox(width: 10.0,),
@@ -248,7 +247,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                             child: FlatTextField(
                               controller: platoonController,
                                 validationService: (String? name) =>
-                                    ValidationService.isValidEmail(name!),
+                                    ValidationService.isValidInput(name!),
                                 hintText: 'Platoon'),
                           ),
                           const SizedBox(width: 10.0,),
@@ -267,7 +266,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         controller: passwordController,
                         hintText: 'Password',
                         validationService: (String? name) =>
-                            ValidationService.isValidInput(name!),
+                            ValidationService.isValidPassword(name!),
                       ),
                       SizedBox(
                         height: 0.06.sh,
@@ -278,6 +277,7 @@ class _DesktopSignUpScreenState extends State<DesktopSignUpScreen> {
                         applyingMargin: false,
                         verticalPadding: 0.02.sh,
                         onTap: () async {
+                          if(!_formKey.currentState!.validate()) return;
                           Map payload = {
                             'firstName': firstNameController.text,
                             'middleName': middleNameController.text,
