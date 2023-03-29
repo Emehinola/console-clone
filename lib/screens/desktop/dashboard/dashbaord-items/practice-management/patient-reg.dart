@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:console/screens/desktop/dashboard/dashboard.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
@@ -6,6 +8,7 @@ import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
 import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
 import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
 import 'package:console/widgets/mob-desk/theme/color-palette.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -189,6 +192,8 @@ class _PatientRegFormState extends State<PatientRegForm> {
 
   bool loading = false;
 
+  File? _image;
+
   @override
   void initState() {
     if (ConsoleState.state.patientToEdit != null) {
@@ -242,9 +247,11 @@ class _PatientRegFormState extends State<PatientRegForm> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
+                    if (_image == null)
                     const CircleAvatar(
                       backgroundImage: AssetImage('./assets/images/06.png'),
                     ),
+                    if (_image != null) CircleAvatar(backgroundImage: FileImage(File(_image!.path))),
                     Positioned(
                         bottom: 5,
                         right: 5,
@@ -256,7 +263,7 @@ class _PatientRegFormState extends State<PatientRegForm> {
                               shape: BoxShape.circle,
                               color: Colors.grey.withOpacity(0.7)),
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: _pickImage,
                               icon: const Icon(
                                 CupertinoIcons.camera,
                                 size: 15,
@@ -704,5 +711,14 @@ class _PatientRegFormState extends State<PatientRegForm> {
         ),
       ),
     );
+  }
+
+  void _pickImage() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
+    if (result != null) {
+      setState(() {
+        _image = File(result.paths.single.toString());
+      });
+    } else {}
   }
 }
