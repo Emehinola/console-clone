@@ -602,29 +602,12 @@ Widget buildScheduleRowContent({
         children: [
           SizedBox(
             width: 0.09.sw,
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: 7.0,
-                ),
-                Text(
-                  '$sn.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: ColorPalette.offBlack),
-                ),
-                const SizedBox(
-                  width: 7.0,
-                ),
-                Text(
-                  id,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: ColorPalette.offBlack),
-                ),
-              ],
+            child: Text(
+              id,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.offBlack),
             ),
           ),
           SizedBox(
@@ -812,33 +795,12 @@ Widget buildRegRowContent({
         children: [
           SizedBox(
             width: 0.09.sw,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 7.0,
-                    ),
-                    Text(
-                      '$sn.',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
-                          color: ColorPalette.offBlack),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 7.0,
-                ),
-                Text(
-                  id,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: ColorPalette.offBlack),
-                ),
-              ],
+            child: Text(
+              id,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.offBlack),
             ),
           ),
           SizedBox(

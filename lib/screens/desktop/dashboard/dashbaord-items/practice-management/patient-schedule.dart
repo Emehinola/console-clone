@@ -1,7 +1,6 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:console/database/provider.dart';
 import 'package:console/screens/desktop/dashboard/navigation.dart';
-import 'package:console/state-management/controller-variables.dart';
 import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/desktop/patient-list-tiles.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-
 import '../../../../../api-calls/schedule-patient.dart';
 import '../../../../../state-management/state-management.dart';
 import '../../../../../widgets/mob-desk/buttons/icon-buttons.dart';
@@ -83,7 +81,7 @@ class BuildScheduleCalendar extends StatelessWidget {
         child: Obx(() {
           return !ConsoleState.state.editAction.value
               ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  padding: EdgeInsets.symmetric(horizontal: 0.01.sw),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

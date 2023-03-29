@@ -248,6 +248,7 @@ Widget subNavItem(
 ) {
   return GestureDetector(
     onTap: () {
+      selectedItem.value = CurrentSelectedNavItem.patientEngagementReg;
       ConsoleState.state.showAllEngagements.value = true;
     },
     child: Padding(
