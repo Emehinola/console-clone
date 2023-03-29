@@ -12,21 +12,22 @@ Rx<CurrentSelectedNavItem> selectedItem = CurrentSelectedNavItem.dashboard.obs;
 class ConsoleState extends GetxController{
   ConsoleState._();
 
+  static final ConsoleState state = ConsoleState._(); // singleton
+
   Rx<bool> loading = false.obs;
   Rx<bool> editAction = false.obs;
   Rx<bool> isScheduleViewOnly = true.obs;
   Rx<bool> isUserRegistered = true.obs;
   Rx<bool> showEngagementForm = false.obs;
+  Rx<bool> showAllEngagements = false.obs;
 
   Rx<String> regViewText = "Registered Patients (Incomplete)".obs;
-
-  static final ConsoleState state = ConsoleState._(); // singleton
 
   RegPatient? _patientToEdit;
   RegPatient? get patientToEdit => _patientToEdit;
 
-  RegPatient? _patientToEngage;
-  RegPatient? get patientToEngage => _patientToEngage;
+  PatientSchedule? _scheduleToEngage;
+  PatientSchedule? get scheduleToEngage => _scheduleToEngage;
 
   User? _user;
   User? get user => _user;
@@ -58,8 +59,8 @@ class ConsoleState extends GetxController{
     update();
   }
 
-  set patientToEngage(value){
-    _patientToEngage = value;
+  set scheduleToEngage(value){
+    _scheduleToEngage = value;
     update();
   }
 }

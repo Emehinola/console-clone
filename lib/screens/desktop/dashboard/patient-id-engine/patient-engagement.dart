@@ -1,11 +1,13 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:console/database/provider.dart';
+import 'package:console/models/patient-schedule.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
-import '../../../../database/provider.dart';
+import '../../../../api-calls/engagement.dart';
 import '../../../../services/validation-service.dart';
 import '../../../../widgets/desktop/dialogs.dart';
 import '../../../../widgets/desktop/patient-list-tiles.dart';
@@ -41,34 +43,47 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
           Expanded(
             child: Row(
               children: [
-                Expanded(
-                  flex: 3,
-                  child: DesktopPatienntScheduleTable(
-                    status: "Complete",
-                    fromEngagement: true,
+                Obx(
+                  () => Expanded(
+                    flex: ConsoleState.state.showAllEngagements.value ? 1 : 3,
+                    child: Visibility(
+                      visible: !ConsoleState.state.showAllEngagements.value,
+                      replacement: EngagementTable(),
+                      child: DesktopPatienntScheduleTable(
+                        status: "Complete",
+                        fromEngagement: true,
+                      ),
+                    ),
                   ),
                 ),
-                Expanded(
-                    flex: 2,
-                    child: Obx(() {
-                      return Visibility(
-                        visible: ConsoleState.state.showEngagementForm.value,
-                        replacement: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'No patient selected',
-                                style: TextStyle(
-                                    fontSize: 20.sp, color: Colors.grey),
+                Obx(
+                  () => Visibility(
+                    visible: !ConsoleState.state.showAllEngagements.value,
+                    child: Expanded(
+                        flex: 2,
+                        child: Obx(() {
+                          return Visibility(
+                            visible:
+                                ConsoleState.state.showEngagementForm.value,
+                            replacement: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'No patient selected',
+                                    style: TextStyle(
+                                        fontSize: 20.sp, color: Colors.grey),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        child: const EngagementRegForm(),
-                      );
-                    })),
+                            ),
+                            child: const EngagementRegForm(),
+                          );
+                        })),
+                  ),
+                ),
               ],
             ),
           ),
@@ -365,9 +380,28 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                   horPaddding: 0.05.sw,
                   loading: loading,
                   onTap: () async {
-                    if(!_formKey.currentState!.validate()) return;
-                    showSuccessDialog(
-                        'Success', 'Patient engagement submitted');
+                    if (!_formKey.currentState!.validate()) return;
+                    setState(() {
+                      loading = true;
+                    });
+
+                    PatientEngagement engagement = PatientEngagement(
+                      schedule: ConsoleState.state.scheduleToEngage,
+                      pulse: pulseController.text,
+                      temperature: tempController.text,
+                      height: heightController.text,
+                      weight: weightController.text,
+                      lowerBloodPressure: lowerBloodController.text,
+                      oxySaturation: oxygenSaturationController.text,
+                      respiratoryRate: respiratoryController.text,
+                      upperBloodPressure: upperBloodController.text,
+                    );
+
+                    await createEngagement(engagement);
+
+                    setState(() {
+                      loading = false;
+                    });
                   },
                 ),
               ],

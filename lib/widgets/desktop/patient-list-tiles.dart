@@ -306,6 +306,70 @@ class _DesktopPatienntScheduleTableState
   }
 }
 
+class EngagementTable extends StatefulWidget {
+  @override
+  State<EngagementTable> createState() => _EngagementTableState();
+}
+
+class _EngagementTableState extends State<EngagementTable> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      margin: const EdgeInsets.only(bottom: 10.0),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+              image: AssetImage('./assets/images/smiling.jpg'),
+              opacity: 0.08,
+              fit: BoxFit.cover)),
+      child: Column(
+        children: [
+          Container(
+            height: 0.05.sh,
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            color: ColorPalette.fairGrey,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildRowItem(hasBox: false, text: 'ID', engagement: true),
+                buildRowItem(text: 'NAME', engagement: true),
+                buildRowItem(text: 'Temperature', engagement: true),
+                buildRowItem(text: 'Pulse', engagement: true),
+                buildRowItem(text: 'Upp. Blood Pres', engagement: true),
+                buildRowItem(text: 'Low. Blood Pres.', engagement: true),
+                buildRowItem(text: 'Oxy Saturation', engagement: true),
+                buildRowItem(text: 'Resp Rate', engagement: true),
+                buildRowItem(text: 'Height(cm)', engagement: true),
+                buildRowItem(text: 'Weight(kg)', engagement: true),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (_, index) {
+                  return buildEngagementRowContent(
+                    hasBg: index % 2 == 0,
+                    engagement: DBProvider.db.getAllEngagements()[index],
+                    sn: '${index + 1}',
+                  );
+                },
+                itemCount: DBProvider.db.getAllEngagements().length),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class RegisteredPatient extends StatelessWidget {
   String status;
 
@@ -599,7 +663,7 @@ Widget buildScheduleRowContent({
               visible: !fromEngagement,
               replacement: InkWell(
                   onTap: () {
-                    // ConsoleState.state.patientToEngage = schedule?.patient;
+                    ConsoleState.state.scheduleToEngage = schedule;
                     ConsoleState.state.showEngagementForm.value = true;
                   },
                   child: const Text(
@@ -655,6 +719,66 @@ Widget buildScheduleRowContent({
                 ],
               ),
             ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Widget buildEngagementRowContent({
+  required String sn,
+  PatientEngagement? engagement,
+  bool hasBg = false,
+}) {
+  return Container(
+    color: hasBg ? ColorPalette.lightMain2 : Colors.white,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: 0.05.sw,
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  '$sn.',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: ColorPalette.offBlack),
+                ),
+                const SizedBox(
+                  width: 7.0,
+                ),
+                Text(
+                  'id',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: ColorPalette.offBlack),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children:
+                PatientEngagement.toJson(engagement!).values.map((element) {
+              return SizedBox(
+                width: 0.05.sw,
+                child: Text(
+                  element,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      color: ColorPalette.grey),
+                ),
+              );
+            }).toList(),
           )
         ],
       ),
@@ -1067,24 +1191,25 @@ Widget createdArrowUpDown() {
   );
 }
 
-Widget buildRowItem({bool hasBox = false, String text = ""}) {
+Widget buildRowItem({
+  bool hasBox = false,
+  String text = "",
+  bool engagement = false,
+}) {
   return SizedBox(
-    width: 0.09.sw,
+    width: engagement ? 0.07.sw : 0.09.sw,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const SizedBox(
-          width: 7.0,
-        ),
         Text(
           text,
           style: TextStyle(
-              fontWeight: FontWeight.w500, fontSize: 14.sp, color: Colors.grey),
+            fontWeight: FontWeight.w500,
+            fontSize: 14.sp,
+            color: Colors.grey,
+            overflow: TextOverflow.clip,
+          ),
         ),
-        const SizedBox(
-          width: 7.0,
-        ),
-        createdArrowUpDown(),
       ],
     ),
   );

@@ -270,4 +270,77 @@ class DBProvider {
 
     return false;
   }
+
+  // schedules
+  List<PatientEngagement> getAllEngagements() {
+    List<PatientEngagement> engagements = [];
+    var rawPat;
+    List rawSch = [];
+
+    try {
+      rawPat = box.get('engagements');
+
+      rawSch = rawPat.toList();
+    } catch (e) {
+      //
+    }
+
+    for (var element in rawSch) {
+      engagements.add(PatientEngagement.fromJson(element));
+    }
+
+    return engagements;
+  }
+
+  List<Map> getLocalEngagements() {
+    List<Map> engagements = [];
+
+    try {
+      var rawPat = box.get('engagements');
+      List rawSch = rawPat.toList();
+
+      for (var element in rawSch) {
+        engagements.add(element);
+      }
+      return engagements;
+    } catch (e) {
+      print('e: $e');
+    }
+
+    return [];
+  }
+
+  insertEngagement(PatientEngagement engagement, {List<Map>? newSch}) async {
+    Map patMap = PatientEngagement.toJson(engagement);
+    List<Map> previousSch = newSch ?? getLocalEngagements();
+    previousSch.add(patMap);
+
+    await box.put('engagements', previousSch);
+  }
+
+  PatientEngagement? getEngagementById(String id) {
+    try {
+      List<PatientEngagement> patients = getAllEngagements();
+      // return patients.singleWhere((element) => element.id == id);
+    } catch (e) {
+      //
+    }
+
+    return null;
+  }
+
+  Future<bool> editEngagement(PatientEngagement engagement) async {
+    try {
+      List<Map> newSch = getLocalSchedule()
+          .where((element) => element['id'] != engagement.respiratoryRate)
+          .toList();
+      insertEngagement(engagement, newSch: newSch);
+
+      return true;
+    } catch (e) {
+      //
+    }
+
+    return false;
+  }
 }
