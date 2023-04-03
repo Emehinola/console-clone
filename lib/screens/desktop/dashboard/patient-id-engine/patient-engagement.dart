@@ -1,11 +1,14 @@
+import 'dart:io';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:console/database/provider.dart';
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
+import 'package:dotted_decoration/dotted_decoration.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import '../../../../../widgets/mob-desk/theme/color-palette.dart';
 import '../../../../api-calls/engagement.dart';
 import '../../../../services/validation-service.dart';
@@ -217,6 +220,8 @@ class _PatientRegFormState extends State<EngagementRegForm> {
 
   bool loading = false;
 
+  File? _file;
+
   @override
   void initState() {
     super.initState();
@@ -348,10 +353,54 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                         ValidationService.isValidNumber(name!),
                   ),
                 ),
-                const SizedBox(
-                  width: 10.0,
-                ),
               ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            InkWell(
+              onTap: () => _pickFile(),
+              child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 0.03.sh, horizontal: 0.02.sw),
+                  decoration: DottedDecoration(
+                    color: ColorPalette.mainButtonColor.withOpacity(0.5),
+                    shape: Shape.box,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        IconlyBold.upload,
+                        color: _file == null
+                            ? Colors.grey
+                            : ColorPalette.mainButtonColor,
+                      ),
+                      const SizedBox(
+                        width: 20.0,
+                      ),
+                      Text(
+                        _file == null
+                            ? 'Attach document'
+                            : '${_file?.path.split(r'\')[5]}',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: _file == null
+                              ? Colors.grey
+                              : ColorPalette.mainButtonColor,
+                        ),
+                      ),
+                     if(_file != null) IconButton(
+                        padding: EdgeInsets.zero,
+                          onPressed: () {
+                            setState(() {
+                              _file = null;
+                            });
+                          },
+                          icon: const Icon(IconlyBold.delete, size: 15, color: Colors.red,))
+                    ],
+                  )),
             ),
             const SizedBox(
               height: 50,
@@ -380,7 +429,7 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                   horPaddding: 0.05.sw,
                   loading: loading,
                   onTap: () async {
-                    if (!_formKey.currentState!.validate()) return;
+                    if (!_formKey.currentState!.validate() || _file == null) return;
                     setState(() {
                       loading = true;
                     });
@@ -395,6 +444,7 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                       oxySaturation: oxygenSaturationController.text,
                       respiratoryRate: respiratoryController.text,
                       upperBloodPressure: upperBloodController.text,
+                      attachment: _file?.path.toString()
                     );
 
                     await createEngagement(engagement);
@@ -413,5 +463,15 @@ class _PatientRegFormState extends State<EngagementRegForm> {
         ),
       ),
     );
+  }
+
+  void _pickFile() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
+    if (result != null) {
+      setState(() {
+        _file = File(result.paths.single.toString());
+      });
+    } else {}
   }
 }

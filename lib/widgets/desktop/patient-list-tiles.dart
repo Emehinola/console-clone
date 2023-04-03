@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 
 import '../../models/patient-schedule.dart';
 import '../../screens/desktop/dashboard/dashbaord-items/practice-management/patient-schedule.dart';
@@ -332,7 +333,7 @@ class _EngagementTableState extends State<EngagementTable> {
         children: [
           Container(
             height: 0.05.sh,
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 0.0),
             color: ColorPalette.fairGrey,
             width: double.infinity,
             child: Row(
@@ -348,6 +349,7 @@ class _EngagementTableState extends State<EngagementTable> {
                 buildRowItem(text: 'Resp Rate', engagement: true),
                 buildRowItem(text: 'Height(cm)', engagement: true),
                 buildRowItem(text: 'Weight(kg)', engagement: true),
+                buildRowItem(text: 'File', engagement: true),
               ],
             ),
           ),
@@ -717,17 +719,13 @@ Widget buildEngagementRowContent({
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 0.05.sw,
+          Expanded(
             child: Row(
               children: [
-                const SizedBox(
-                  width: 7.0,
-                ),
                 Text(
                   '$sn.',
                   style: TextStyle(
@@ -748,26 +746,56 @@ Widget buildEngagementRowContent({
               ],
             ),
           ),
-          text(engagement!.schedule!.patient!.firstName,),
-          text(engagement.temperature,),
-          text(engagement.pulse,),
-          text(engagement.upperBloodPressure,),
-          text(engagement.lowerBloodPressure,),
-          text(engagement.oxySaturation,),
-          text(engagement.respiratoryRate,),
-          text(engagement.height,),
-          text(engagement.weight,),
+          text(
+            engagement!.schedule!.patient!.firstName,
+          ),
+          text(
+            engagement.temperature,
+          ),
+          text(
+            engagement.pulse,
+          ),
+          text(
+            engagement.upperBloodPressure,
+          ),
+          text(
+            engagement.lowerBloodPressure,
+          ),
+          text(
+            engagement.oxySaturation,
+          ),
+          text(
+            engagement.respiratoryRate,
+          ),
+          text(
+            engagement.height,
+          ),
+          text(
+            engagement.weight,
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                print(engagement.attachment);
+              },
+              child: const Icon(
+                IconlyBold.download,
+                color: ColorPalette.mainButtonColor,
+                size: 15,
+              ),
+            ),
+          )
         ],
       ),
     ),
   );
 }
 
-Widget text(String text){
-  return SizedBox(
-    width: 0.05.sw,
+Widget text(String text) {
+  return Expanded(
     child: Text(
       text,
+      textAlign: TextAlign.start,
       style: TextStyle(
           fontWeight: FontWeight.w400,
           fontSize: 14.sp,
@@ -1165,8 +1193,7 @@ Widget buildRowItem({
   String text = "",
   bool engagement = false,
 }) {
-  return SizedBox(
-    width: engagement ? 0.07.sw : 0.09.sw,
+  return Expanded(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

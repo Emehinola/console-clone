@@ -47,6 +47,7 @@ class PatientEngagement {
   String respiratoryRate;
   String height;
   String weight;
+  String? attachment;
 
   PatientEngagement({
     required this.schedule,
@@ -58,6 +59,7 @@ class PatientEngagement {
     required this.oxySaturation,
     required this.respiratoryRate,
     required this.upperBloodPressure,
+    this.attachment,
   });
 
   factory PatientEngagement.fromJson(Map json) {
@@ -71,6 +73,7 @@ class PatientEngagement {
       upperBloodPressure: json['upperBloodPressure'],
       oxySaturation: json['oxySaturation'],
       respiratoryRate: json['respiratoryRate'],
+      attachment: json['attachment'],
     );
   }
 
@@ -85,6 +88,7 @@ class PatientEngagement {
       'upperBloodPressure': engagement.upperBloodPressure,
       'oxySaturation': engagement.oxySaturation,
       'respiratoryRate': engagement.respiratoryRate,
+      'attachment': engagement.attachment,
     };
   }
 }
