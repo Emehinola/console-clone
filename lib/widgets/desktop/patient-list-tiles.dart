@@ -339,7 +339,7 @@ class _EngagementTableState extends State<EngagementTable> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildRowItem(hasBox: false, text: 'ID', engagement: true),
+                buildRowItem(hasBox: false, text: 'ID', engagement: true, hasLeftMargin: true),
                 buildRowItem(text: 'NAME', engagement: true),
                 buildRowItem(text: 'TEMPERATURE', engagement: true),
                 buildRowItem(text: 'PULSE', engagement: true),
@@ -360,6 +360,7 @@ class _EngagementTableState extends State<EngagementTable> {
                 itemBuilder: (_, index) {
                   return buildEngagementRowContent(
                     hasBg: index % 2 == 0,
+                    hasLeftMargin: true,
                     engagement: DBProvider.db.getAllEngagements()[index],
                     sn: '${index + 1}',
                   );
@@ -715,11 +716,12 @@ Widget buildEngagementRowContent({
   required String sn,
   PatientEngagement? engagement,
   bool hasBg = false,
+  bool hasLeftMargin = false,
 }) {
   return Container(
     color: hasBg ? ColorPalette.lightMain2 : Colors.white,
     child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -1181,11 +1183,13 @@ Widget buildRowItem({
   bool hasBox = false,
   String text = "",
   bool engagement = false,
+  bool hasLeftMargin = false,
 }) {
   return Expanded(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+       if(hasLeftMargin) const SizedBox(width: 5.0,),
         Text(
           text,
           style: TextStyle(
