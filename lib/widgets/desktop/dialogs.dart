@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:console/database/provider.dart';
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/models/registered-patient.dart';
@@ -1293,6 +1294,7 @@ void showIdForm() {
 }
 
 void showPathDialog(String path) {
+  path = path.split(':')[1].replaceAll('\'', '').removeAllWhitespace;
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
@@ -1314,11 +1316,13 @@ void showPathDialog(String path) {
                     height: 0.015.sh,
                   ),
                   FlatButton(
-                    buttonText: 'CONTINUE',
+                    buttonText: 'COPY PATH',
                     verticalPadding: 0.02.sh,
                     horPaddding: 0.03.sw,
                     onTap: () {
+                      FlutterClipboard.copy(path).then(( value ) => debugPrint('dff'));
                       Get.back();
+                      // Pspdfkit.present(path);
                     },
                   )
                 ],
