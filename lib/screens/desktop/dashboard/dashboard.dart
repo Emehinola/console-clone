@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:console/database/provider.dart';
+import 'package:console/screens/desktop/print/pat-reg.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
@@ -40,8 +41,9 @@ class DesktopDashboard extends StatelessWidget {
 class HeaderMetrics extends StatelessWidget {
   bool isUser;
   bool isEngagement;
+  bool isReg;
 
-  HeaderMetrics({Key? key, this.isUser = false, this.isEngagement = false}) : super(key: key);
+  HeaderMetrics({Key? key, this.isUser = false, this.isEngagement = false, this.isReg = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -192,14 +194,14 @@ class HeaderMetrics extends StatelessWidget {
                                   text: 'Filter/Sort',
                                 ),
                               ),
-                              if(isEngagement) SizedBox(
+                              if(isEngagement || isReg) SizedBox(
                                 width: 0.01.sw,
                               ),
-                             if(isEngagement) DesktopConsoleIconButton(
+                             if(isEngagement || isReg) DesktopConsoleIconButton(
                                 icon: Icons.print,
                                 text: 'Print',
                                 onTap: () async {
-                                 File? file = await generateEngagementPdf(PdfPageFormat.a4);
+                                 File? file = isReg ? await generatePatientsReg(PdfPageFormat.a4) :  await generateEngagementPdf(PdfPageFormat.a4);
                                  // final Directory tempDir = await getApplicationDocumentsDirectory();
                                   showPathDialog(file.path);
                                 },

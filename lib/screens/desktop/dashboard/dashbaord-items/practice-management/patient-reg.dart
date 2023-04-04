@@ -53,6 +53,7 @@ class _DesktopPatientRegistrationState
         children: [
           HeaderMetrics(
             isUser: false,
+            isReg: true,
           ),
           const SizedBox(
             height: 20,
