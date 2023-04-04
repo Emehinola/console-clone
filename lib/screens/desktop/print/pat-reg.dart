@@ -5,6 +5,7 @@ import 'package:console/models/registered-patient.dart';
 import 'package:console/services/console-services.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
@@ -185,7 +186,9 @@ Future<File> generatePatientsReg(
     ),
   );
 
-  final file = File("C:\\Users\\Firstlady\\OneDrive\\Documents\\patient-registration.pdf");
+  final Directory tempDir = await getTemporaryDirectory();
+
+  final file = File('${tempDir.path}/patient-registration.pdf'); // File("C:\\Users\\Firstlady\\OneDrive\\Documents\\engagement.pdf");
   return await file.writeAsBytes(await document.save());
 
   // return document.save();

@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:console/database/provider.dart';
 import 'package:console/models/patient-schedule.dart';
 import 'package:console/services/console-services.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
@@ -148,7 +150,7 @@ class Calendar extends StatelessWidget {
   }
 }
 
-Future<File> generateEngagementPdf(
+Future<Uint8List> generateEngagementPdf(
   PdfPageFormat pageFormat,
 ) async {
   //Create a PDF document.
@@ -180,11 +182,15 @@ Future<File> generateEngagementPdf(
     ),
   );
 
-  // final Directory tempDir = await getApplicationDocumentsDirectory();
-  // showPathDialog(Platform.isMacOS ? '$tempDir/${file.path}' : '$tempDir\\${file.path}');
+  final Directory tempDir = await getTemporaryDirectory();
 
-  final file = File("C:\\Users\\Firstlady\\OneDrive\\Documents\\engagement.pdf");
-  return await file.writeAsBytes(await document.save());
+  // final file = File('${tempDir.path}/engagement.pdf'); // File("C:\\Users\\Firstlady\\OneDrive\\Documents\\engagement.pdf");
+  // return await file.writeAsBytes(await document.save());
 
-  // return document.save();
+  return document.save();
+}
+
+void printEngagement() async{
+  const title = 'Patients Engagement';
+  await Printing.layoutPdf(onLayout: (format) => generateEngagementPdf(format));
 }
