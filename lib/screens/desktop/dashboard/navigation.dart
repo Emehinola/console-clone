@@ -1,5 +1,5 @@
 import 'package:console/database/provider.dart';
-import 'package:console/screens/desktop/dashboard/dashbaord-items/practice-management/patient-reg.dart';
+import 'package:console/screens/desktop/dashboard/dashbaord-items/practice-management/registration/patient-reg.dart';
 import 'package:console/screens/desktop/dashboard/dashbaord-items/practice-management/patient-schedule.dart';
 import 'package:console/screens/desktop/dashboard/dashboard.dart';
 import 'package:console/screens/desktop/onboarding/welcome-screen.dart';

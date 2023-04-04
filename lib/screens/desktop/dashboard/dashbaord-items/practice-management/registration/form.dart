@@ -1,168 +1,22 @@
+import 'dart:async';
 import 'dart:io';
-
-import 'package:console/screens/desktop/dashboard/dashboard.dart';
-import 'package:console/state-management/controller-variables.dart';
-import 'package:console/state-management/state-management.dart';
-import 'package:console/widgets/desktop/dialogs.dart';
-import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
-import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
-import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
-import 'package:console/widgets/mob-desk/forms/dropdowns.dart';
-import 'package:console/widgets/mob-desk/theme/color-palette.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:camera_platform_interface/camera_platform_interface.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
-
-import '../../../../../api-calls/patients.dart';
-import '../../../../../services/validation-service.dart';
-import '../../../../../widgets/desktop/patient-list-tiles.dart';
-import '../../../../../widgets/mobile/drawer.dart';
-
-class DesktopPatientRegistration extends StatefulWidget {
-  const DesktopPatientRegistration({Key? key}) : super(key: key);
-
-  @override
-  _DesktopPatientRegistrationState createState() =>
-      _DesktopPatientRegistrationState();
-}
-
-class _DesktopPatientRegistrationState
-    extends State<DesktopPatientRegistration> {
-  final _formKey = GlobalKey<FormState>();
-
-  bool showForm = false;
-
-  @override
-  void initState() {
-    if (ConsoleState.state.patientToEdit != null) {
-      showForm = true;
-    } else {
-      ConsoleState.state.regViewText.value = "Registered Patients (Complete)";
-    }
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ConsoleScaffold(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          HeaderMetrics(
-            isUser: false,
-            isReg: true,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 0.02.sw),
-            child: Obx(
-              () => Text(
-                ConsoleState.state.regViewText.value,
-                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 0.03.sh,
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: SizedBox(
-                      height: 0.9.sh,
-                      child: !showForm
-                          ? RegisteredPatient(
-                              status: 'Completed',
-                            )
-                          : const PatientRegForm()),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            showForm
-                                ? './assets/images/reg.png'
-                                : './assets/images/reg-new.png',
-                            height: 0.2.sh,
-                          ),
-                          SizedBox(
-                            height: 0.06.sh,
-                          ),
-                          AnimatedCrossFade(
-                            duration: const Duration(milliseconds: 600),
-                            crossFadeState: showForm
-                                ? CrossFadeState.showSecond
-                                : CrossFadeState.showFirst,
-                            firstChild: FlatButton(
-                                buttonText: 'Add New Patient',
-                                verticalPadding: 0.015.sh,
-                                onTap: () {
-                                  setState(() {
-                                    showForm = true;
-                                  });
-                                }),
-                            secondChild: OutlinedBtn(
-                              buttonText: 'See Full List',
-                              borderColor: ColorPalette.mainButtonColor,
-                              textColor: ColorPalette.mainButtonColor,
-                              verticalPadding: 0.015.sh,
-                              onTap: () {
-                                setState(() {
-                                  showForm = false;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ))
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-Widget previewText(String title, String value) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        title,
-        style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            color: ColorPalette.offBlack,
-            fontSize: 13),
-      ),
-      const SizedBox(
-        height: 5.0,
-      ),
-      Text(
-        value,
-        style: const TextStyle(
-            fontWeight: FontWeight.w400, color: ColorPalette.grey),
-      ),
-    ],
-  );
-}
+import '../../../../../../api-calls/patients.dart';
+import '../../../../../../services/validation-service.dart';
+import '../../../../../../state-management/controller-variables.dart';
+import '../../../../../../state-management/state-management.dart';
+import '../../../../../../widgets/desktop/dialogs.dart';
+import '../../../../../../widgets/mob-desk/buttons/console-text-button.dart';
+import '../../../../../../widgets/mob-desk/forms/console-text-field.dart';
+import '../../../../../../widgets/mob-desk/forms/dropdowns.dart';
+import '../../../../../../widgets/mob-desk/theme/color-palette.dart';
+import '../../../../../../widgets/mobile/drawer.dart';
 
 class PatientRegForm extends StatefulWidget {
   const PatientRegForm({Key? key}) : super(key: key);
@@ -196,6 +50,17 @@ class _PatientRegFormState extends State<PatientRegForm> {
 
   File? _image;
 
+  String _cameraInfo = 'Unknown';
+  List<CameraDescription> _cameras = <CameraDescription>[];
+  int _cameraIndex = 0;
+  int _cameraId = -1;
+  bool _initialized = false;
+  bool _previewPaused = false;
+  Size? _previewSize;
+  ResolutionPreset _resolutionPreset = ResolutionPreset.veryHigh;
+  StreamSubscription<CameraErrorEvent>? _errorStreamSubscription;
+  StreamSubscription<CameraClosingEvent>? _cameraClosingStreamSubscription;
+
   @override
   void initState() {
     if (ConsoleState.state.patientToEdit != null) {
@@ -222,7 +87,20 @@ class _PatientRegFormState extends State<PatientRegForm> {
       socHandleController.text =
           ConsoleState.state.patientToEdit!.socHandle.toString();
     }
+
+    WidgetsFlutterBinding.ensureInitialized();
+    _fetchCameras();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _disposeCurrentCamera();
+    _errorStreamSubscription?.cancel();
+    _errorStreamSubscription = null;
+    _cameraClosingStreamSubscription?.cancel();
+    _cameraClosingStreamSubscription = null;
+    super.dispose();
   }
 
   @override
@@ -250,10 +128,14 @@ class _PatientRegFormState extends State<PatientRegForm> {
                   fit: StackFit.expand,
                   children: [
                     if (_image == null)
-                    const CircleAvatar(
-                      backgroundImage: AssetImage('./assets/images/06.png'),
-                    ),
-                    if (_image != null) CircleAvatar(backgroundImage: FileImage(File(_image!.path))),
+                      const CircleAvatar(
+                        backgroundImage: AssetImage('./assets/images/06.png'),
+                      ),
+                    if (_image != null)
+                      CircleAvatar(
+                          backgroundImage: FileImage(File(_image!.path))),
+                    if (_initialized && _cameraId > 0 && _previewSize != null)
+                      _buildPreview(),
                     Positioned(
                         bottom: 5,
                         right: 5,
@@ -265,7 +147,7 @@ class _PatientRegFormState extends State<PatientRegForm> {
                               shape: BoxShape.circle,
                               color: Colors.grey.withOpacity(0.7)),
                           child: IconButton(
-                              onPressed: _pickImage,
+                              onPressed: _select,
                               icon: const Icon(
                                 CupertinoIcons.camera,
                                 size: 15,
@@ -273,6 +155,19 @@ class _PatientRegFormState extends State<PatientRegForm> {
                               )),
                         ))
                   ],
+                ),
+              ),
+            ),
+            if (_initialized && _cameraId > 0 && _previewSize != null)
+            const SizedBox(height: 10.0,),
+            if (_initialized && _cameraId > 0 && _previewSize != null)
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: 0.1.sw,
+                child: FlatButton(
+                  buttonText: 'Capture',
+                  onTap: _takePicture,
                 ),
               ),
             ),
@@ -616,7 +511,9 @@ class _PatientRegFormState extends State<PatientRegForm> {
                 // TODO: change field
               },
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Align(
                 alignment: Alignment.center,
                 child: InkWell(
@@ -629,8 +526,16 @@ class _PatientRegFormState extends State<PatientRegForm> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Icon(CupertinoIcons.check_mark, color: Colors.green, size: 50,),
-                        Container(height: 100, color: Colors.grey, width: 1,),
+                        const Icon(
+                          CupertinoIcons.check_mark,
+                          color: Colors.green,
+                          size: 50,
+                        ),
+                        Container(
+                          height: 100,
+                          color: Colors.grey,
+                          width: 1,
+                        ),
                         Image.asset(
                           './assets/images/fingerprint1.jpg',
                           height: 60,
@@ -716,8 +621,218 @@ class _PatientRegFormState extends State<PatientRegForm> {
     );
   }
 
+  void _select() {
+    showDialog(
+        context: Get.context!,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              content: SizedBox(
+                height: 0.15.sh,
+                width: 0.25.sw,
+                child: ListView(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Icon(
+                              CupertinoIcons.selection_pin_in_out,
+                              size: 0.04.sw,
+                            ),
+                            SizedBox(
+                              height: 0.015.sh,
+                            ),
+                            FlatButton(
+                              buttonText: 'Pick Image',
+                              onTap: _pickImage,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              size: 0.04.sw,
+                            ),
+                            SizedBox(
+                              height: 0.015.sh,
+                            ),
+                            FlatButton(
+                                buttonText: 'User Camera',
+                                onTap: () {
+                                  Get.back();
+                                  _initializeCamera();
+                                  // _fetchCameras();
+                                }),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))));
+        });
+  }
+
+  Future<void> _fetchCameras() async {
+    String cameraInfo;
+    List<CameraDescription> cameras = <CameraDescription>[];
+
+    int cameraIndex = 0;
+    try {
+      cameras = await CameraPlatform.instance.availableCameras();
+
+      if (cameras.isEmpty) {
+        cameraInfo = 'No available cameras';
+      } else {
+        cameraIndex = _cameraIndex % cameras.length;
+        cameraInfo = 'Found camera: ${cameras[cameraIndex].name}';
+      }
+    } on PlatformException catch (e) {
+      print('platform exc');
+      cameraInfo = 'Failed to get cameras: ${e.code}: ${e.message}';
+    }
+
+    if (mounted) {
+      setState(() {
+        _cameraIndex = cameraIndex;
+        _cameras = cameras;
+        _cameraInfo = cameraInfo;
+      });
+    }
+  }
+
+  Future<void> _initializeCamera() async {
+    assert(!_initialized);
+
+    if (_cameras.isEmpty) {
+      return;
+    }
+
+    int cameraId = -1;
+    try {
+      final int cameraIndex = _cameraIndex % _cameras.length;
+      final CameraDescription camera = _cameras[cameraIndex];
+
+      cameraId = await CameraPlatform.instance.createCamera(
+        camera,
+        _resolutionPreset,
+      );
+
+      _errorStreamSubscription?.cancel();
+      _errorStreamSubscription = CameraPlatform.instance
+          .onCameraError(cameraId)
+          .listen((_onCameraError));
+
+      _cameraClosingStreamSubscription?.cancel();
+      _cameraClosingStreamSubscription = CameraPlatform.instance
+          .onCameraClosing(cameraId)
+          .listen(_onCameraClosing);
+
+      final Future<CameraInitializedEvent> initialized =
+          CameraPlatform.instance.onCameraInitialized(cameraId).first;
+
+      await CameraPlatform.instance.initializeCamera(
+        cameraId,
+      );
+
+      final CameraInitializedEvent event = await initialized;
+      _previewSize = Size(
+        event.previewWidth,
+        event.previewHeight,
+      );
+
+      if (mounted) {
+        setState(() {
+          _initialized = true;
+          _cameraId = cameraId;
+          _cameraIndex = cameraIndex;
+          _cameraInfo = 'Capturing camera: ${camera.name}';
+        });
+      }
+    } on CameraException catch (e) {
+      try {
+        if (cameraId >= 0) {
+          await CameraPlatform.instance.dispose(cameraId);
+        }
+      } on CameraException catch (e) {
+        debugPrint('Failed to dispose camera: ${e.code}: ${e.description}');
+      }
+
+      // Reset state.
+      if (mounted) {
+        setState(() {
+          _initialized = false;
+          _cameraId = -1;
+          _cameraIndex = 0;
+          _previewSize = null;
+          _cameraInfo =
+              'Failed to initialize camera: ${e.code}: ${e.description}';
+        });
+      }
+    }
+  }
+
+  void _onCameraError(CameraErrorEvent event) {
+    if (mounted) {
+      // Dispose camera on camera error as it can not be used anymore.
+      _disposeCurrentCamera();
+      _fetchCameras();
+    }
+  }
+
+  void _onCameraClosing(CameraClosingEvent event) {
+    if (mounted) {}
+  }
+
+  Future<void> _disposeCurrentCamera() async {
+    if (_cameraId >= 0 && _initialized) {
+      try {
+        await CameraPlatform.instance.dispose(_cameraId);
+
+        if (mounted) {
+          setState(() {
+            _initialized = false;
+            _cameraId = -1;
+            _previewSize = null;
+            _previewPaused = false;
+            _cameraInfo = 'Camera disposed';
+          });
+        }
+      } on CameraException catch (e) {
+        if (mounted) {
+          setState(() {
+            _cameraInfo =
+                'Failed to dispose camera: ${e.code}: ${e.description}';
+          });
+        }
+      }
+    }
+  }
+
+  Widget _buildPreview() {
+    return CameraPlatform.instance.buildPreview(_cameraId);
+  }
+
+  Future<void> _takePicture() async {
+    final XFile file = await CameraPlatform.instance.takePicture(_cameraId);
+    _image = File(file.path);
+
+    _disposeCurrentCamera();
+
+    setState(() {
+      // rebuild
+    });
+  }
+
   void _pickImage() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
+    Get.back(); // pop dialog
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null) {
       setState(() {
         _image = File(result.paths.single.toString());
