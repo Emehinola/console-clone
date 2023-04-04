@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:console/database/provider.dart';
@@ -1584,6 +1586,23 @@ void showFilterDialog() {
       });
 }
 
+void showDoc(String file) {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: Container(
+              constraints: BoxConstraints(maxHeight: 0.5.sh, maxWidth: 0.5.sw),
+              child: SingleChildScrollView(
+                child: Image.file(File(file))
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
 Widget detailRow(String title1, String value1, String title2, String value2,
     {bool isFull = false}) {
   return Row(
@@ -1629,3 +1648,4 @@ Widget detailRow(String title1, String value1, String title2, String value2,
     ],
   );
 }
+

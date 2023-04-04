@@ -766,7 +766,7 @@ Widget buildEngagementRowContent({
               alignment: Alignment.centerLeft,
               child: InkWell(
                 onTap: () {
-                  //
+                  showDoc(engagement.attachment!);
                 },
                 child: const Icon(
                   IconlyBold.download,
