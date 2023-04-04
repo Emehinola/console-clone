@@ -1292,6 +1292,43 @@ void showIdForm() {
       });
 }
 
+void showPathDialog(String path) {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final idController = TextEditingController(text: path);
+
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.19.sh,
+              width: 0.3.sw,
+              child: ListView(
+                children: [
+                  FlatTextField(
+                    editable: false,
+                    controller: idController,
+                    hintText: 'Search for file name in your storage',
+                  ),
+                  SizedBox(
+                    height: 0.015.sh,
+                  ),
+                  FlatButton(
+                    buttonText: 'CONTINUE',
+                    verticalPadding: 0.02.sh,
+                    horPaddding: 0.03.sw,
+                    onTap: () {
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
 void showScheduleDialog(RegPatient patient) {
   ConsoleState.state.patientSchedule = PatientSchedule(
     id: patient.id,

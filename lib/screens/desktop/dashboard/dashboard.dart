@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:console/database/provider.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
@@ -6,11 +8,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
 import '../../../widgets/desktop/dialogs.dart';
 import '../../../widgets/desktop/patient-list-tiles.dart';
 import '../../../widgets/mob-desk/buttons/icon-buttons.dart';
 import '../../../widgets/mob-desk/forms/console-text-field.dart';
 import '../../../widgets/mob-desk/theme/color-palette.dart';
+import '../print/engagement.dart';
 
 class DesktopDashboard extends StatelessWidget {
   @override
@@ -34,8 +39,9 @@ class DesktopDashboard extends StatelessWidget {
 
 class HeaderMetrics extends StatelessWidget {
   bool isUser;
+  bool isEngagement;
 
-  HeaderMetrics({Key? key, this.isUser = false}) : super(key: key);
+  HeaderMetrics({Key? key, this.isUser = false, this.isEngagement = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -166,10 +172,10 @@ class HeaderMetrics extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 0.075.sh,
+                        height: 0.07.sh,
                           child: FlatButton(
                         buttonText: 'Search',
-                        horPaddding: 0.02.sw
+                        horPaddding: 0.02.sw,
                       )),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -186,13 +192,18 @@ class HeaderMetrics extends StatelessWidget {
                                   text: 'Filter/Sort',
                                 ),
                               ),
-                              // SizedBox(
-                              //   width: 0.01.sw,
-                              // ),
-                              // DesktopConsoleIconButton(
-                              //   icon: Icons.filter_list,
-                              //   text: 'Sort',
-                              // ),
+                              if(isEngagement) SizedBox(
+                                width: 0.01.sw,
+                              ),
+                             if(isEngagement) DesktopConsoleIconButton(
+                                icon: Icons.print,
+                                text: 'Print',
+                                onTap: () async {
+                                 File? file = await generateEngagementPdf(PdfPageFormat.a4);
+                                 // final Directory tempDir = await getApplicationDocumentsDirectory();
+                                  showPathDialog(file.path);
+                                },
+                              ),
                             ],
                           ),
                           SizedBox(

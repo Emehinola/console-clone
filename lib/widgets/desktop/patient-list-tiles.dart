@@ -341,15 +341,15 @@ class _EngagementTableState extends State<EngagementTable> {
               children: [
                 buildRowItem(hasBox: false, text: 'ID', engagement: true),
                 buildRowItem(text: 'NAME', engagement: true),
-                buildRowItem(text: 'Temperature', engagement: true),
-                buildRowItem(text: 'Pulse', engagement: true),
-                buildRowItem(text: 'Upp. Blood Pres', engagement: true),
-                buildRowItem(text: 'Low. Blood Pres.', engagement: true),
-                buildRowItem(text: 'Oxy Saturation', engagement: true),
-                buildRowItem(text: 'Resp Rate', engagement: true),
-                buildRowItem(text: 'Height(cm)', engagement: true),
-                buildRowItem(text: 'Weight(kg)', engagement: true),
-                buildRowItem(text: 'File', engagement: true),
+                buildRowItem(text: 'TEMPERATURE', engagement: true),
+                buildRowItem(text: 'PULSE', engagement: true),
+                buildRowItem(text: 'UPP. BLOOD PRES', engagement: true),
+                buildRowItem(text: 'LOW. BLOOD PRES.', engagement: true),
+                buildRowItem(text: 'OXY. SAT', engagement: true),
+                buildRowItem(text: 'RESP. RATE', engagement: true),
+                buildRowItem(text: 'HEIGHT(cm)', engagement: true),
+                buildRowItem(text: 'WEIGHT(kg)', engagement: true),
+                buildRowItem(text: 'FILE', engagement: true),
               ],
             ),
           ),
@@ -724,26 +724,12 @@ Widget buildEngagementRowContent({
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Row(
-              children: [
-                Text(
-                  '$sn.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: ColorPalette.offBlack),
-                ),
-                const SizedBox(
-                  width: 7.0,
-                ),
-                Text(
-                  'id',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.sp,
-                      color: ColorPalette.offBlack),
-                ),
-              ],
+            child: Text(
+              '$sn.',
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
+                  color: ColorPalette.offBlack),
             ),
           ),
           text(
@@ -774,14 +760,17 @@ Widget buildEngagementRowContent({
             engagement.weight,
           ),
           Expanded(
-            child: InkWell(
-              onTap: () {
-                print(engagement.attachment);
-              },
-              child: const Icon(
-                IconlyBold.download,
-                color: ColorPalette.mainButtonColor,
-                size: 15,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                onTap: () {
+                  //
+                },
+                child: const Icon(
+                  IconlyBold.download,
+                  color: ColorPalette.mainButtonColor,
+                  size: 15,
+                ),
               ),
             ),
           )
@@ -1201,7 +1190,7 @@ Widget buildRowItem({
           text,
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             color: Colors.grey,
             overflow: TextOverflow.clip,
           ),

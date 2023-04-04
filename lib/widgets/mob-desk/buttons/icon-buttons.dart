@@ -43,12 +43,16 @@ class ConsoleIconButton extends StatelessWidget {
 class DesktopConsoleIconButton extends StatelessWidget {
   IconData icon;
   String text;
+  Function()? onTap;
 
-  DesktopConsoleIconButton({required this.text, required this.icon});
+  DesktopConsoleIconButton({required this.text, required this.icon, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: (){
+        if(onTap != null) onTap!();
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
         decoration: BoxDecoration(

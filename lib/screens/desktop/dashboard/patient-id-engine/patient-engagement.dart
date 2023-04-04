@@ -38,7 +38,7 @@ class _PatientsListState extends State<DesktopPatientEngagement> {
     return Scaffold(
       body: Column(
         children: [
-          HeaderMetrics(),
+          HeaderMetrics(isEngagement: true),
           const Divider(),
           const SizedBox(
             height: 20,
@@ -383,7 +383,7 @@ class _PatientRegFormState extends State<EngagementRegForm> {
                       Text(
                         _file == null
                             ? 'Attach document'
-                            : '${_file?.path.split(r'\')[5]}',
+                            : fileName(),
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: _file == null
@@ -473,5 +473,9 @@ class _PatientRegFormState extends State<EngagementRegForm> {
         _file = File(result.paths.single.toString());
       });
     } else {}
+  }
+
+  String fileName(){
+    return Platform.isMacOS ? '${_file?.path.split(r'/').last}' : '${_file?.path.split(r'\').last}';
   }
 }
