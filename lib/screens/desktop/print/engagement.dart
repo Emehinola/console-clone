@@ -180,6 +180,9 @@ Future<File> generateEngagementPdf(
     ),
   );
 
+  // final Directory tempDir = await getApplicationDocumentsDirectory();
+  // showPathDialog(Platform.isMacOS ? '$tempDir/${file.path}' : '$tempDir\\${file.path}');
+
   final file = File("engagement.pdf");
   return await file.writeAsBytes(await document.save());
 

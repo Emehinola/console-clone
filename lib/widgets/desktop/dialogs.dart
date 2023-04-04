@@ -1294,7 +1294,8 @@ void showIdForm() {
 }
 
 void showPathDialog(String path) {
-  path = path.split(':')[1].replaceAll('\'', '').removeAllWhitespace;
+  print(path);
+  path = path.replaceFirst(' ', '').replaceFirst(':', '').replaceFirst('Directory', '').replaceAll('\'', '');
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
