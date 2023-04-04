@@ -203,7 +203,7 @@ class HeaderMetrics extends StatelessWidget {
                                 onTap: () async {
                                  File? file = isReg ? await generatePatientsReg(PdfPageFormat.a4) :  await generateEngagementPdf(PdfPageFormat.a4);
                                  final Directory tempDir = await getApplicationDocumentsDirectory();
-                                  showPathDialog(Platform.isMacOS ? '$tempDir/${file.path}' : '$tempDir\\${file.path}');
+                                  showPathDialog(Platform.isMacOS ? '$tempDir/${file.path}' : file.path);
                                 },
                               ),
                             ],

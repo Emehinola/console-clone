@@ -185,7 +185,7 @@ Future<File> generatePatientsReg(
     ),
   );
 
-  final file = File("patient-registration.pdf");
+  final file = File("C:\\Users\\Firstlady\\OneDrive\\Documents\\patient-registration.pdf");
   return await file.writeAsBytes(await document.save());
 
   // return document.save();
