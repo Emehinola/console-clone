@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:console/screens/desktop/dashboard/dashboard.dart';
 import 'package:console/state-management/controller-variables.dart';
 import 'package:console/state-management/state-management.dart';
+import 'package:console/widgets/desktop/dialogs.dart';
 import 'package:console/widgets/mob-desk/buttons/console-text-button.dart';
 import 'package:console/widgets/mob-desk/custom/console-scaffold.dart';
 import 'package:console/widgets/mob-desk/forms/console-text-field.dart';
@@ -618,21 +619,24 @@ class _PatientRegFormState extends State<PatientRegForm> {
             const SizedBox(height: 20,),
             Align(
                 alignment: Alignment.center,
-                child: Container(
-                  width: 200,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.grey, width: 1.5)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Icon(CupertinoIcons.check_mark, color: Colors.green, size: 50,),
-                      Container(height: 100, color: Colors.grey, width: 1,),
-                      Image.asset(
-                        './assets/images/fingerprint1.jpg',
-                        height: 60,
-                      ),
-                    ],
+                child: InkWell(
+                  onTap: () => showEmpty(text: 'No biometric device attached'),
+                  child: Container(
+                    width: 200,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Colors.grey, width: 1.5)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Icon(CupertinoIcons.check_mark, color: Colors.green, size: 50,),
+                        Container(height: 100, color: Colors.grey, width: 1,),
+                        Image.asset(
+                          './assets/images/fingerprint1.jpg',
+                          height: 60,
+                        ),
+                      ],
+                    ),
                   ),
                 )),
             const SizedBox(

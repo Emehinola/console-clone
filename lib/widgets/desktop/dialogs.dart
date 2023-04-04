@@ -1507,7 +1507,7 @@ void showScheduleDialog(RegPatient patient) {
       });
 }
 
-void showEmpty() {
+void showEmpty({String text = 'No patient matched'}) {
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
@@ -1526,7 +1526,7 @@ void showEmpty() {
                       height: 0.01.sh,
                     ),
                     Text(
-                      'No patient matched',
+                      text,
                       style: TextStyle(fontSize: 18.sp),
                     )
                   ],
