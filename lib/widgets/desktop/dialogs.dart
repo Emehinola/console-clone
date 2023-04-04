@@ -13,9 +13,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 import '../../api-calls/schedule-patient.dart';
 import '../../models/user.dart';
+import '../../screens/desktop/print/engagement.dart';
 import '../../services/edit-patient-info.dart';
 import '../../services/validation-service.dart';
 import '../../state-management/controller-variables.dart';
@@ -1248,6 +1251,81 @@ void showIdentityTypes() {
       });
 }
 
+void showPrintType(String name) {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.15.sh,
+              width: 0.4.sw,
+              child: ListView(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Icon(
+                            CupertinoIcons.printer,
+                            size: 0.04.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                            buttonText: 'Print',
+                            onTap: () async {
+                              await Printing.layoutPdf(onLayout: (format) => generateEngagementPdf(format));
+                            },
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Icon(
+                            CupertinoIcons.share,
+                            size: 0.04.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                              buttonText: 'Share',
+                              onTap: () async {
+                                await Printing.sharePdf(
+                                    bytes: await generateEngagementPdf(PdfPageFormat.a4),
+                                    filename: name);
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Icon(
+                            Icons.edit,
+                            size: 0.04.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                              buttonText: 'Edit',
+                              onTap: () {
+                                Get.back();
+                              }),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
 void showIdForm() {
   showDialog(
       context: Get.context!,
@@ -1275,14 +1353,14 @@ void showIdForm() {
                     onTap: () {
                       Get.back();
 
-                      RegPatient? patient = DBProvider.db.getPatientByID(idController.text);
+                      RegPatient? patient =
+                          DBProvider.db.getPatientByID(idController.text);
 
-                      if(patient != null){
+                      if (patient != null) {
                         viewPatientInfoReal(patient, false);
-                      }else{
+                      } else {
                         showEmpty();
                       }
-
                     },
                   )
                 ],
@@ -1320,7 +1398,8 @@ void showPathDialog(String path) {
                     verticalPadding: 0.02.sh,
                     horPaddding: 0.03.sw,
                     onTap: () {
-                      FlutterClipboard.copy(path).then(( value ) => debugPrint('dff'));
+                      FlutterClipboard.copy(path)
+                          .then((value) => debugPrint('dff'));
                       Get.back();
                       // Pspdfkit.present(path);
                     },
@@ -1427,23 +1506,29 @@ void showScheduleDialog(RegPatient patient) {
 }
 
 void showEmpty() {
-
   showDialog(
       context: Get.context!,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
             content: SizedBox(
-              height: 0.1.sh,
-              width: 0.1.sw,
-              child: Column(
-                children: [
-                  Icon(CupertinoIcons.xmark, size: 0.03.sw,),
-                  SizedBox(height: 0.01.sh,),
-                  Text('No patient matched', style: TextStyle(fontSize: 18.sp),)
-                ],
-              )
-            ),
+                height: 0.1.sh,
+                width: 0.1.sw,
+                child: Column(
+                  children: [
+                    Icon(
+                      CupertinoIcons.xmark,
+                      size: 0.03.sw,
+                    ),
+                    SizedBox(
+                      height: 0.01.sh,
+                    ),
+                    Text(
+                      'No patient matched',
+                      style: TextStyle(fontSize: 18.sp),
+                    )
+                  ],
+                )),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))));
       });

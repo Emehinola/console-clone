@@ -43,7 +43,12 @@ class HeaderMetrics extends StatelessWidget {
   bool isEngagement;
   bool isReg;
 
-  HeaderMetrics({Key? key, this.isUser = false, this.isEngagement = false, this.isReg = false}) : super(key: key);
+  HeaderMetrics(
+      {Key? key,
+      this.isUser = false,
+      this.isEngagement = false,
+      this.isReg = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -174,11 +179,11 @@ class HeaderMetrics extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 0.07.sh,
+                          height: 0.07.sh,
                           child: FlatButton(
-                        buttonText: 'Search',
-                        horPaddding: 0.02.sw,
-                      )),
+                            buttonText: 'Search',
+                            horPaddding: 0.02.sw,
+                          )),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -194,19 +199,22 @@ class HeaderMetrics extends StatelessWidget {
                                   text: 'Filter/Sort',
                                 ),
                               ),
-                              if(isEngagement || isReg) SizedBox(
-                                width: 0.01.sw,
-                              ),
-                             if(isEngagement || isReg) DesktopConsoleIconButton(
-                                icon: Icons.print,
-                                text: 'Print',
-                                onTap: () async {
-                                  printEngagement();
-                                 // File? file = isReg ? await generatePatientsReg(PdfPageFormat.a4) :  await generateEngagementPdf(PdfPageFormat.a4);
-                                 // final Directory tempDir = await getApplicationDocumentsDirectory();
-                                 //  showPathDialog(Platform.isMacOS ? '$tempDir/${file.path}' : file.path);
-                                },
-                              ),
+                              if (isEngagement || isReg)
+                                SizedBox(
+                                  width: 0.01.sw,
+                                ),
+                              if (isEngagement || isReg)
+                                DesktopConsoleIconButton(
+                                  icon: Icons.print,
+                                  text: 'Print',
+                                  onTap: () {
+                                    showPrintType(isEngagement ? 'engagements.pdf' : 'patients-reg.pdf');
+                                    // printEngagement();
+                                    // File? file = isReg ? await generatePatientsReg(PdfPageFormat.a4) :  await generateEngagementPdf(PdfPageFormat.a4);
+                                    // final Directory tempDir = await getApplicationDocumentsDirectory();
+                                    //  showPathDialog(Platform.isMacOS ? '$tempDir/${file.path}' : file.path);
+                                  },
+                                ),
                             ],
                           ),
                           SizedBox(
