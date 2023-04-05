@@ -21,6 +21,7 @@ import 'package:printing/printing.dart';
 import '../../api-calls/schedule-patient.dart';
 import '../../models/user.dart';
 import '../../screens/desktop/print/engagement.dart';
+import '../../screens/desktop/print/individual/engagement.dart';
 import '../../services/edit-patient-info.dart';
 import '../../services/validation-service.dart';
 import '../../state-management/controller-variables.dart';
@@ -1298,6 +1299,81 @@ void showPrintType(String name) {
                               onTap: () async {
                                 await Printing.sharePdf(
                                     bytes: await generateEngagementPdf(PdfPageFormat.a4),
+                                    filename: name);
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Icon(
+                            Icons.edit,
+                            size: 0.04.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                              buttonText: 'Edit',
+                              onTap: () {
+                                Get.back();
+                              }),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))));
+      });
+}
+
+void individualPrint(String name, PatientEngagement engagement) {
+  showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: SizedBox(
+              height: 0.15.sh,
+              width: 0.4.sw,
+              child: ListView(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Icon(
+                            CupertinoIcons.printer,
+                            size: 0.04.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                            buttonText: 'Print',
+                            onTap: () async {
+                              await Printing.layoutPdf(onLayout: (format) => generateIndividualEngagementPdf(format, engagement));
+                            },
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Icon(
+                            CupertinoIcons.share,
+                            size: 0.04.sw,
+                          ),
+                          SizedBox(
+                            height: 0.01.sh,
+                          ),
+                          FlatButton(
+                              buttonText: 'Share',
+                              onTap: () async {
+                                await Printing.sharePdf(
+                                    bytes: await generateIndividualEngagementPdf(PdfPageFormat.a4, engagement),
                                     filename: name);
                               }),
                         ],

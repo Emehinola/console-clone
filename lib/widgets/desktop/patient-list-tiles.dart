@@ -762,18 +762,30 @@ Widget buildEngagementRowContent({
             engagement.weight,
           ),
           Expanded(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: InkWell(
-                onTap: () {
-                  showDoc(engagement.attachment!);
-                },
-                child: const Icon(
-                  IconlyBold.download,
-                  color: ColorPalette.mainButtonColor,
-                  size: 15,
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    showDoc(engagement.attachment!);
+                  },
+                  child: const Icon(
+                    IconlyBold.download,
+                    color: ColorPalette.mainButtonColor,
+                    size: 13,
+                  ),
                 ),
-              ),
+               const  SizedBox(width: 5.0,),
+                InkWell(
+                  onTap: () {
+                    individualPrint('${engagement.schedule!.patient!.firstName}.pdf', engagement);
+                  },
+                  child: const Icon(
+                    Icons.print,
+                    color: ColorPalette.mainButtonColor,
+                    size: 13,
+                  ),
+                ),
+              ],
             ),
           )
         ],
